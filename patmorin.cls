@@ -4,7 +4,7 @@
 % version of this file is at http://jocg.org/jocg.cls
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{patmorin} 
+\ProvidesClass{patmorin}
 		[2009/05/11 v0.1a
  Pat Morin's article class]
 
@@ -35,19 +35,14 @@
 
 \RequirePackage{kpfonts}
 \RequirePackage[sf,bf,small,raggedright,compact]{titlesec}
-
-% Page setup
-\setlength{\textheight}{8.5in}
-\setlength{\textwidth}{6in}
-\setlength{\topmargin}{-0.375in}
-\setlength{\oddsidemargin}{.25in}
-\setlength{\evensidemargin}{.25in}
-\setlength{\headheight}{0.200in}
-\setlength{\headsep}{0.4in}
-\setlength{\footskip}{0.500in}
-\setlength{\parskip}{0.82ex}
-\setlength{\parindent}{6mm}
-%\flushbottom
+\RequirePackage[margin=3.75cm]{geometry}
+\RequirePackage{hyperref}
+\RequirePackage[capitalise]{cleveref}
+\RequirePackage[dvipsnames]{color}
+\definecolor{linkblue}{named}{MidnightBlue}
+\hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
+	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
+	urlcolor=linkblue}
 
 
 % Commands for typesetting affiliations and email addresses
@@ -81,7 +76,7 @@
   \global\let\and\relax
 }
 
-\renewcommand{\and}{ }
+\renewcommand{\and}{\qquad}
 
 \def\@maketitle{%
   \newpage
@@ -96,7 +91,7 @@
     \vskip 1.5em%
     {
       \lineskip .5em%
-      {\normalsize\itshape\@author} \\[1em] 
+      {\normalsize\itshape\@author} \\[1em]
       {\normalsize \@date}
     }%
   \end{flushleft}%
@@ -109,25 +104,18 @@
 {\hrule\vskip 1ex \noindent\textsc{Abstract.}}{\vskip 1ex \hrule}
 
 
-%------------- Use this so pdflatex outputs US letter pages -------------
-\usepackage[letterpaper]{hyperref}
-\usepackage[dvipsnames]{color}
-\definecolor{linkblue}{named}{MidnightBlue}
-\hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
-	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
-	urlcolor=linkblue} 
 
 
 %--------------------------- Headers and Footers ------------------------
-%\pagestyle{fancy}
-%\fancyhead{}
-%\fancyfoot{}
-%\fancyfoot[c]{\thepage}
-%%\fancyhead[L]{\sf Journal of Computational Geometry}
-%%\fancyhead[R]{\texttt{\href{http://jocg.org/}{jocg.org}}}
-%\renewcommand{\headrulewidth}{1pt}
-%\renewcommand{\footrulewidth}{1pt}
-%\pagestyle{fancy}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[c]{\thepage}
+%\fancyhead[L]{\sf Journal of Computational Geometry}
+%\fancyhead[R]{\texttt{\href{http://jocg.org/}{jocg.org}}}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\pagestyle{fancy}
 
 \usepackage{marvosym}
 \makeatletter
@@ -144,4 +132,3 @@
    \or \text{\Pluto}
   \else\@ctrerr\fi}}
 \makeatother
-
