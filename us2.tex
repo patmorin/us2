@@ -73,12 +73,13 @@ A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} 
 
 \section{Proof of \cref{d_degenerate_upper_bound}}
 
-A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}$ over us-colouring of $H$ such that, for $\varphi$ drawn from $\mathcal{D}$, $\E[|\varphi(V(H))|]\le \beta$ and, for all distinct $v,w\in V(H)$, $\Pr(\varphi(v)=\varphi(w))\le\delta$.
+A graph $H$ is \defin{$(\beta,\delta)$-good} if there exists a distribution $\mathcal{D}$ over us-colourings of $H$ such that when $\varphi$ drawn from $\mathcal{D}$ we have
+$\E[|\varphi(V(H))|]\le \beta$, and $\Pr(\varphi(v)=\varphi(w))\le\delta$ for all distinct $v,w\in V(H)$.
 
 % We reduce the proof of the general case a bipartite problem, which we consider here.
 
 \begin{lem}
-  For any $\epsilon >0$, any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that the following holds for every integer $n\ge 1$, every $\beta \ge 1$, and every graph $G$ with a vertex-partition $(A,B)$ where $B$ is an independent set of size at most $n$ and with $\deg(v)\le d$ for each $v\in B$.  If $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good, then  $G$ is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
+  For any $\epsilon >0$, any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that the following holds for every integer $n\ge 1$, every $\beta \ge 1$, and every graph $G$ with a vertex-partition $(A,B)$ where $B$ is an independent set of size at most $n$ and with $\deg(v)\le d$ for each $v\in B$,  if $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good, then  $G$ is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
 \end{lem}
 
 \begin{proof}
@@ -159,9 +160,9 @@ A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}
       \item the same colour is chosen for both $v$ and $w$ in some round $i\in\{1,\ldots,k^*+8\log n\}$, which occurs with probability at most $(2k^*+8\log n)n^{-1/3-\epsilon}<n^{-1/3-\epsilon/2}$; or
 
       \item $i^*\ge 2k^*+8\log n$, which occurs with probability at most $1/n$.
+    \end{compactenum}
   \end{compactenum}
   Finish up....
-\end{compactenum}
 \end{proof}
 
 Our proof of \cref{d_degenerate_upper_bound} follows from the following stronger result by a trivial application of the probabilistic method.
