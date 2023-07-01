@@ -82,8 +82,7 @@ A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}
 \end{lem}
 
 \begin{proof}
-  % If $m< c n^{1/3+\epsilon}$ then assign each vertex in $A$ a distinct colour in $\{1,\ldots,m\}$ and assign each vertex in $B$ the colour $0$.  This is a us-colouring that satisifies the requirements of the theorem, so we may assume that $m\ge c n^{1/3+\epsilon}$.
-  Fix some $\epsilon >0$, integer $d\ge 1$, and let $c:=?$ and $\alpha:=?$. Let $n$, $\beta$, $G$, $A$, $B$, be as in the statement of the lemma.  Let $\mathcal{D}$ be a distribution over us-colouring of $G[A]$ witnessing the fact that $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon})$-good and let $\varphi$ be a us-colouring of $G[A]$ drawn from $\mathcal{D}$.
+  Fix some $\epsilon >0$, integer $d\ge 1$, and let $c:=?$ and $\alpha:=?$. Let $n$, $\beta$, $G$, $A$, $B$, be as in the statement of the lemma.  Let $\mathcal{D}$ be a distribution over us-colourings of $G[A]$ witnessing the fact that $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good and let $\varphi$ be a us-colouring of $G[A]$ drawn from $\mathcal{D}$.
 
   We will use colours from a set of pairwise-disjoint \defin{palettes}, each of size $n^{1/3+\epsilon}$.  We will have a \defin{small} palette containing colours smaller than all those used in $\varphi$, a sequence of \defin{medium} palettes, each containing colours larger than all those used in $\varphi$.  In addition, we will have an extra palette of \defin{large} colours whose size is a random variable and whose values are larger than the colours in all other palettes. The palette of large colours is special in two ways:
   \begin{inparaenum}[(i)]
@@ -106,10 +105,7 @@ A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}
 
   Suppose now that $B_1\supseteq B_2\supseteq \cdots\supseteq B_{i}$ are already defined and that $\varphi'$ is a us-colouring of $G-B_i$ using only colours from the small palette, colours from $\varphi(A)$, colours from the first $i-1$ medium palettes, and colours from the palette of large colours. In the following paragraphs, all probabilities are implicitly conditioned on this choice of $A_1$ and $B_i$.
 
-
-  For each $v\in B_i$ we choose a random colour $\varphi'(v)$ from the $i$th palette.  Define a \defin{problem} to be a pair $(a,\{x,y\})$ with $a\in A\setminus A_i$, $x,y\in B_i$ with $x\neq y$, and $\varphi(x)=\varphi(y)$. For each $a\in A\setminus A_1$, let $\delta_a:= |N_G(a)\cap B_i|$.  Fix a specific choice of $B_i$ and $A_1$.For a particular $a\in A\setminus A_1$, the expected number of problems that involve $a$ conditioned on $B_i$ (but not the colouring of $B_i$) is at most
-  $\binom{\delta_a}{2}\cdot n^{-1/3-\epsilon}$.
-  Therefore, conditioned on $B_i$, the expected number of problems over all $a\in A\setminus A_1$ is at most
+  For each $v\in B_i$ we choose a random colour $\varphi'(v)$ from the $i$th palette.  Define a \defin{problem} to be a pair $(a,\{x,y\})$ with $a\in A\setminus A_i$, $x,y\in B_i$ with $x\neq y$, and $\varphi(x)=\varphi(y)$. For each $a\in A\setminus A_1$, let $\delta_a:= |N_G(a)\cap B_i|$.  For a particular $a\in A\setminus A_1$, the expected number of problems that involve $a$ is at most $\binom{\delta_a}{2}\cdot n^{-1/3-\epsilon}$. Therefore, the expected number of problems over all $a\in A\setminus A_1$ is at most\footnote{We point out again, that this expectation is taken in a probability space conditioned on a fixed choice of $A_1$ and $B_i$.}
   \begin{align*}
     n^{-1/3-\epsilon}\cdot\sum_{a\in A\setminus A_i} \delta_a^2 &
     \le n^{-1/3-\epsilon}\cdot \Delta^2 \cdot (d|B_i|/\Delta) \\
@@ -135,7 +131,7 @@ A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}
   \]
   Observe that $I_i=0$ only if $|B_{i+1}|$---conditioned on $B_i$---exceeds its expected value by at least a factor of $2$. Therefore, by Markov's Inequality, $\Pr(I_i=1)\ge 1/2$ for all $i\ge 1$.  Furtermore, for any binary sequence $I_{1},\ldots,I_{i-1}$, $\Pr(I_i=1\mid I_1,\ldots,I_{i-1})\ge 1/2$.  Therefore, for any integer $k\ge 1$, $X_k:=\sum_{i=1}^k I_i$ dominates a binomial$(k,1/2)$ random variable.  By a standard inequality, this implies that $\Pr(X_k\le k/4)\le e^{-k/8}$.
 
-  Now observe that $|B_{i+1}|\le |B_i|$ for all $i\ge 1$. Using the convention that $B_k:=0$ for all $i>i^*$ we have,
+  Now observe that $|B_{i+1}|\le |B_i|$ for all $i\ge 1$. Using the convention that $|B_k|:=0$ for all $i>i^*$ we have,
   \[
     |B_{k+1}| \le (2d)^{X_k}\cdot |B_1|\cdot n^{-3\epsilon X_k} \le (2d)^{X_k}\cdot n^{1-3\epsilon X_k} < 1
   \]
@@ -158,18 +154,34 @@ A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}
 
     \item $v,w\in B\setminus B_1$.  In this case, $\varphi'(v)$ and $\varphi'(w)$ are assigned randomly from the palette of small colours.  This palette has size $n^{1/3+\epsilon}$, $\Pr(\varphi'(v)=\varphi'(w))\le n^{1/3+\epsilon} \le \alpha n^{1/3+\epsilon}$ for any $\alpha \le 1$.
 
-    \item $v,w\in B_i\setminus B_{i+1}$ for some integer $i\ge 1$.  Counterintuitively, this case takes more care but this probability can be bounded as follows.  If $\phi'(v)=\varphi'(w)$ then at least one of the following events occurs:
+    \item $v,w\in B_i\setminus B_{i+1}$ for some integer $i\ge 1$.  This probability takes more care because we repeatedly assign random colours to the vertices in $B_i$ and then reject some of these random choice and place the vertices into $B_{i+1}$.  Here we argue that this process happens in so few rounds that it does not significantly increase the probability of equality.  If $\phi'(v)=\varphi'(w)$ then at least one of the following events occurs:
     \begin{compactenum}
-      \item the same colour is chosen for both $v$ and $w$ in some round $i\in\{1,\ldots,k^*+8\log n\}$, which occurs with probability at most $(2k^*+8\log n)n^{-1/3-\epsilon}$; or
+      \item the same colour is chosen for both $v$ and $w$ in some round $i\in\{1,\ldots,k^*+8\log n\}$, which occurs with probability at most $(2k^*+8\log n)n^{-1/3-\epsilon}<n^{-1/3-\epsilon/2}$; or
 
       \item $i^*\ge 2k^*+8\log n$, which occurs with probability at most $1/n$.
   \end{compactenum}
+  Finish up....
+\end{compactenum}
 \end{proof}
+
+Our proof of \cref{d_degenerate_upper_bound} follows from the following stronger result by a trivial application of the probabilistic method.
+
+\begin{lem}\label{d_degenerate_probabilistic}
+  For any $\epsilon >0$ and any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that for every integer $n\ge 1$, every $d$-degenerate graph $G$ with at most $n$ vertices is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
+\end{lem}
+
+
+\begin{proof}
+  Let $B:=\{v\in V(G):\deg(v)\le 4d\}$. Let $G'$ be the graph obtained from $G$ by removing each edge with both endpoints in $B$.
+
+
+  Slice off all vertices of degree at most $4d$, call that set $B$, call the rest $A$, apply \cref{d_degenerate_upper_bound} and then properly colour the square of $G[B]$ and use that as part of a product colouring.
+\end{proof}
+
 
 \begin{proof}[Proof of \cref{d_degenerate_upper_bound}]
-  iPfffff
+  By \cref{d_degenerate_probabilistic}, there exists a distribution $\mathcal{D}$ over us-colourings of $G$ such that the expected number of colours used in a us-colouring $\varphi$ drawn from $\mathcal{D}$ is at most $cn^{1/3+\epsilon}$.  Therefore $G$ has a us-colouring that uses at most $cn^{1/3+\epsilon}$ colours.
 \end{proof}
-
 
 
 
