@@ -73,17 +73,18 @@ A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} 
 
 \section{Proof of \cref{d_degenerate_upper_bound}}
 
-A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}$ over us-colouring of $H$ such that, for $\varphi$ drawn from $\mathcal{D}$, $\E[|\varphi(V(H))|]\le \beta$ and, for all distinct $v,w\in V(H)$, $\Pr(\varphi(v)=\varphi(w))\le\delta$.
+A graph $H$ is \defin{$(\beta,\delta)$-good} if there exists a distribution $\mathcal{D}$ over us-colourings of $H$ such that when $\varphi$ drawn from $\mathcal{D}$ we have 
+$\E[|\varphi(V(H))|]\le \beta$, and $\Pr(\varphi(v)=\varphi(w))\le\delta$ for all distinct $v,w\in V(H)$.
 
 % We reduce the proof of the general case a bipartite problem, which we consider here.
 
 \begin{lem}
-  For any $\epsilon >0$, any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that the following holds for every integer $n\ge 1$, every $\beta \ge 1$, and every graph $G$ with a vertex-partition $(A,B)$ where $B$ is an independent set of size at most $n$ and with $\deg(v)\le d$ for each $v\in B$.  If $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good, then  $G$ is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
+  For any $\epsilon >0$, any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that the following holds for every integer $n\ge 1$, every $\beta \ge 1$, and every graph $G$ with a vertex-partition $(A,B)$ where $B$ is an independent set of size at most $n$ and with $\deg(v)\le d$ for each $v\in B$,  if $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good, then  $G$ is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
 \end{lem}
 
 \begin{proof}
   % If $m< c n^{1/3+\epsilon}$ then assign each vertex in $A$ a distinct colour in $\{1,\ldots,m\}$ and assign each vertex in $B$ the colour $0$.  This is a us-colouring that satisifies the requirements of the theorem, so we may assume that $m\ge c n^{1/3+\epsilon}$.
-  Fix some $\epsilon >0$, integer $d\ge 1$, and let $c:=?$ and $\alpha:=?$. Let $n$, $\beta$, $G$, $A$, $B$, be as in the statement of the lemma.  Let $\mathcal{D}$ be a distribution over us-colouring of $G[A]$ witnessing the fact that $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon})$-good and let $\varphi$ be a us-colouring of $G[A]$ drawn from $\mathcal{D}$.
+  Fix some $\epsilon >0$, integer $d\ge 1$, and let $c:=?$ and $\alpha:=?$. Let $n$, $\beta$, $G$, $A$, $B$, be as in the statement of the lemma.  Let $\mathcal{D}$ be a distribution over us-colourings of $G[A]$ witnessing the fact that $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good and let $\varphi$ be a us-colouring of $G[A]$ drawn from $\mathcal{D}$.
 
   We will use colours from a set of pairwise-disjoint \defin{palettes}, each of size $n^{1/3+\epsilon}$.  We will have a \defin{small} palette containing colours smaller than all those used in $\varphi$, a sequence of \defin{medium} palettes, each containing colours larger than all those used in $\varphi$.  In addition, we will have an extra palette of \defin{large} colours whose size is a random variable and whose values are larger than the colours in all other palettes. The palette of large colours is special in two ways:
   \begin{inparaenum}[(i)]
@@ -163,6 +164,7 @@ A graph $H$ is $(\beta,\delta)$-good if there exists a distribution $\mathcal{D}
       \item the same colour is chosen for both $v$ and $w$ in some round $i\in\{1,\ldots,k^*+8\log n\}$, which occurs with probability at most $(2k^*+8\log n)n^{-1/3-\epsilon}$; or
 
       \item $i^*\ge 2k^*+8\log n$, which occurs with probability at most $1/n$.
+  \end{compactenum}
   \end{compactenum}
 \end{proof}
 
