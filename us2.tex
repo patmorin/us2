@@ -122,8 +122,14 @@
       \le \sum_{w>v} \frac{|N_G(w)\cap N_H(v)|\, (d-1)}{\sqrt{\Delta}}
       \le \frac{d|N_H(v)|(d-1)}{\sqrt{\Delta}} = O(d^3\sqrt{\Delta})
   \]
-\end{proof}
   (where the extra $d$ factor comes from the fact that that $\sum_{w>v}|N_G(w)\cap N_H(v)|$ overcounts counts each element in $N_H(v)$ up to $d$ times.)
+
+  The key at this point is that we have expressed the quantity we're studying $n_v$ as a sum of almost-independent random variables $\sum_{w> v} n_w$ whose expected value is close to what we want.  Now we just need to bound the probability that this sum exceeds its expected value by a factor of more than $C\log n$. 
+\end{proof}
+
+
+
+
 \section{Introduction}
 
 A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.
