@@ -117,8 +117,39 @@
   \]
   Let $C_{v,w}:=\{y\in N_H(v): yw\in E(G),\, y < w\}$ which contains all the vertices in $N_H(v)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(v,w)$ contain exactly those vertices $y\in C_{v,w}$ that have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(v,w)$ contains every $y\in C_{v,w}$ that would be completed we set the colour of $w$ to $\alpha$ (and some additional vertices that may have already been completed).
 
+  \hrule
 
-  CRAP.  Problem: The colour set $\Phi_w$ is chosen to minimize the number of vertices $y\in N_G(w)$ that we can complete when we colour $w$.   The choice we use ensures that $w$ does not complete more than $\deg_G(w)/\sqrt{\Delta}\le \sqrt{\Delta}$ vertices.  However, at this point in the proof, we're not interested in all the vertices completed by $w$.  We're counting the vertices of $C_{v,w}\subseteq N_H(v)$ completed by $w$.  In order to make one of the standard concentration results work, we need to guarantee that $w$ does not complete more than $d^c|C_{v,w}|/\Delta^{1-\epsilon}$ vertices in $C_{v,w}$.  We don't get this.
+  CRAP.  Problem: The colour set $\Phi_w$ is chosen to minimize the number of vertices $y\in N_G(w)$ that we could complete when we colour $w$.  This choice of $\Phi_w$ does not depend on $v$.   The choice we use ensures that $w$ does not complete more than $\deg_G(w)/\sqrt{\Delta}\le \sqrt{\Delta}$ vertices.  However, at this point in the proof, we're not interested in all the vertices completed by $w$.  We're counting the vertices of $C_{v,w}\subseteq N_H(v)$ completed by $w$.  In order to make one of the standard concentration results work, we need to guarantee that $w$ does not complete more than $d^c|C_{v,w}|/\Delta^{1-\epsilon}$ vertices in $C_{v,w}$.  We don't get this.  For example, Hoeffding's inequality says that, if $X$ is a sum of independent random variables $X_1,\ldots,X_n$ and $0\le X_i\le c_i$ then
+  \[
+    \Pr(X-\E(X) > k) \le \exp\left(-\frac{k^2}{\sum_{i=1}^n c_i^2}\right)
+  \]
+  For us, $n\approx d^?\Delta$ is the number vertices $w$ that could complete vertices in $N_H(v)$, $\E(X)\approx d^?\sqrt{\Delta}\log\Delta$ and $k=Cd^{?}\sqrt{\Delta}\log\Delta$.  The problem is that we only have $0\le c_i\le \sqrt{\Delta}$, so Hoeffding's inequality says
+  \[  \Pr(X-\E(X)> k) \le \exp\left(-\frac{C^2d^{2?}\Delta\log^2\Delta}{d\Delta^{2}}\right)
+  \]
+  which is worthless.  We can do a little bit better because we also have the constraint $\sum_i c_i \approx d\Delta$.  Combined with $c_i\le \sqrt{\Delta}$, this implies that $\sum_{i} c_i^2 \le c\Delta^{3/2}$ so we get
+  \[  \Pr(X-\E(X)> k) \le \exp\left(-\frac{C^2d^{2?}\Delta\log^2\Delta}{d\Delta^{3/2}}\right)
+  \]
+  Finally, note that if we had $0\le c_i\le n_i/\sqrt{\Delta}$ then we'd be laughing and Hoeffding's Inequality would give us what we want.
+
+
+  % Here is an almost counterexample:
+  % \begin{compactenum}
+  %   \item Let $k:=\sqrt{\Delta}$.
+  %   \item $L_0$ has $\Delta$ vertices.
+  %   \item $L_1:=\{v\}\cup Y_1\cup\cdots Y_{\Delta/k}\cup Z_1\cup\cdots\cup Z_{\Delta/k}$, where each $Y_i$ has $k$ vertices and each $Z_i$ contains $\Delta-k$ vertices.
+  %   \item $L_2:=\{w'_1,\ldots,w_{\Delta/k},w'_1,\ldots,w_{\Delta/k}\cup Z_1\cup\cdots\cup Z_{\Delta/k}$ where each $Z_i$ contains $\Delta-k$ vertices.
+  %   \item $v$ is adjacent to every vertex in $L_0$.
+  %   \item $G$ contains a perfect matching between $L_0$ and $Y_1\cup\cdots\cup Y_{\Delta/k}$.
+  %   \item Each vertex in $Y_i$ is adjacent to $w_i'$ and $w_i$.
+  %   \item Each $w_i$ is adjacent to $\Delta-k$ distinct vertices in $Z$.
+  %   \item $G$ contains a perfect matching between $Z$ and $Z'$.
+  % \end{compactenum}
+  %
+  % Suppose that we colour $L_2$ in this order:  All vertices in $Z'$ first, then $w_1',\ldots,w'_{\Delta/k}$ and then, finally $w_1,\ldots,w_{\Delta/k}$.  Look what happens when we colour $w_i$.  There are $k$ vertices in $Y_i$ that will be completed if $w_i$ gets the same colour $\alpha:=\varphi(w'_i)$ as $w_i'$.  Is there any reason that $w_i$ would exclude $\alpha$ from $\Phi_{w_i}$?  There is a very subtle one, but it's not at all obvious.  Ignoring this, observe that the value $N_{\alpha'}(w)$ that we use to decide if $\alpha'\in\Phi_w$ depends on how many vertices in $Z_i'$ receive the colour $\alpha'$.  For $\alpha'\neq\alpha$, this is a binomial$(\Delta-k,1/\sqrt{\Delta})$ random variable.  This random variable has expectation $\mu\approx\sqrt{\Delta}$.  On the other hand, when $\alpha'=\alpha$, we count an extra $k$ vertices, so that makes it very unlikely that $\alpha$ will be in the set $\Phi_\alpha$.  But this is very subtle and dependent on this particular example.  I can't say if something like this happens all the time, or even if we change the value of $k$.
+  %
+  % Now we're screwed.  Let $I\subseteq\{1,\ldots,\Delta/k\}$ contain exactly those indices where $\varphi(w_i')\in \Phi_w$.  We just argued that, for some small enough $c$,  $|I|\ge c\Delta/k$ with constant probability.  The number of vertices in $N_H(v)$ that are problematic is at least $k\sum_{i\in I}^{\sqrt{\Delta}}\mathbf{1}_{\varphi(w_i)=\varphi(w_i')}$. The inner sum is a binomial$(|I|,1/\sqrt{\Delta})$ random variable and has expectation $c\sqrt{\Delta}/k$.
+
+
 
   \hrule
 
@@ -161,7 +192,7 @@
      \le \sum_{w>v}\frac{4d|C_{v,w}|(1+\ln\Delta)}{\sqrt{\Delta}}
      \le \frac{16d^2|N_{H}(v)|(1+\ln\Delta)}{\sqrt{\Delta}} \enspace .
   \]
-  Furthermore, $n_{v,w}\le\sqrt{\Delta}$ for each $w>v$.
+  Furthermore, $n_{v,w}\le\sqrt{\Delta}$ for each $w>v$.  See the sidebar above that starts with CRAP.
 
 
 
