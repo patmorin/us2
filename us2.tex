@@ -1,5 +1,5 @@
 \documentclass[kpfonts]{patmorin}
-\documentclass{article}
+% \documentclass{article}
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{amsopn}
@@ -117,19 +117,19 @@
   \]
   Let $C_{v,w}:=\{y\in N_H(v): yw\in E(G),\, y < w\}$ which contains all the vertices in $N_H(v)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(v,w)$ contain exactly those vertices $y\in C_{v,w}$ that have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(v,w)$ contains every $y\in C_{v,w}$ that would be completed we set the colour of $w$ to $\alpha$ (and some additional vertices that may have already been completed).
 
-  \hrule
-
-  CRAP.  Problem: The colour set $\Phi_w$ is chosen to minimize the number of vertices $y\in N_G(w)$ that we could complete when we colour $w$.  This choice of $\Phi_w$ does not depend on $v$.   The choice we use ensures that $w$ does not complete more than $\deg_G(w)/\sqrt{\Delta}\le \sqrt{\Delta}$ vertices.  However, at this point in the proof, we're not interested in all the vertices completed by $w$.  We're counting the vertices of $C_{v,w}\subseteq N_H(v)$ completed by $w$.  In order to make one of the standard concentration results work, we need to guarantee that $w$ does not complete more than $d^c|C_{v,w}|/\Delta^{1-\epsilon}$ vertices in $C_{v,w}$.  We don't get this.  For example, Hoeffding's inequality says that, if $X$ is a sum of independent random variables $X_1,\ldots,X_n$ and $0\le X_i\le c_i$ then
-  \[
-    \Pr(X-\E(X) > k) \le \exp\left(-\frac{k^2}{\sum_{i=1}^n c_i^2}\right)
-  \]
-  For us, $n\approx d^?\Delta$ is the number vertices $w$ that could complete vertices in $N_H(v)$, $\E(X)\approx d^?\sqrt{\Delta}\log\Delta$ and $k=Cd^{?}\sqrt{\Delta}\log\Delta$.  The problem is that we only have $0\le c_i\le \sqrt{\Delta}$, so Hoeffding's inequality says
-  \[  \Pr(X-\E(X)> k) \le \exp\left(-\frac{C^2d^{2?}\Delta\log^2\Delta}{d\Delta^{2}}\right)
-  \]
-  which is worthless.  We can do a little bit better because we also have the constraint $\sum_i c_i \approx d\Delta$.  Combined with $c_i\le \sqrt{\Delta}$, this implies that $\sum_{i} c_i^2 \le c\Delta^{3/2}$ so we get
-  \[  \Pr(X-\E(X)> k) \le \exp\left(-\frac{C^2d^{2?}\Delta\log^2\Delta}{d\Delta^{3/2}}\right)
-  \]
-  Finally, note that if we had $0\le c_i\le n_i/\sqrt{\Delta}$ then we'd be laughing and Hoeffding's Inequality would give us what we want.
+  % \hrule
+  %
+  % CRAP.  Problem: The colour set $\Phi_w$ is chosen to minimize the number of vertices $y\in N_G(w)$ that we could complete when we colour $w$.  This choice of $\Phi_w$ does not depend on $v$.   The choice we use ensures that $w$ does not complete more than $\deg_G(w)/\sqrt{\Delta}\le \sqrt{\Delta}$ vertices.  However, at this point in the proof, we're not interested in all the vertices completed by $w$.  We're counting the vertices of $C_{v,w}\subseteq N_H(v)$ completed by $w$.  In order to make one of the standard concentration results work, we need to guarantee that $w$ does not complete more than $d^c|C_{v,w}|/\Delta^{1-\epsilon}$ vertices in $C_{v,w}$.  We don't get this.  For example, Hoeffding's inequality says that, if $X$ is a sum of independent random variables $X_1,\ldots,X_n$ and $0\le X_i\le c_i$ then
+  % \[
+  %   \Pr(X-\E(X) > k) \le \exp\left(-\frac{k^2}{\sum_{i=1}^n c_i^2}\right)
+  % \]
+  % For us, $n\approx d^?\Delta$ is the number vertices $w$ that could complete vertices in $N_H(v)$, $\E(X)\approx d^?\sqrt{\Delta}\log\Delta$ and $k=Cd^{?}\sqrt{\Delta}\log\Delta$.  The problem is that we only have $0\le c_i\le \sqrt{\Delta}$, so Hoeffding's inequality says
+  % \[  \Pr(X-\E(X)> k) \le \exp\left(-\frac{C^2d^{2?}\Delta\log^2\Delta}{d\Delta^{2}}\right)
+  % \]
+  % which is worthless.  We can do a little bit better because we also have the constraint $\sum_i c_i \approx d\Delta$.  Combined with $c_i\le \sqrt{\Delta}$, this implies that $\sum_{i} c_i^2 \le c\Delta^{3/2}$ so we get
+  % \[  \Pr(X-\E(X)> k) \le \exp\left(-\frac{C^2d^{2?}\Delta\log^2\Delta}{d\Delta^{3/2}}\right)
+  % \]
+  % Finally, note that if we had $0\le c_i\le n_i/\sqrt{\Delta}$ then we'd be laughing and Hoeffding's Inequality would give us what we want.
 
 
   % Here is an almost counterexample:
@@ -150,87 +150,82 @@
   % Now we're screwed.  Let $I\subseteq\{1,\ldots,\Delta/k\}$ contain exactly those indices where $\varphi(w_i')\in \Phi_w$.  We just argued that, for some small enough $c$,  $|I|\ge c\Delta/k$ with constant probability.  The number of vertices in $N_H(v)$ that are problematic is at least $k\sum_{i\in I}^{\sqrt{\Delta}}\mathbf{1}_{\varphi(w_i)=\varphi(w_i')}$. The inner sum is a binomial$(|I|,1/\sqrt{\Delta})$ random variable and has expectation $c\sqrt{\Delta}/k$.
 
 
-
-  \hrule
-
-
-
-
-
-
-  Recall that $N_\alpha(w)$ counts the number of $y < w$ such that $y$ already has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(v,w)|\le N_\alpha(\alpha)\le \sqrt{\Delta}$ for each $\alpha\in\Phi_w$.
+  Recall that $N_\alpha(w)$ counts the number of $y < w$ such that $y$ already has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(v,w)|\le N_\alpha(w)\le \sqrt{\Delta}$ for each $\alpha\in\Phi_w$.  Therefore $|\comp'(v,w)|\le\sqrt{\Delta}$ with probability $1$.
 
   Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(v,w):=\comp'_\alpha(v,w)$.  We want to study the random variable $n'_{v,w}:=|\comp'(v,w)|\ge |\comp(v,w)|$.  Let $\alpha_1,\ldots,\alpha_p$ be the colours in $\Phi_w$ ordered so that, $|\comp'_{\alpha_1}(v,w)|\ge|\comp'_{\alpha_2}(v,w)|\ge\cdots\ge |\comp'_{\alpha_p}(v,w)|$.  Since each $y\in C_w$ appears in
-  $\comp'_{\alpha}(v,w)$ for at most $(4d-1)$ values of $\alpha$,  $\sum_{\alpha\in\Phi_w} |\comp'_{\alpha_1}(v,w)| \le 4d|C_w|$.  Therefore $|\comp'_{\alpha_i}(v,w)|\le 4d|C_w|/i$.    Therefore, regardless of any random choices made before choosing the colour of $\alpha$ and any random choices made after choosing the colour of $\alpha$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}$ that satisfies:
-    $\Pr(N'_{v,w} \ge 4d|C_w|/i) \le \Pr(\alpha\in\{\alpha_1,\ldots,\alpha_i)\le \tfrac{i}{\sqrt{\Delta}}$
-    and $\Pr(N'_{v,w}>\sqrt{\Delta})=0$.
+  $\comp'_{\alpha}(v,w)$ for at most $(4d-1)$ values of $\alpha$,  $\sum_{\alpha\in\Phi_w} |\comp'_{\alpha_1}(v,w)| \le 4d|C_w|$.
+  Therefore $|\comp'_{\alpha_i}(v,w)|\le 4d|C_w|/i$.    Therefore, regardless of any random choices made before choosing the colour of $\alpha$ and any random choices made after choosing the colour of $\alpha$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\max\{|C_{v,w}|/j,\sqrt{\Delta}\}$ where $j$ is chosen uniformly in $\{1,\ldots,\Delta\}$.
 
-
-
-
-
-
-
-  Therefore,
-  \begin{align*}
-    \E[|n'_{v,w}|]
-    & = \sum_{i=1}^p \Pr(\alpha=\alpha_i)\cdot |n'_{\alpha_i}(v,w)|
-    \le \sum_{i=1}^p \left(\frac{1}{p}\right)\cdot\left(\frac{4d|C_w|}{i}\right) \\
-    & \le \left(\frac{4d|C_{v,w}|}{\sqrt{\Delta}}\right) \sum_{i=1}^p 1/i
-    \le \frac{4d|C_{v,w}|(1+\ln \Delta)}{\sqrt{\Delta}}
-  \end{align*}
-  Now
-  \[
-     |\outn(v)| = \sum_{w>v}|\comp(v,w)|\le \sum_{w>v}|\comp'(v,w)|=\sum_{w>v} n'_{v,w}
-  \]
-
-
-
-  Therefore $|\outn(v)|$ is upper-bounded by the sum of independent random variables $\{n_{w,v}:w>v\}$ and
-  \[
-     \E(|\outn(v)|) \le \sum_{w>v} \E(n'_{v,w})
-     \le \sum_{w>v}\frac{4d|C_{v,w}|(1+\ln\Delta)}{\sqrt{\Delta}}
-     \le \frac{16d^2|N_{H}(v)|(1+\ln\Delta)}{\sqrt{\Delta}} \enspace .
-  \]
-  Furthermore, $n_{v,w}\le\sqrt{\Delta}$ for each $w>v$.  See the sidebar above that starts with CRAP.
-
-
-
-  % Furthermore, for each $y\in N_H(v)$, $y$ has at most $4d-1$ neighbours in $G$ that could complete it.
-
-
-  If some vertex $w$ completes $y\in N_H(v) $, then we say that $w$ \defin{$v$-completes} $y$.  At the time $w\in L_j$ is coloured, at most $d-1$ neighbours of $y$ in $L_j$ have already been coloured.  Therefore, for a fixed $y\in N_H(v)$ and fixed $w\in N_G(y)$ with $w>y$, the probability that $w$ $v$-completes $y$ is at most $(d-1)/|\Phi_w|\le (d-1)/\sqrt{\Delta}$.
-
-  For any pair of vertices $y,w$ in $H$, define the indicator random variable
-  \[
-    I_{y,w} := \begin{cases}
-      1 & \text{if $w$ $v$-completes $y$} \\
-      0 & \text{otherwise}
-    \end{cases}
-  \]
-  and, for any $w\in V(H)$, let $n_w:=\sum_{y\in N_G(w)\cap N_H(v)} I_{y,w}$ be the number of vertices in $N_H(v)$ that are $v$-completed by $w$.  Let $n_v:=|N_H(v)\cap P|$ be the out-degree of $v$ in $H$.  Then
-  \begin{align*}  n_v
-    & :=|N_H(v)\cap P| \\
-    & = \sum_{y\in N_H(v)} \sum_{w\in V(H)}  I_{y,w} \\
-    & = \sum_{y\in N_H(v)} \sum_{w>y}  I_{y,w} \\
-    & = \sum_{y\in N_H(v)} \sum_{w>v}  I_{y,w} \\
-    & = \sum_{w>v} \sum_{y\in N_H(v)} I_{y,w} \\
-    & = \sum_{w>v} n_w
-  \end{align*}
-  Then
-  \[
-      \E(n_w) \le \sum_{y\in N_G(w)\cap N_H(v)} \E(I_{y,w})
-      \le \frac{|N_G(w)\cap N_H(v)|\, (d-1)}{\sqrt{\Delta}}
-  \]
-  and
-  \[
-      \E(n_v) \le \sum_{w>v} \E(n_w)
-      \le \sum_{w>v} \frac{|N_G(w)\cap N_H(v)|\, (d-1)}{\sqrt{\Delta}}
-      \le \frac{d|N_H(v)|(d-1)}{\sqrt{\Delta}} = O(d^3\sqrt{\Delta})
-  \]
-  (where the extra $d$ factor comes from the fact that that $\sum_{w>v}|N_G(w)\cap N_H(v)|$ overcounts counts each element in $N_H(v)$ up to $d$ times.)
-
-  The key at this point is that we have expressed the quantity we're studying $n_v$ as a sum of almost-independent random variables $\sum_{w> v} n_w$ whose expected value is close to what we want.  Now we just need to bound the probability that this sum exceeds its expected value by a factor of more than $C\log n$.
+  The appendix shows how we can use one of Bernstein's Inequalities to finish the proof.
+  %   $\Pr(N'_{v,w} \ge 4d|C_w|/i) \le \Pr(\alpha\in\{\alpha_1,\ldots,\alpha_i)\le \tfrac{i}{\sqrt{\Delta}}$
+  %   and $\Pr(N'_{v,w}>\sqrt{\Delta})=0$.
+  %
+  %
+  %
+  %
+  %
+  %
+  %
+  % Therefore,
+  % \begin{align*}
+  %   \E[|n'_{v,w}|]
+  %   & = \sum_{i=1}^p \Pr(\alpha=\alpha_i)\cdot |n'_{\alpha_i}(v,w)|
+  %   \le \sum_{i=1}^p \left(\frac{1}{p}\right)\cdot\left(\frac{4d|C_w|}{i}\right) \\
+  %   & \le \left(\frac{4d|C_{v,w}|}{\sqrt{\Delta}}\right) \sum_{i=1}^p 1/i
+  %   \le \frac{4d|C_{v,w}|(1+\ln \Delta)}{\sqrt{\Delta}}
+  % \end{align*}
+  % Now
+  % \[
+  %    |\outn(v)| = \sum_{w>v}|\comp(v,w)|\le \sum_{w>v}|\comp'(v,w)|=\sum_{w>v} n'_{v,w}
+  % \]
+  %
+  %
+  %
+  % Therefore $|\outn(v)|$ is upper-bounded by the sum of independent random variables $\{n_{w,v}:w>v\}$ and
+  % \[
+  %    \E(|\outn(v)|) \le \sum_{w>v} \E(n'_{v,w})
+  %    \le \sum_{w>v}\frac{4d|C_{v,w}|(1+\ln\Delta)}{\sqrt{\Delta}}
+  %    \le \frac{16d^2|N_{H}(v)|(1+\ln\Delta)}{\sqrt{\Delta}} \enspace .
+  % \]
+  % Furthermore, $n_{v,w}\le\sqrt{\Delta}$ for each $w>v$.  See the sidebar above that starts with CRAP.
+  %
+  %
+  %
+  % % Furthermore, for each $y\in N_H(v)$, $y$ has at most $4d-1$ neighbours in $G$ that could complete it.
+  %
+  %
+  % If some vertex $w$ completes $y\in N_H(v) $, then we say that $w$ \defin{$v$-completes} $y$.  At the time $w\in L_j$ is coloured, at most $d-1$ neighbours of $y$ in $L_j$ have already been coloured.  Therefore, for a fixed $y\in N_H(v)$ and fixed $w\in N_G(y)$ with $w>y$, the probability that $w$ $v$-completes $y$ is at most $(d-1)/|\Phi_w|\le (d-1)/\sqrt{\Delta}$.
+  %
+  % For any pair of vertices $y,w$ in $H$, define the indicator random variable
+  % \[
+  %   I_{y,w} := \begin{cases}
+  %     1 & \text{if $w$ $v$-completes $y$} \\
+  %     0 & \text{otherwise}
+  %   \end{cases}
+  % \]
+  % and, for any $w\in V(H)$, let $n_w:=\sum_{y\in N_G(w)\cap N_H(v)} I_{y,w}$ be the number of vertices in $N_H(v)$ that are $v$-completed by $w$.  Let $n_v:=|N_H(v)\cap P|$ be the out-degree of $v$ in $H$.  Then
+  % \begin{align*}  n_v
+  %   & :=|N_H(v)\cap P| \\
+  %   & = \sum_{y\in N_H(v)} \sum_{w\in V(H)}  I_{y,w} \\
+  %   & = \sum_{y\in N_H(v)} \sum_{w>y}  I_{y,w} \\
+  %   & = \sum_{y\in N_H(v)} \sum_{w>v}  I_{y,w} \\
+  %   & = \sum_{w>v} \sum_{y\in N_H(v)} I_{y,w} \\
+  %   & = \sum_{w>v} n_w
+  % \end{align*}
+  % Then
+  % \[
+  %     \E(n_w) \le \sum_{y\in N_G(w)\cap N_H(v)} \E(I_{y,w})
+  %     \le \frac{|N_G(w)\cap N_H(v)|\, (d-1)}{\sqrt{\Delta}}
+  % \]
+  % and
+  % \[
+  %     \E(n_v) \le \sum_{w>v} \E(n_w)
+  %     \le \sum_{w>v} \frac{|N_G(w)\cap N_H(v)|\, (d-1)}{\sqrt{\Delta}}
+  %     \le \frac{d|N_H(v)|(d-1)}{\sqrt{\Delta}} = O(d^3\sqrt{\Delta})
+  % \]
+  % (where the extra $d$ factor comes from the fact that that $\sum_{w>v}|N_G(w)\cap N_H(v)|$ overcounts counts each element in $N_H(v)$ up to $d$ times.)
+  %
+  % The key at this point is that we have expressed the quantity we're studying $n_v$ as a sum of almost-independent random variables $\sum_{w> v} n_w$ whose expected value is close to what we want.  Now we just need to bound the probability that this sum exceeds its expected value by a factor of more than $C\log n$.
 \end{proof}
 
 
@@ -350,7 +345,6 @@ Our proof of \cref{d_degenerate_upper_bound} follows from the following stronger
 \begin{proof}
   Let $B:=\{v\in V(G):\deg(v)\le 4d\}$. Let $G'$ be the graph obtained from $G$ by removing each edge with both endpoints in $B$.
 
-
   Slice off all vertices of degree at most $4d$, call that set $B$, call the rest $A$, apply \cref{d_degenerate_upper_bound} and then properly colour the square of $G[B]$ and use that as part of a product colouring.
 \end{proof}
 
@@ -365,6 +359,77 @@ Our proof of \cref{d_degenerate_upper_bound} follows from the following stronger
 \bibliographystyle{plainnat}
 \bibliography{us2}
 
+\appendix
 
+\section{Probability Stuff}
+
+We can use this Bernstein Inequality (see Wikipedia):\footnote{The inequality there is for $X_i$ with zero mean, but we can still use it since $X-\E(X)=\sum_{i=1}^n (X_i-\E(X_i)$ and $\tilde{X}_i:=X_i-\E(X_i)$ definitely has zero mean.}
+
+\begin{thm}
+  Let $X_1,\ldots,X_n$ be independent random variables and let $X:=\sum_{i=1}^n X_i$. Suppose that $X_i\le M$ with probability one for each $i\in\{1,\ldots,n\}$.  Then
+  \[
+    \Pr\left(X-\E(X) \ge t\right)
+      \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^n \E((X_i-\E(X_i))^2)+\tfrac{1}{3}Mt}\right)
+  \]
+\end{thm}
+For us, we have random variables $X_i$ that have the following distribution:
+\[
+  X_i = \begin{cases}
+          k & \text{with probability $w_i/k^2$} \\
+          w_i/j & \text{with probability $1/k$ for $j\in\{w_i/k+1,\ldots,k\}$}
+        \end{cases}
+\]
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{k,w_i/j)$.
+Then we have
+\[
+  \E(X_i)=\frac{w_i}{k} + \frac{1}{k}\sum_{j=w_i/k+1}^k \frac{w_i}{j}
+  = \frac{w_i}{k}(1+H_{k}-H_{w_i/k}) = \frac{w_i}{k}\left(\ln w_i \pm O(1) \right)
+\]
+so
+\[
+  (\E(X_i))^2 = \left(\frac{w_i\ln w_i}{k}\right)^2\left(1+O\left(\frac{1}{\log w_i}\right)\right)
+\]
+(for $w_i\le k^c$ for some fixed $c$)
+and
+\begin{align*}
+  \E((X_i-\E(X_i))^2)
+  & = \frac{w_i}{k^2}(k-\E(X_i))^2
+    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2 \\
+  & = \frac{w_i}{k^2}(k^2-k\E(X_i)+(\E(X_i))^2)
+    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2 \\
+  & = w_i + w_i\ln w_i(1+o(1)) + \left(\frac{w_i\ln w_i}{k}\right)^2(1+o(1))
+    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2 \\
+  & = (1+o(1)\left(w_i\ln w_i + \left(\frac{w_i\ln w_i}{k}\right)^2\right)
+    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2
+\end{align*}
+Now let's work on the final term (ignoring $1+o(1)$ factors for now):
+\begin{align*}
+\frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2
+ & = \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i^2}{j^2}-\frac{w_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
+ & = \frac{w_i^2}{k}\sum_{j=w_i/k+1}^k\frac{1}{j^2}
+   + \frac{w_i^2}{k^2}\sum_{j=w_i/k}^k\frac{1}{j} + \sum_{j=w_i/k}^k\frac{(w_i\ln w_i)^2}{k^3} \\
+ & \le \frac{w_i^2}{k}\sum_{j=w_i/k+1}^k\frac{1}{j^2}
+   + \frac{w_i^2}{k^2}\sum_{j=w_i/k}^k\frac{1}{j} + \frac{(w_i\ln w_i)^2}{k^2}\\
+ & \le \frac{w_i^2}{k}\sum_{j=w_i/k+1}^k\frac{1}{j^2}
+    + \frac{w_i^2\ln w_i}{k^2} + \frac{(w_i\ln w_i)^2}{k^2} \\
+ & \le \frac{w_i^2}{k}\left(\frac{\pi^2}{6(w_i/k+1)}\right)
+    + \frac{w_i^2\ln w_i}{k^2} + \frac{(w_i\ln w_i)^2}{k^2} \\
+  & \le \frac{\pi^2 w_i}{6}
+     + \frac{w_i^2\ln w_i}{k^2} + \frac{(w_i\ln w_i)^2}{k^2} \\
+\end{align*}
+In our setting $k=\sqrt{\Delta}$ and we have the constraints $\sum_{i=1}^n w_i \le d^?k^2=d^?\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)$ subject to this constraint is easy and gives
+\[
+  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(\Delta\log^{2}\Delta)
+\]
+Setting $t=C\sqrt{\Delta}\log^{\tfrac{3}{2}}n$ and putting this into Bernstein's Inequality gives:
+\begin{align*}
+  \Pr(X\ge \E(X)+t)
+  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log^{\tfrac{3}{2}}n) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3n}{O(\Delta\log^{2}\Delta) + \tfrac{1}{3}Mt}\right) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3n}{O(\Delta\log^{2}\Delta) + \tfrac{1}{3}\Delta\log\Delta}\right) & \text{(since $M\le\sqrt{\Delta}$)} \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3n}{O(\Delta\log^{2}n) + \tfrac{1}{3}\Delta\log n}\right) & \text{(since $\Delta \le n$)} \\
+  & \le \exp \left(-\Omega(C^2\log n)\right) \\
+  & \le n^{-\Omega(C^2)}
+\end{align*}
 
 \end{document}
