@@ -2,6 +2,7 @@
 \listfiles
 \usepackage{pat}
 \usepackage{paralist}
+\usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
 
 
@@ -44,7 +45,7 @@
 \maketitle
 
 \begin{abstract}
-  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that, for any $\epsilon >0$ there exists $c:=c\epsilon$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c n^{3/2+\epsilon}$.
+  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c n^{1/3}\log n}$.
 \end{abstract}
 
 
@@ -62,7 +63,7 @@ A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} 
 \citet{karpas.neiman.ea:on} showed that for every $d$-degenerate $n$-vertex graph $G$, $\trn(G)\in O(d\sqrt{n})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.  They leave the question of closing the gap between these bounds as an open problem. In the current paper we give a colouring procedure that essentially matches their lower bound to within a polylogarithmic factor:
 
 \begin{thm}\label{d_degenerate_upper_bound}
-  There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^? n^{1/3}\log^{3/2} n$.
+  There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^? n^{1/3}\log  n$.
 \end{thm}
 
 Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_bound} follows quickly for a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$:
@@ -70,10 +71,10 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 \begin{thm}\label{degenerate_and_degree}
   There exists a fixed $c>0$ such that
   for all integers $d,\Delta \ge 1$, and $n> \Delta$, every $d$-degenerate $n$-vertex graph $G$ of maximum degree at most $\Delta$ has
-  $\trn(G)\leq c d^?\sqrt{\Delta}\log^{3/2} n$.
+  $\trn(G)\leq c d^?\sqrt{\Delta}\log  n$.
 \end{thm}
 
-\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}\}$ has size at most $dn/n^{1/3}$ vertices of degree greater than $n^{2/3}$.  Since $G-S$ has maximum degree at most $n^{2/3}$, $G-S$ has a us-colouring $\varphi$ using at most $cd^?n^{1/3}\log^{3/2} n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cd^?n^{1/3}\log^{3/2} n+n^{1/3}\le c'd^?n^{1/3}\log^{3/2} n$ for some $c'>c$.
+\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}\}$ has size at most $dn/n^{1/3}$ vertices of degree greater than $n^{2/3}$.  Since $G-S$ has maximum degree at most $n^{2/3}$, $G-S$ has a us-colouring $\varphi$ using at most $cd^?n^{1/3}\log  n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cd^?n^{1/3}\log  n+n^{1/3}\le c'd^?n^{1/3}\log  n$ for some $c'>c$.
 
 
 \section{The Proof}
@@ -109,7 +110,7 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 
   Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{k+1}$ of size $Cd\sqrt{\Delta}\log n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_k$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{k+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of each vertex in $H[P]$ is at most $Cd\sqrt{\Delta}\log n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree in $H[P]$ is at most $Cd\sqrt{\Delta}\log n$.  Since $H$ is acyclic, this implies that $G^2[P]$ is $Cd\sqrt{\Delta}\log n$-degenerate, so the $Cd\sqrt{\Delta}\log n+1$ colours in $\Phi_{k+1}$ are sufficient to properly colour it.
 
-  For each vertex $v$ of $H$, let $N_H(v):=\{y\in V(H): \overrightarrow{vy}\in E(H)\}$.  We now focus on a specific vertex $v$ in $G$ and show that, with probability $1-o(1/n)$, $|N_H(v)\cap P|\le Cd\sqrt{\Delta}\log^{3/2} n$.  This shows that with probability $1-o(1)$, every vertex $v$ of $P$ has out-degree at most $Cd\sqrt{\Delta}\log n$ in $H[P]$.  In particular, it implies that there exists a colouring of $G$ with this property.
+  For each vertex $v$ of $H$, let $N_H(v):=\{y\in V(H): \overrightarrow{vy}\in E(H)\}$.  We now focus on a specific vertex $v$ in $G$ and show that, with probability $1-o(1/n)$, $|N_H(v)\cap P|\le Cd\sqrt{\Delta}\log  n$.  This shows that with probability $1-o(1)$, every vertex $v$ of $P$ has out-degree at most $Cd\sqrt{\Delta}\log n$ in $H[P]$.  In particular, it implies that there exists a colouring of $G$ with this property.
 
    Define $\outn(v):=N_H(v)\cap P$. For any vertex $w$ of $H$, let $\comp(v,w):=\{y\in N_H(v):\text{$w$ completes $y$}\}$.  Observe that
   \[
@@ -119,13 +120,11 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 
   Recall that $N_\alpha(w)$ counts the number of $y < w$ such that $y$ already has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(v,w)|\le N_\alpha(w)\le \sqrt{\Delta}$ for each $\alpha\in\Phi_w$.  Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(v,w):=\comp'_\alpha(v,w)$.  We want to study the random variable $n'_{v,w}:=|\comp'(v,w)|\ge |\comp(v,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $n'_{v,w}\le\sqrt{\Delta}$ with probability $1$.
 
-
-
   Let $\alpha_1,\ldots,\alpha_p$ be the colours in $\Phi_w$ ordered so that, $|\comp'_{\alpha_1}(v,w)|\ge|\comp'_{\alpha_2}(v,w)|\ge\cdots\ge |\comp'_{\alpha_p}(v,w)|$.  Since each $y\in C_w$ appears in
   $\comp'_{\alpha}(v,w)$ for at most $4d-1$ values of $\alpha$,  $\sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(v,w)| \le 4d|C_w|$.
   Therefore $i|\comp'_{\alpha_i}(v,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(v,w)|\le 4d|C_{v,w}|$, so $|\comp'_{\alpha_i}(v,w)|\le 4d|C_{v,w}|/i$.    Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\min\{|C_{v,w}|/j,\sqrt{\Delta}\}$ where $j$ is chosen uniformly in $\{1,\ldots,\Delta\}$.
 
-  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd^?\sqrt{\Delta}\log^{3/2} n\right)\le n^{\Omega(C^2)} = o(1/n)$ for sufficiently large $C$.  This completes the proof.
+  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd^?\sqrt{\Delta}\log  n\right)\le n^{-\Omega(C)} = o(1/n)$ for sufficiently large $C$.  This completes the proof.
   %   $\Pr(N'_{v,w} \ge 4d|C_w|/i) \le \Pr(\alpha\in\{\alpha_1,\ldots,\alpha_i)\le \tfrac{i}{\sqrt{\Delta}}$
   %   and $\Pr(N'_{v,w}>\sqrt{\Delta})=0$.
   %
@@ -326,70 +325,70 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 We can use this Bernstein Inequality (see Wikipedia):\footnote{The inequality there is for $X_i$ with zero mean, but we can still use it since $X-\E(X)=\sum_{i=1}^n (X_i-\E(X_i)$ and $\tilde{X}_i:=X_i-\E(X_i)$ definitely has zero mean.}
 
 \begin{thm}\label{bernstein_theorem}
-  Let $X_1,\ldots,X_n$ be independent random variables such that $\Pr(X_i\le M)=1$ for each $i\in\{1,\ldots,n\}$ and let $X:=\sum_{i=1}^n X_i$. Then
+  Let $k$ be a positive number, let $X_1,\ldots,X_n$ be independent random variables such that $\Pr(X_i\le k)=1$ for each $i\in\{1,\ldots,n\}$, and let $X:=\sum_{i=1}^n X_i$. Then
   \begin{equation}
     \Pr\left(X \ge \E(X)+ t\right)
-      \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^n \E((X_i-\E(X_i))^2)+\tfrac{1}{3}Mt}\right) \enspace . \label{bernstein}
+      \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^n \E((X_i-\E(X_i))^2)+\tfrac{1}{3}kt}\right) \enspace . \label{bernstein}
   \end{equation}
 \end{thm}
 We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has the following distribution:
 \[
   X_i = \begin{cases}
-          k & \text{with probability $w_i/k^2$} \\
-          w_i/j & \text{with probability $1/k$ for $j\in\{w_i/k+1,\ldots,k\}$}
+          k & \text{with probability $x_i/k^2$} \\
+          x_i/j & \text{with probability $1/k$ for $j\in\{x_i/k+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{k,w_i/j)$.  (To see how this applies in our setting, let $\{x_1,\ldots,x_n\}:=\{w\in V(H):w>v\}$, let $w_i:=|C_{v,x_i}|$ and let $k=\sqrt{\Delta}$.)
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{k,x_i/j)$.
 Then we have
 \[
-  \E(X_i)=\frac{w_i}{k} + \frac{1}{k}\sum_{j=w_i/k+1}^k \frac{w_i}{j}
-  = \frac{w_i}{k}(1+H_{k}-H_{w_i/k}) = \frac{w_i}{k}\left(\ln w_i \pm O(1) \right)
+  \E(X_i)=\frac{x_i}{k} + \frac{1}{k}\sum_{j=x_i/k+1}^k \frac{x_i}{j}
+  = \frac{x_i}{k}(1+H_{k}-H_{x_i/k}) = \frac{x_i}{k}\left(\ln x_i \pm O(1) \right)
 \]
 so
 \[
-  (\E(X_i))^2 = \left(\frac{w_i\ln w_i}{k}\right)^2\left(1+O\left(\frac{1}{\log w_i}\right)\right)
+  (\E(X_i))^2 = \left(\frac{x_i\ln x_i}{k}\right)^2\left(1+O\left(\frac{1}{\log x_i}\right)\right)
 \]
-(for $w_i\le k^c$ for some fixed $c$)
+(for $x_i\le k^c$ for some fixed $c$)
 and
 \begin{align*}
   \E((X_i-\E(X_i))^2)
-  & = \frac{w_i}{k^2}(k-\E(X_i))^2
-    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{w_i}{k^2}(k^2-k\E(X_i)+(\E(X_i))^2)
-    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2 \\
-  & = w_i + w_i\ln w_i(1+o(1)) + \left(\frac{w_i\ln w_i}{k}\right)^2(1+o(1))
-    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2 \\
-  & = (1+o(1)\left(w_i\ln w_i + \left(\frac{w_i\ln w_i}{k}\right)^2\right)
-    + \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2
+  & = \frac{x_i}{k^2}(k-\E(X_i))^2
+    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = \frac{x_i}{k^2}(k^2-k\E(X_i)+(\E(X_i))^2)
+    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = x_i + x_i\ln x_i(1+o(1)) + \left(\frac{x_i\ln x_i}{k}\right)^2(1+o(1))
+    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = (1+o(1)\left(x_i\ln x_i + \left(\frac{x_i\ln x_i}{k}\right)^2\right)
+    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
 \end{align*}
 Now let's work on the final term (ignoring $1+o(1)$ factors for now):
 \begin{align*}
-\frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i}{j}-\E(X_i)\right)^2
- & = \frac{1}{k}\sum_{j=w_i/k+1}^k \left(\frac{w_i^2}{j^2}-\frac{w_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
- & = \frac{w_i^2}{k}\sum_{j=w_i/k+1}^k\frac{1}{j^2}
-   + \frac{w_i^2}{k^2}\sum_{j=w_i/k}^k\frac{1}{j} + \sum_{j=w_i/k}^k\frac{(w_i\ln w_i)^2}{k^3} \\
- & \le \frac{w_i^2}{k}\sum_{j=w_i/k+1}^k\frac{1}{j^2}
-   + \frac{w_i^2}{k^2}\sum_{j=w_i/k}^k\frac{1}{j} + \frac{(w_i\ln w_i)^2}{k^2}\\
- & \le \frac{w_i^2}{k}\sum_{j=w_i/k+1}^k\frac{1}{j^2}
-    + \frac{w_i^2\ln w_i}{k^2} + \frac{(w_i\ln w_i)^2}{k^2} \\
- & \le \frac{w_i^2}{k}\left(\frac{\pi^2}{6(w_i/k+1)}\right)
-    + \frac{w_i^2\ln w_i}{k^2} + \frac{(w_i\ln w_i)^2}{k^2} \\
-  & \le \frac{\pi^2 w_i}{6}
-     + \frac{w_i^2\ln w_i}{k^2} + \frac{(w_i\ln w_i)^2}{k^2} \\
+\frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
+ & = \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2}-\frac{x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
+ & = \frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}
+   + \frac{x_i^2}{k^2}\sum_{j=x_i/k}^k\frac{1}{j} + \sum_{j=x_i/k}^k\frac{(x_i\ln x_i)^2}{k^3} \\
+ & \le \frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}
+   + \frac{x_i^2}{k^2}\sum_{j=x_i/k}^k\frac{1}{j} + \frac{(x_i\ln x_i)^2}{k^2}\\
+ & \le \frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}
+    + \frac{x_i^2\ln x_i}{k^2} + \frac{(x_i\ln x_i)^2}{k^2} \\
+ & \le \frac{x_i^2}{k}\left(\frac{\pi^2}{6(x_i/k+1)}\right)
+    + \frac{x_i^2\ln x_i}{k^2} + \frac{(x_i\ln x_i)^2}{k^2} \\
+  & \le \frac{\pi^2 x_i}{6}
+     + \frac{x_i^2\ln x_i}{k^2} + \frac{(x_i\ln x_i)^2}{k^2} \\
 \end{align*}
-In our setting $k=\sqrt{\Delta}$ and we have the constraints $\sum_{i=1}^n w_i \le d^?k^2=d^?\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)$ subject to this constraint is easy and gives
+To see how this applies in our setting, let $k:=\sqrt{\Delta}$, lewt $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, let $x_i:=|C_{v,w_i}|$.  We have the constraints $\sum_{i=1}^n x_i \le d^?k^2=d^?\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)$ subject to this constraint is easy and gives
 \[
-  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(\Delta\log^{2}\Delta)
+  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = (1+o(1))d^?\Delta\ln \Delta
 \]
-Setting $t=C\sqrt{\Delta}\log^{\tfrac{3}{2}}n$ and putting this into \cref{bernstein} gives:
+Setting $t=C\sqrt{\Delta}\log n$ and putting this into \cref{bernstein} gives:
 \begin{align*}
   \Pr(X\ge \E(X)+t)
-  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log^{\tfrac{3}{2}}n) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3n}{O(\Delta\log^{2}\Delta) + \tfrac{1}{3}Mt}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3n}{O(\Delta\log^{2}\Delta) + \tfrac{1}{3}\Delta\log\Delta}\right) & \text{(since $M\le\sqrt{\Delta}$)} \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3n}{O(\Delta\log^{2}n) + \tfrac{1}{3}\Delta\log n}\right) & \text{(since $\Delta \le n$)} \\
-  & \le \exp \left(-\Omega(C^2\log n)\right) \\
-  & \le n^{-\Omega(C^2)}
+  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log n) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{(1+o(1))d^?\Delta\ln\Delta + \tfrac{1}{3}kt}\right) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{(1+o(1))d^?\Delta\log\Delta + \tfrac{1}{3}C\Delta\log\Delta}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{(1+o(1))d^?\Delta\ln n + \tfrac{1}{3}C\Delta\log n}\right) & \text{(since $\Delta \le n$)} \\
+  & \le \exp \left(-\Omega(C\log n)\right) & \text{(for $C\ge d^?$)} \\
+  & \le n^{-\Omega(C)}
 \end{align*}
 
 \end{document}
