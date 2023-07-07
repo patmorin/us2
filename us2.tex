@@ -1,4 +1,5 @@
-\documentclass[kpfonts]{patmorin}
+\documentclass{patmorin}
+% \documentclass{article}
 % \documentclass{article}
 \usepackage{amsfonts}
 \usepackage{amsthm}
@@ -88,7 +89,7 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
   $\trn(G)\leq c d^?\sqrt{\Delta}\log^{3/2} n$.
 \end{thm}
 
-\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}\}$ has size at most $dn/n^{1/3}$ vertices of degree greater than $n^{2/3}$.  Since $G-S$ has maximum degree at most $n^{2/3}$, $G-S$ has a us-colouring $\varphi$ using at most $cd^?n^{1/3}\log^{3/2} n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, \trn(G)\le cd^?n^{1/3}\log^{3/2} n+n^{1/3}\le c'd^?n^{1/3}\log^{3/2} n$ for some $c'>c$.
+\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}\}$ has size at most $dn/n^{1/3}$ vertices of degree greater than $n^{2/3}$.  Since $G-S$ has maximum degree at most $n^{2/3}$, $G-S$ has a us-colouring $\varphi$ using at most $cd^?n^{1/3}\log^{3/2} n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cd^?n^{1/3}\log^{3/2} n+n^{1/3}\le c'd^?n^{1/3}\log^{3/2} n$ for some $c'>c$.
 
 
 \section{The Proof}
@@ -140,7 +141,7 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
   $\comp'_{\alpha}(v,w)$ for at most $4d-1$ values of $\alpha$,  $\sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(v,w)| \le 4d|C_w|$.
   Therefore $i|\comp'_{\alpha_i}(v,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(v,w)|\le 4d|C_{v,w}|$, so $|\comp'_{\alpha_i}(v,w)|\le 4d|C_{v,w}|/i$.    Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\min\{|C_{v,w}|/j,\sqrt{\Delta}\}$ where $j$ is chosen uniformly in $\{1,\ldots,\Delta\}$.
 
-  Therefore, $|\outn(v)|$ is dominated by $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd^?\sqrt{\Delta}\log^{3/2} n\right)\le n^{\Omega(C^2)}} = o(1/n)$ for sufficiently large $C$.  This completes the proof.
+  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd^?\sqrt{\Delta}\log^{3/2} n\right)\le n^{\Omega(C^2)} = o(1/n)$ for sufficiently large $C$.  This completes the proof.
   %   $\Pr(N'_{v,w} \ge 4d|C_w|/i) \le \Pr(\alpha\in\{\alpha_1,\ldots,\alpha_i)\le \tfrac{i}{\sqrt{\Delta}}$
   %   and $\Pr(N'_{v,w}>\sqrt{\Delta})=0$.
   %
