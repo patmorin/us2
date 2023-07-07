@@ -36,13 +36,6 @@
 \RequirePackage{kpfonts}
 \RequirePackage[sf,bf,small,raggedright,compact]{titlesec}
 \RequirePackage[margin=3.75cm]{geometry}
-% \RequirePackage{hyperref}
-\RequirePackage[capitalise]{cleveref}
-\RequirePackage[dvipsnames]{color}
-\definecolor{linkblue}{named}{MidnightBlue}
-% \hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
-% 	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
-% 	urlcolor=linkblue}
 
 
 % Commands for typesetting affiliations and email addresses

@@ -1,7 +1,17 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 
+\usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 
+% \usepackage{hyperref}
+\usepackage[dvipsnames]{color}
+\definecolor{linkblue}{named}{MidnightBlue}
+% \hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
+% 	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
+% 	urlcolor=linkblue}
+
+
+\usepackage[capitalise]{cleveref}
 
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 
@@ -79,30 +89,30 @@
 \newcommand{\E}{\mathrm{E}}
 
 
-\usepackage[mathlines]{lineno}
-\setlength{\linenumbersep}{2em}
-% \linenumbers
-% \rightlinenumbers
-% \linenumbers
-\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
- \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
- \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
- \renewenvironment{#1}%
-    {\linenomath\csname old#1\endcsname}%
-    {\csname oldend#1\endcsname\endlinenomath}}%
-\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
- \patchAmsMathEnvironmentForLineno{#1}%
- \patchAmsMathEnvironmentForLineno{#1*}}%
-\AtBeginDocument{%
-\patchBothAmsMathEnvironmentsForLineno{equation}%
-\patchBothAmsMathEnvironmentsForLineno{align}%
-\patchBothAmsMathEnvironmentsForLineno{flalign}%
-\patchBothAmsMathEnvironmentsForLineno{alignat}%
-\patchBothAmsMathEnvironmentsForLineno{gather}%
-\patchBothAmsMathEnvironmentsForLineno{multline}%
-}
+% \usepackage[mathlines]{lineno}
+% \setlength{\linenumbersep}{2em}
+% % \linenumbers
+% % \rightlinenumbers
+% % \linenumbers
+% \newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+%  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+%  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+%  \renewenvironment{#1}%
+%     {\linenomath\csname old#1\endcsname}%
+%     {\csname oldend#1\endcsname\endlinenomath}}%
+% \newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+%  \patchAmsMathEnvironmentForLineno{#1}%
+%  \patchAmsMathEnvironmentForLineno{#1*}}%
+% \AtBeginDocument{%
+% \patchBothAmsMathEnvironmentsForLineno{equation}%
+% \patchBothAmsMathEnvironmentsForLineno{align}%
+% \patchBothAmsMathEnvironmentsForLineno{flalign}%
+% \patchBothAmsMathEnvironmentsForLineno{alignat}%
+% \patchBothAmsMathEnvironmentsForLineno{gather}%
+% \patchBothAmsMathEnvironmentsForLineno{multline}%
+% }
 
 
-% Taken from
-% https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+% % Taken from
+% % https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
+% \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
