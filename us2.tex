@@ -47,7 +47,7 @@
 \maketitle
 
 \begin{abstract}
-  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd n^{1/3}\log n$.
+  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd n^{1/3}\log n$.  These results extend to the $\ell$-vertex-ranking problem in which one considers paths $v_0,\ldots,v_r$ of length up to $\ell$ and requires that $\varphi(v_0)\neq\varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$.  In this setting, for any fixed $\ell$ and $d$, the bound on the $\ell$-vertex-ranking number of $d$-degenerate graphs is $\lrn(G)\in O(n^{(\ell-1)/(\ell+1)}\log n)$.
 \end{abstract}
 
 
@@ -73,12 +73,14 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 \begin{thm}\label{degenerate_and_degree}
   There exists a fixed $c>0$ such that
   for all integers $d,\Delta \ge 1$, and $n> \Delta$, every $d$-degenerate $n$-vertex graph $G$ of maximum degree at most $\Delta$ has
-  $\trn(G)\leq c d\sqrt{\Delta}\log  n$.
+  $\trn(G)\leq c d\sqrt{\Delta}\log^{3/2}  n$.
 \end{thm}
 
-\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}\}$ has size at most $dn/n^{1/3}$ vertices of degree greater than $n^{2/3}$.  Since $G-S$ has maximum degree at most $n^{2/3}$, $G-S$ has a us-colouring $\varphi$ using at most $cdn^{1/3}\log  n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cdn^{1/3}\log  n+n^{1/3}\le c'dn^{1/3}\log  n$ for some $c'>c$.
+\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of vertex degrees is at most $2dn$.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}/\log n\}$ has size at most $2dn/n^{2/3}=2dn^{1/3}\log n$.  Since $G-S$ has maximum degree $\Delta\le n^{2/3}/\log n$, $G-S$ has a us-colouring $\varphi$ using at most $cd\Delta\log^{3/2} n = cdn^{1/3}\log  n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cdn^{1/3}\log  n+2dn^{1/3}\le c'dn^{1/3}\log  n$ for some $c'>2c$.
 
 \section{The Proof}
+
+We use standard graph-theoretic terminology and conventions as used by \citet{diestel:graph}. A graph $G$ has vertex set $V(G)$ and edge set $E(G)$.  For an integer $\ell$, $G^\ell$ denotes the graph with vertex set $V(G)$ that contains an edge $vw$ if and only if $G$ contains a path of length at most $\ell$ with endpoints $v$ and $w$.
 
 \begin{proof}[Proof of \cref{degenerate_and_degree}]
   Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges and the sum of all vertex degrees in $G[S_{i-1}]$is at most $2d|S_{i-1}|$, so $|S_i|\le |S_{i-1}|/2$ for each $i\ge 1$.  Let $k$ be the maximum integer such that $S_i$ is non-empty.  For each $i\in\{0,\ldots,k\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
@@ -88,7 +90,7 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
   % this colouring requires at most $16d^2$ colours.  This colouring is one factor in the product colouring of $G$.
   % \todo[inline]{During the next round of revisions, we can get rid of this second colouring.  An appropriate definition of \defin{problematic} vertices will capture both monochromatic edges and three-vertex paths within a single layer.}
 
-  We compute our colouring using a two-phase process. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{k}$, each of size $2\sqrt{\Delta}$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,k\}$.
+  We compute our colouring using a two-phase process. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{k}$, each of size $2\sqrt{\Delta}$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,k\}$.
 
   % where $\Phi$
   % where $\Phi_i:=\{2i\sqrt{\Delta}+1,\ldots,2(i+1)\sqrt{\Delta}\}$ and is used to colour the vertices of $L_i$, for each $i\in\{0,\ldots,k\}$.
@@ -105,25 +107,39 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 
   % The resulting product colouring is a proper colouring because each edge $vw$ of $G$ either has both endpoints in $L_i$ for some $i\in\{0,\ldots,k\}$, in which case $v$ and $w$ have different colours in the first factor of the product colouring or the second factor in the colours of $v$ and $w$ are taken from disjoint palettes.  We claim that the only violations of the us-colouring conditions occur at three-vertex paths $vyw$ with $v,w\in L_j$ for some $j\in\{0,\ldots,k\}$ and $y\in L_i$ for some $j\in\{0,\ldots,j-1\}$. Indeed, since the colour of $v$ and $w$ are the same, $v$ and $w$ must be in the same layer $L_j$ and $y\not\in L_j$.  Since the colour of $v$ and $w$ is larger than that of $y$, $j> i$.
 
-  We say that a vertex $y$ is \defin{problematic} if $y$ has a neighbour of the same colour or if $y$ has neighbours $u$ and $w$ in $G$ such that $y\in L_i$, $u,w\in L_j$, $i \le j$ and $u$ and $w$ receive the same colour in phase one.  At this point, we can justify the choice of the colour set $\Phi_w$ that we choose from when colouring $w$. For each problematic vertex $y$, there exists a minimum vertex $w$ (with respect to $<$) such that $y$ becomes problematic precisely when $w$ is coloured.  When this happens, we say that $w$ \defin{completes} $y$. By definition, if $w$ chooses the colour $\alpha\in\Phi_w$, then it completes at most $|N_{\alpha}(w)|<\sqrt{\Delta}$ vertices.
+  We say that a vertex $y$ is \defin{problematic} if $y$ has a neighbour of the same colour or if $y$ has neighbours $u$ and $w$ in $G$ such that $y\in L_i$, $u,w\in L_j$, $i \le j$ and $u$ and $w$ receive the same colour in phase one.  At this point, we can offer some justification for the definition of the colour set $\Phi_w$ that we choose from when colouring $w$. For each problematic vertex $y$, there exists a minimum vertex $w$ (with respect to $<$) such that $y$ becomes problematic precisely when $w$ is coloured.  When this happens, we say that $w$ \defin{completes} $y$. By definition, if $w$ chooses the colour $\alpha\in\Phi_w$, then it completes at most $|N_{\alpha}(w)|<\sqrt{\Delta}$ vertices.
 
-  Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{k+1}$ of size $Cd\sqrt{\Delta}\log n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_k$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{k+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of each vertex in $H[P]$ is at most $Cd\sqrt{\Delta}\log n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree in $H[P]$ is at most $Cd\sqrt{\Delta}\log n$.  Since $H$ is acyclic, this implies that $G^2[P]$ is $Cd\sqrt{\Delta}\log n$-degenerate, so the $Cd\sqrt{\Delta}\log n+1$ colours in $\Phi_{k+1}$ are sufficient to properly colour it.
 
-  For each vertex $v$ of $H$, let $N_H(v):=\{v\}\cup \{y\in V(H): \overrightarrow{vy}\in E(H)\}$.  We now focus on a specific vertex $v$ in $G$ and show that, with probability $1-o(1/n)$, $|N_H(v)\cap P|\le Cd\sqrt{\Delta}\log  n$.  This shows that with probability $1-o(1)$, every vertex $v$ of $P$ has out-degree at most $Cd\sqrt{\Delta}\log n$ in $H[P]$.  In particular, it implies that there exists a colouring of $G$ with this property.
+
+  Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{k+1}$ of size $Cd\sqrt{\Delta}\log n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_k$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{k+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of each vertex in $H[P]$ is at most $Cd\sqrt{\Delta}\log n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree in $H[P]$ is at most $Cd\sqrt{\Delta}\log n$.  Since $H$ is acyclic, this implies that $G^2[P]$ is $Cd\sqrt{\Delta}\log^{3/2} n$-degenerate, so the $Cd\sqrt{\Delta}\log^{3/2} n+1$ colours in $\Phi_{k+1}$ are sufficient to properly colour it.
+
+  For each vertex $v$ of $H$, let $N_H(v):=\{v\}\cup \{y\in V(H): \overrightarrow{vy}\in E(H)\}$ be the set of out-neighbours of $v$ in $H$.  We now focus on a specific vertex $v$ in $G$ and show that, with probability $1-o(1/n)$, $|N_H(v)\cap P|\le Cd\sqrt{\Delta}\log^{3/2}  n$.  This shows that with probability $1-o(1)$, every vertex $v$ of $P$ has out-degree at most $Cd\sqrt{\Delta}\log^{3/2} n$ in $H[P]$.  In particular, it implies that there exists a colouring of $G$ with this property.
 
    Define $\outn(v):=N_H(v)\cap P$. For any vertex $w$ of $H$, let $\comp(v,w):=\{y\in N_H(v):\text{$w$ completes $y$}\}$.  Observe that
   \[
     \outn(v) = \bigcup_{w\in V(H)} \comp(v,w) = \bigcup_{w>v} \comp(v,w) \enspace .
   \]
-  Let $C_{v,w}:=\{y\in N_H(v): yw\in E(G),\, y < w\}$, which is the set of vertices in $N_H(v)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(v,w)$ contain exactly those vertices $y\in C_{v,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(v,w)$ contains every $y\in C_{v,w}$ that would be completed if we set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed).
+  For any vertex $w>v$, let $C_{v,w}:=\{y\in N_H(v): yw\in E(G),\, y < w\}$, which is the set of vertices in $N_H(v)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(v,w)$ contain exactly those vertices $y\in C_{v,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(v,w)$ contains every $y\in C_{v,w}$ that would be completed if we were to set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed by vertices other than $w$).
 
   Recall that $N_\alpha(w)$ counts the number of neighbours $y$ of $w$ such that $y < w$ and $y$ has colour $\alpha$ or has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(v,w)|\le N_\alpha(w)\le \sqrt{\Delta}$ for each $\alpha\in\Phi_w$.  Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(v,w):=\comp'_\alpha(v,w)$.  We want to study the random variable $n'_{v,w}:=|\comp'(v,w)|\ge |\comp(v,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $n'_{v,w}\le\sqrt{\Delta}$ with probability $1$.
 
-  Let $\alpha_1,\ldots,\alpha_p$ be the colours in $\Phi_w$ ordered so that, $|\comp'_{\alpha_1}(v,w)|\ge|\comp'_{\alpha_2}(v,w)|\ge\cdots\ge |\comp'_{\alpha_p}(v,w)|$.  Since each $y\in C_{v,w}$ appears in
-  $\comp'_{\alpha}(v,w)$ for at most $4d-1$ values of $\alpha$,  $\sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(v,w)| \le 4d| C_{v,w}|$.
-  Therefore $i|\comp'_{\alpha_i}(v,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(v,w)|\le 4d|C_{v,w}|$, so $|\comp'_{\alpha_i}(v,w)|\le 4d|C_{v,w}|/i$.    Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\min\{|C_{v,w}|/j,\sqrt{\Delta}\}$ where $j$ is chosen uniformly in $\{1,\ldots,\Delta\}$.
+  Let $\alpha_1,\ldots,\alpha_p$ be the colours in $\Phi_w$ ordered so that,
+  \[
+    |\comp'_{\alpha_1}(v,w)|\ge|\comp'_{\alpha_2}(v,w)|\ge\cdots\ge |\comp'_{\alpha_p}(v,w)| \enspace .
+  \]
+  Immediately before colouring $w\in L_i$, each $y\in C_{v,w}$ is assigned a colour (possibly in $\Phi_i$) and has at most $4d-2$ neighbours that have already received a colour in $\Phi_i$.  Therefore, $y$ appears in
+  $\comp'_{\alpha}(v,w)$ for at most $4d-1$ values of $\alpha$, so
+  \[
+    \sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(v,w)| \le 4d| C_{v,w}| \enspace .
+  \]
+  Therefore $i|\comp'_{\alpha_i}(v,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(v,w)|\le 4d|C_{v,w}|$, so
+  \[
+    |\comp'_{\alpha_i}(v,w)|\le 4d|C_{v,w}|/i \enspace .
+  \]
+  Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\min\{|C_{v,w}|/j,\sqrt{\Delta}\}$ where $j$ is chosen uniformly in $\{1,\ldots,\Delta\}$.
 
-  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd\sqrt{\Delta}\log  n\right)\le n^{-\Omega(C/d)} = o(1/n)$ when $C$ is a sufficiently large multiple of $d$.  This completes the proof.
+  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd\sqrt{\Delta}\log^
+  {3/2} n\right)\le n^{-\Omega(C/d)} = o(1/n)$ when $C$ is a sufficiently large multiple of $d$.  This completes the proof.
 \end{proof}
 
 \section{Generalization to $\ell$-Vertex-Ranking}
@@ -142,124 +158,6 @@ A vertex colouring $\varphi$ of $G$ is ab \defin{$\ell$-vertex-ranking} of $G$ i
 
 \todo[inline]{Is there an $\Omega(n^{(\ell-1)/(\ell+1)})$ lower bound on the $\ell$-vertex-ranking number of $d$-degenerate graphs for some small constant $d$?}
 
-
-
-
-% \section{Proof of \cref{d_degenerate_upper_bound}}
-%
-% A graph $H$ is \defin{$(\beta,\delta)$-good} if there exists a distribution $\mathcal{D}$ over us-colourings of $H$ such that when $\varphi$ drawn from $\mathcal{D}$ we have
-% $\E[|\varphi(V(H))|]\le \beta$, and $\Pr(\varphi(v)=\varphi(w))\le\delta$ for all distinct $v,w\in V(H)$.
-%
-% % We reduce the proof of the general case a bipartite problem, which we consider here.
-%
-% \begin{lem}
-%   For any $\epsilon >0$, any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that the following holds for every integer $n\ge 1$, every $\beta \ge 1$, and every graph $G$ with a vertex-partition $(A,B)$ where $B$ is an independent set of size at most $n$ and with $\deg(v)\le d$ for each $v\in B$,  if $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good, then  $G$ is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
-% \end{lem}
-%
-% \begin{proof}
-%   Fix some $\epsilon >0$, integer $d\ge 1$, and let $c:=?$ and $\alpha:=?$. Let $n$, $\beta$, $G$, $A$, $B$, be as in the statement of the lemma.  Let $\mathcal{D}$ be a distribution over us-colourings of $G[A]$ witnessing the fact that $G[A]$ is $(\beta,\alpha n^{-1/3-\epsilon/2})$-good and let $\varphi$ be a us-colouring of $G[A]$ drawn from $\mathcal{D}$.
-%
-%   We will use colours from a set of pairwise-disjoint \defin{palettes}, each of size $n^{1/3+\epsilon}$.  We will have a \defin{small} palette containing colours smaller than all those used in $\varphi$, a sequence of \defin{medium} palettes, each containing colours larger than all those used in $\varphi$.  In addition, we will have an extra palette of \defin{large} colours whose size is a random variable and whose values are larger than the colours in all other palettes. The palette of large colours is special in two ways:
-%   \begin{inparaenum}[(i)]
-%     \item each of its colours will be used to colour at most one vertex of $G$;
-%     \item its size is a random variable.
-%   \end{inparaenum}
-%   Note that, by (i), using a colour from the palette of large colours to colour a vertex $v$ is equivalent to removing $v$ from $G$.
-%
-%  Throughout this proof, we will define a (random) us-colouring $\varphi'$ of $G$.\footnote{Add a footnote about how $\varphi'$ is really a distribution over us-colourings of $G$.}  Initially, we distinguish between two cases.
-%   If $|A|\le n^{1/3+\epsilon}$ then assign each vertex $a\in A$ a unique colour $\varphi'(a)$ from the palette of large colours.  Otherwise, we set $\varphi'(v):=\varphi(v)$ for each $v\in A$, but we may change this later.
-%
-%
-%   We say that a vertex $v\in B$ is \defin{unsafe} for $\varphi'$ if $v$ has two neighbours $x$ and $y$ with $\varphi'(x)=\varphi(y)'$, and $v$ is \defin{safe} otherwise.  Let $B_1$ be the subset of $B$ containing only the vertices that are unsafe for $\varphi$. For each $v\in B$, $\Pr(v\in B_1)\le \sum_{x,y\in \binom{N_G(v)}{2}}\Pr(\varphi(x)=\varphi(y))\le d^2 \alpha n^{-1/3-\epsilon/2}$.  Therefore $\E[|B_1|]\le d^2 \alpha n^{2/3-\epsilon/2}$.
-%   % Therefore, there exists a us-colouring $\varphi:A\to\{1,\ldots,k\}$ of $G[A]$ such that at most $d^2n^{2/3-\epsilon}$ vertices in $B$ are unsafe for $\varphi$. Fix such a $\varphi$.
-%   % Let $B_1$ be the set of vertices in $B$ that are unsafe for $\varphi$, so $\E[|B_1|]=??$.
-%
-%   For each $v\in B\setminus B_1$, set $\varphi'(v)$ to be a uniformly random colour from the small palette.  Thus $\varphi'$ is a us-colouring of $G-B_1$.  What remains is to colour the vertices in $B_1$.  If $|A|\le n^{1/3+\epsilon}$ then every vertex in $B$ is safe, so this completes the colouring $\varphi'$ of $G$.  It is straightforward to verify that the distribution $\mathcal{D}'$ is $(cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon})$-good for any $\alpha \ge 1/c$.  Therefore, we now assume that $|A|\ge cn^{1/3+\epsilon})$.
-%
-%   It is important at this point to deal with vertices of $A$ having many neighbours in $B_1$.  Let $A_1$ be the set of vertices in $A$ with at least $\Delta:=n^{1/3-3/2\epsilon}$ neighbours in $B_1$.  Then $|A_1|n^{1/3-2\epsilon}\le |B_1|$, so $\E[|A_1|]\le \E[|B_1|]n^{-1/3+3\epsilon/2}\le d^2\alpha n^{1/3+\epsilon}$.  We assign each vertex in $A_1$ a distinct colour from the palette of large colours.
-%
-%   Suppose now that $B_1\supseteq B_2\supseteq \cdots\supseteq B_{i}$ are already defined and that $\varphi'$ is a us-colouring of $G-B_i$ using only colours from the small palette, colours from $\varphi(A)$, colours from the first $i-1$ medium palettes, and colours from the palette of large colours. In the following paragraphs, all probabilities are implicitly conditioned on this choice of $A_1$ and $B_i$.
-%
-%   For each $v\in B_i$ we choose a random colour $\varphi'(v)$ from the $i$th palette.  Define a \defin{problem} to be a pair $(a,\{x,y\})$ with $a\in A\setminus A_i$, $x,y\in B_i$ with $x\neq y$, and $\varphi(x)=\varphi(y)$. For each $a\in A\setminus A_1$, let $\delta_a:= |N_G(a)\cap B_i|$.  For a particular $a\in A\setminus A_1$, the expected number of problems that involve $a$ is at most $\binom{\delta_a}{2}\cdot n^{-1/3-\epsilon}$. Therefore, the expected number of problems over all $a\in A\setminus A_1$ is at most\footnote{We point out again, that this expectation is taken in a probability space conditioned on a fixed choice of $A_1$ and $B_i$.}
-%   \begin{align*}
-%     n^{-1/3-\epsilon}\cdot\sum_{a\in A\setminus A_i} \delta_a^2 &
-%     \le n^{-1/3-\epsilon}\cdot \Delta^2 \cdot (d|B_i|/\Delta) \\
-%     & = d|B_i| n^{-1/3-\epsilon}\cdot \Delta \\
-%     & = d|B_i| n^{-3\epsilon}
-%   \end{align*}
-%   (The first inequality above is obtained by maximizing $\sum_{a\in A\setminus A_i} \delta_a^2$ subject to the global constraint $\sum_{a\in A\setminus A_i} \delta_a\le d|B_i|$ and the local constraints $\delta_a\le \Delta$ for each $a\in A\setminus A_i$.)
-%
-%   Let $B_{i+1}\subseteq B_i$ be obtained by choosing, for each problem $(a,\{x,y\})$, a vertex $x$ or $y$ of $B_i$ included in the problem.  For each $b\in B_i\setminus B_{i+1}$ we fix the colour of $b$ and we are left with the problem of colouring the vertices in $B_{i+1}$.  The calculation above shows that, conditioned in $B_i$,
-%   \[
-%     E[|B_{i+1}|] \le d|B_i|n^{-3\epsilon}
-%   \]
-%   We continue until reaching a value $i^*$ such that $|B_{i^*}|\le n^{1/3}$.  When this occurs we colour every vertex in $B_{i^*}$ with a unique colour from the $i^*$th palette.  At this point $\varphi'$ is a us-colouring of $G$.
-%
-%   We now show how to bound the expected number of colours used by $\varphi'$.  The first step is to upper bound the expected value of $i^*$.  To do this, we define, for each $i\in\N$, the indicator random variable
-%   \[
-%       I_i :=
-%         \begin{cases}
-%           0 & \text{if $i<i^*$ and $|B_{i+1}|> 2d|B_i|n^{-3\epsilon}$} \\
-%           1 & \text{if $i< i^*$ and $|B_{i+1}|\le 2d|B_i|n^{-3\epsilon}$} \\
-%           1 & \text{if $i\ge i^*$}
-%         \end{cases}
-%   \]
-%   Observe that $I_i=0$ only if $|B_{i+1}|$---conditioned on $B_i$---exceeds its expected value by at least a factor of $2$. Therefore, by Markov's Inequality, $\Pr(I_i=1)\ge 1/2$ for all $i\ge 1$.  Furtermore, for any binary sequence $I_{1},\ldots,I_{i-1}$, $\Pr(I_i=1\mid I_1,\ldots,I_{i-1})\ge 1/2$.  Therefore, for any integer $k\ge 1$, $X_k:=\sum_{i=1}^k I_i$ dominates a binomial$(k,1/2)$ random variable.  By a standard inequality, this implies that $\Pr(X_k\le k/4)\le e^{-k/8}$.
-%
-%   Now observe that $|B_{i+1}|\le |B_i|$ for all $i\ge 1$. Using the convention that $|B_k|:=0$ for all $i>i^*$ we have,
-%   \[
-%     |B_{k+1}| \le (2d)^{X_k}\cdot |B_1|\cdot n^{-3\epsilon X_k} \le (2d)^{X_k}\cdot n^{1-3\epsilon X_k} < 1
-%   \]
-%   for all $k\ge k^* = ??$
-%
-%   We can now analyze the expected number of colours used by $\varphi'$.  By definition, the expected number of colours used by $\varphi$ is $\beta$, and these are also used in $\varphi'$.  The expected number of colours from the large palette used to colour $A_1$ is at most $d^2\alpha n^{1/3+\epsilon}$.  The only remaining colours used from the first $i^*$ palettes, each of which contains $n^{1/3+\epsilon}$ colours.  The expected value of $i^*$ can be upper bounded as follows:
-%   \[
-%     \E[i^*] = \sum_{i=1}^\infty \Pr(i^*\ge i)
-%     \le \sum_{k=1}^{\infty} \Pr(B_k < k^*)
-%     \le 2k^* + \sum_{k=2k^*+1}^{\infty} \Pr(B_k < k^*)
-%     \le 2k^* + O(1) \enspace .
-%   \]
-%   Therefore, the expected number of colours used by $\varphi'$ is at most
-%   \[
-%      \beta + (d^2\alpha + k^*+O(1))n^{1/3+\epsilon} \enspace .
-%   \]
-%   Finally, it remains to bound $\Pr(\varphi'(v)=\varphi'(w))$ for any $v,w\in V(G)$.  There are only three possibilities:
-%   \begin{compactenum}
-%     \item $v,w\in A$ and $\varphi'(v)=\varphi(v)=\varphi(w)=\varphi'(w)$.  This occurs with probability at most $\Pr(\varphi(v)=\varphi(w))\le \beta$, by assumption.
-%
-%     \item $v,w\in B\setminus B_1$.  In this case, $\varphi'(v)$ and $\varphi'(w)$ are assigned randomly from the palette of small colours.  This palette has size $n^{1/3+\epsilon}$, $\Pr(\varphi'(v)=\varphi'(w))\le n^{1/3+\epsilon} \le \alpha n^{1/3+\epsilon}$ for any $\alpha \le 1$.
-%
-%     \item $v,w\in B_i\setminus B_{i+1}$ for some integer $i\ge 1$.  This probability takes more care because we repeatedly assign random colours to the vertices in $B_i$ and then reject some of these random choice and place the vertices into $B_{i+1}$.  Here we argue that this process happens in so few rounds that it does not significantly increase the probability of equality.  If $\phi'(v)=\varphi'(w)$ then at least one of the following events occurs:
-%     \begin{compactenum}
-%       \item the same colour is chosen for both $v$ and $w$ in some round $i\in\{1,\ldots,k^*+8\log n\}$, which occurs with probability at most $(2k^*+8\log n)n^{-1/3-\epsilon}<n^{-1/3-\epsilon/2}$; or
-%
-%       \item $i^*\ge 2k^*+8\log n$, which occurs with probability at most $1/n$.
-%     \end{compactenum}
-%   \end{compactenum}
-%   Finish up....
-% \end{proof}
-%
-% Our proof of \cref{d_degenerate_upper_bound} follows from the following stronger result by a trivial application of the probabilistic method.
-%
-% \begin{lem}\label{d_degenerate_probabilistic}
-%   For any $\epsilon >0$ and any integer $d\ge 1$, there exists $c:=c(\epsilon,d)$, and $\alpha:=\alpha(\epsilon,d)$ such that for every integer $n\ge 1$, every $d$-degenerate graph $G$ with at most $n$ vertices is $(\beta+cn^{1/3+\epsilon},\alpha n^{-1/3-\epsilon/2})$-good.
-% \end{lem}
-%
-%
-% \begin{proof}
-%   Let $B:=\{v\in V(G):\deg(v)\le 4d\}$. Let $G'$ be the graph obtained from $G$ by removing each edge with both endpoints in $B$.
-%
-%   Slice off all vertices of degree at most $4d$, call that set $B$, call the rest $A$, apply \cref{d_degenerate_upper_bound} and then properly colour the square of $G[B]$ and use that as part of a product colouring.
-% \end{proof}
-%
-%
-% \begin{proof}[Proof of \cref{d_degenerate_upper_bound}]
-%   By \cref{d_degenerate_probabilistic}, there exists a distribution $\mathcal{D}$ over us-colourings of $G$ such that the expected number of colours used in a us-colouring $\varphi$ drawn from $\mathcal{D}$ is at most $cn^{1/3+\epsilon}$.  Therefore $G$ has a us-colouring that uses at most $cn^{1/3+\epsilon}$ colours.
-% \end{proof}
-
-
-
-
 \bibliographystyle{plainnat}
 \bibliography{us2}
 
@@ -267,7 +165,7 @@ A vertex colouring $\varphi$ of $G$ is ab \defin{$\ell$-vertex-ranking} of $G$ i
 
 \section{Bounding the Tail of \texorpdfstring{\boldmath$|\outn(v)|$}{out(v)}}
 
-We can use this Bernstein Inequality (see Wikipedia):\footnote{The inequality there is for $X_i$ with zero mean, but we can still use it since $X-\E(X)=\sum_{i=1}^n (X_i-\E(X_i)$ and $\tilde{X}_i:=X_i-\E(X_i)$ definitely has zero mean.}
+We make use of the following inequality of Bernstein \cite[Corollary~2.11]{boucheron.lugosi.ea:concentration}:
 
 \begin{thm}\label{bernstein_theorem}
   Let $k$ be a positive number, let $X_1,\ldots,X_n$ be independent random variables such that $\Pr(X_i\le k)=1$ for each $i\in\{1,\ldots,n\}$, and let $X:=\sum_{i=1}^n X_i$. Then
@@ -276,7 +174,7 @@ We can use this Bernstein Inequality (see Wikipedia):\footnote{The inequality th
       \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^n \E((X_i-\E(X_i))^2)+\tfrac{1}{3}kt}\right) \enspace . \label{bernstein}
   \end{equation}
 \end{thm}
-We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has the following distribution:
+We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has the following distribution (for some $x_i\le k^2$):
 \[
   X_i = \begin{cases}
           k & \text{with probability $x_i/k^2$} \\
@@ -286,54 +184,55 @@ We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has th
 This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{k,x_i/j)$.
 Then we have
 \[
-  \E(X_i)=\frac{x_i}{k} + \frac{1}{k}\sum_{j=x_i/k+1}^k \frac{x_i}{j}
-  = \frac{x_i}{k}(1+H_{k}-H_{x_i/k}) = \frac{x_i}{k}\left(\ln x_i \pm O(1) \right)
+  \E(X_i)=\frac{x_i}{k^2}\cdot k + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \frac{x_i}{j}
+  = \frac{x_i}{k}(1+H_{k}-H_{x_i/k}) = \frac{x_i\ln x_i}{k}\left(1 \pm o(1) \right)
+  = O\left(\frac{x_i\log x_i}{k}\right)
 \]
 so
 \[
-  (\E(X_i))^2 = \left(\frac{x_i\ln x_i}{k}\right)^2\left(1+O\left(\frac{1}{\log x_i}\right)\right)
+  (\E(X_i))^2 = O\left(\left(\frac{x_i\ln x_i}{k}\right)^2\right) = O(x_i\log^2 x_i) \enspace ,
 \]
-(for $x_i\le k^c$ for some fixed $c$)
+since $x_i\le k^2$,
 and
 \begin{align*}
   \E((X_i-\E(X_i))^2)
-  & = \frac{x_i}{k^2}(k-\E(X_i))^2
-    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{x_i}{k^2}(k^2-k\E(X_i)+(\E(X_i))^2)
-    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = x_i + x_i\ln x_i(1+o(1)) + \left(\frac{x_i\ln x_i}{k}\right)^2(1+o(1))
-    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = (1+o(1)\left(x_i\ln x_i + \left(\frac{x_i\ln x_i}{k}\right)^2\right)
-    + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
+  & = \frac{x_i}{k^2}\cdot(k-\E(X_i))^2
+    + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = \frac{x_i}{k^2}\left(k^2-2k\E(X_i)+(\E(X_i))^2\right)
+    + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & \le \frac{x_i}{k^2}\left(k^2 + (\E(X_i))^2\right)
+    + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = x_i + O\left(\frac{x_i^2\log^2 x_i}{k^2}\right)
+      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & \le O(x_i\log^2 x_i)
+      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
+      & \text{(since $x_i\le k^2$)} \\
+ & = O(x_i\log^2 x_i) + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2}-\frac{2x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
+ & \le O(x_i\log^2 x_i) + \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
+ & = O(x_i\log^2 x_i) +  \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
+   + \left(\sum_{j=x_i/k}^k O\left(\frac{x_i\log^2 x_i}{k}\right)\right) \\
+ & \le O(x_i\log^2 x_i) + \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
+    + O(x_i\log^2 x_i)\\
+  & \le O(x_i\log^2 x_i) + \frac{\pi^2 x_i}{6} + O(x_i\log^2 x_i) \\
+  & = O(x_i\log^2 x_i)
 \end{align*}
-Now let's work on the final term (ignoring $1+o(1)$ factors for now):
-\begin{align*}
-\frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
- & = \frac{1}{k}\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2}-\frac{x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
- & = \frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}
-   + \frac{x_i^2}{k^2}\sum_{j=x_i/k}^k\frac{1}{j} + \sum_{j=x_i/k}^k\frac{(x_i\ln x_i)^2}{k^3} \\
- & \le \frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}
-   + \frac{x_i^2}{k^2}\sum_{j=x_i/k}^k\frac{1}{j} + \frac{(x_i\ln x_i)^2}{k^2}\\
- & \le \frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}
-    + \frac{x_i^2\ln x_i}{k^2} + \frac{(x_i\ln x_i)^2}{k^2} \\
- & \le \frac{x_i^2}{k}\left(\frac{\pi^2}{6(x_i/k+1)}\right)
-    + \frac{x_i^2\ln x_i}{k^2} + \frac{(x_i\ln x_i)^2}{k^2} \\
-  & \le \frac{\pi^2 x_i}{6}
-     + \frac{x_i^2\ln x_i}{k^2} + \frac{(x_i\ln x_i)^2}{k^2} \\
-\end{align*}
-To see how this applies in our setting, let $k:=\sqrt{\Delta}$, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, let $x_i:=|C_{v,w_i}|$.  We have the constraints $\sum_{i=1}^n x_i \le dk^2=d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)$ subject to this constraint is easy and gives
+where the penultimate inequality follows from the inequality $\sum_{j=a}^{\infty} 1/j^2 \le \pi^2/(6a)$, valid for all integers $a\ge 1$.
+
+To apply this in our setting, let $k:=\sqrt{\Delta}$, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=\min\{|C_{v,w_i}|,\Delta\}$.  We have the constraints $\sum_{i=1}^n x_i \le (4d-1)k^2 < 4d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)=\sum_{i=1}^n O(x_i\log^2 x_i)$ subject to this constraint is easy and gives
 \[
-  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = (1+o(1))d\Delta\ln \Delta
+  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d\Delta\log^2 \Delta)
 \]
-Setting $t=C\sqrt{\Delta}\log n$ and putting this into \cref{bernstein} gives:
+Setting $t=C\sqrt{\Delta}\log^{3/2} n$ and putting this into \cref{bernstein} gives:
 \begin{align*}
   \Pr(X\ge \E(X)+t)
-  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log n) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{(1+o(1))d\Delta\ln\Delta + \tfrac{1}{3}kt}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{(1+o(1))d\Delta\log\Delta + \tfrac{1}{3}C\Delta\log\Delta}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{(1+o(1))d\Delta\ln n + \tfrac{1}{3}C\Delta\log n}\right) & \text{(since $\Delta \le n$)} \\
+  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log^{3/2} n) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}\sqrt{\Delta}\log^{3/2} n)^2}{O(d\Delta\log^2\Delta) + \tfrac{1}{3}kt}\right) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3 n}{O(d\Delta\log^2\Delta) + \tfrac{1}{3}kt}\right) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{O(d\Delta\log^2\Delta) + \tfrac{1}{3}C\Delta\log^{3/2}\Delta}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(C\Delta\log n)^2}{O(d\Delta\log^2n) + \tfrac{1}{3}C\Delta\log^{3/2}n}\right)
+  & \text{(since $\Delta \le n$)} \\
   & \le \exp \left(-\Omega((C/d)\log n)\right) \\
-  & \le n^{-\Omega(C/d)}
+  & \le n^{-\Omega(C/d)} \enspace .
 \end{align*}
 
 \end{document}
