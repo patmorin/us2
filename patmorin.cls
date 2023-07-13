@@ -125,3 +125,126 @@
    \or \text{\Pluto}
   \else\@ctrerr\fi}}
 \makeatother
+
+
+
+%-------------------------- Stuff that used to be in pat.sty --------------
+
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[longnamesfirst,numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{color}
+\definecolor{linkblue}{named}{MidnightBlue}
+\hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
+	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,
+	urlcolor=linkblue}
+\usepackage[capitalise]{cleveref}
+\usepackage{paralist}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{todonotes}
+
+\allowdisplaybreaks
+
+
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+
+\newtheorem{thm}{Theorem}{\bfseries}{\itshape}
+\crefname{thm}{Theorem}{Theorems}
+
+
+\newtheorem{lem}[thm]{Lemma}{\bfseries}{\itshape}
+\crefname{lem}{Lemma}{Lemmas}
+\newcommand{\lemlabel}[1]{\label{lem:#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{lem:#1}}
+
+\newtheorem{conj}[thm]{Conjecture}{\bfseries}{\itshape}
+\newcommand{\conjlabel}[1]{\label{lem:#1}}
+\newcommand{\conjref}[1]{Conjecture~\ref{lem:#1}}
+
+\newtheorem{cor}[thm]{Corollary}{\bfseries}{\itshape}
+\newcommand{\corlabel}[1]{\label{cor:#1}}
+\newcommand{\corref}[1]{Corollary~\ref{cor:#1}}
+
+\newtheorem{obs}[thm]{Observation}{\bfseries}{\itshape}
+\newcommand{\obslabel}[1]{\label{obs:#1}}
+\newcommand{\obsref}[1]{Observation~\ref{obs:#1}}
+
+\newtheorem{prop}[thm]{Proposition}{\bfseries}{\itshape}
+\newcommand{\proplabel}[1]{\label{prop:#1}}
+\newcommand{\propref}[1]{Proposition~\ref{prop:#1}}
+
+\newtheorem{clm}[thm]{Claim}{\bfseries}{\itshape}
+\newcommand{\clmlabel}[1]{\label{clm:#1}}
+\newcommand{\clmref}[1]{Claim~\ref{clm:#1}}
+
+\newtheorem{assumption}[thm]{Assumption}{\bfseries}{\rm}
+\newenvironment{ass}{\begin{assumption}\rm}{\end{assumption}}
+\newcommand{\asslabel}[1]{\label{ass:#1}}
+\newcommand{\assref}[1]{Assumption~\ref{ass:#1}}
+
+\newcommand{\proclabel}[1]{\label{alg:#1}}
+\newcommand{\procref}[1]{Procedure~\ref{alg:#1}}
+
+\theoremstyle{definition}
+
+\newtheorem{defn}[thm]{Definition}
+\newcommand{\deflabel}[1]{\label{rem:#1}}
+\newcommand{\defref}[1]{Definition~\ref{rem:#1}}
+
+
+\newtheorem{rem}[thm]{Remark}
+\newcommand{\remlabel}[1]{\label{rem:#1}}
+\newcommand{\remref}[1]{Remark~\ref{rem:#1}}
+
+\newtheorem{lesson}[thm]{Lesson}
+\newcommand{\leslabel}[1]{\label{les:#1}}
+\newcommand{\lesref}[1]{Lesson~\ref{les:#1}}
+
+\newtheorem{op}{Open Problem}
+\newcommand{\oplabel}[1]{\label{op:#1}}
+\newcommand{\opref}[1]{Open Problem~\ref{op:#1}}
+\newtheorem{prb}{Problem}{\bfseries}{\rm}
+
+\theoremstyle{plain}
+
+\newcommand{\etal}{et al.}
+
+\newcommand{\keywords}[1]{\noindent\textbf{Keywords:} #1}
+\newcommand{\voronoi}{Vorono\u\i}
+%\newcommand{\ceil}[1]{{\lceil #1 \rceil}}
+\newcommand{\Ceil}[1]{{\left\lceil #1 \right\rceil}}
+%\newcommand{\floor}[1]{{\lfloor #1 \rfloor}}
+\newcommand{\Floor}[1]{{\left\lfloor #1 \right\rfloor}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Sp}{\mathbb{S}}
+\newcommand{\E}{\mathrm{E}}
+
+
+% \usepackage[mathlines]{lineno}
+% \setlength{\linenumbersep}{2em}
+% \newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+%  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+%  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+%  \renewenvironment{#1}%
+%     {\linenomath\csname old#1\endcsname}%
+%     {\csname oldend#1\endcsname\endlinenomath}}%
+% \newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+%  \patchAmsMathEnvironmentForLineno{#1}%
+%  \patchAmsMathEnvironmentForLineno{#1*}}%
+% \AtBeginDocument{%
+% \patchBothAmsMathEnvironmentsForLineno{equation}%
+% \patchBothAmsMathEnvironmentsForLineno{align}%
+% \patchBothAmsMathEnvironmentsForLineno{flalign}%
+% \patchBothAmsMathEnvironmentsForLineno{alignat}%
+% \patchBothAmsMathEnvironmentsForLineno{gather}%
+% \patchBothAmsMathEnvironmentsForLineno{multline}%
+% }
+
+
+% % Taken from
+% % https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
+% \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
