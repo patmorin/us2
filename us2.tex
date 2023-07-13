@@ -30,7 +30,7 @@
 \maketitle
 
 \begin{abstract}
-  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd n^{1/3}\log n$.  These results extend to the $\ell$-vertex-ranking problem in which one considers paths $v_0,\ldots,v_r$ of length up to $\ell$ and requires that $\varphi(v_0)\neq\varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$.  In this setting, for any fixed $\ell$ and $d$, the bound on the $\ell$-vertex-ranking number of $d$-degenerate graphs is $\lrn(G)\in O(n^{(\ell-1)/(\ell+1)}\log n)$.
+  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd^{2/3} n^{1/3}\log n$.  These results extend to the $\ell$-vertex-ranking problem in which one considers paths $v_0,\ldots,v_r$ of length up to $\ell$ and requires that $\varphi(v_0)\neq\varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$.  In this setting, for any fixed $\ell$ and $d$, the bound on the $\ell$-vertex-ranking number of $d$-degenerate graphs is $\lrn(G)\in O(n^{(\ell-1)/(\ell+1)}\log n)$.
 \end{abstract}
 
 
@@ -48,7 +48,7 @@ A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} 
 \citet{karpas.neiman.ea:on} showed that for every $d$-degenerate $n$-vertex graph $G$, $\trn(G)\in O(d\sqrt{n})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.  They leave the question of closing the gap between these bounds as an open problem. In the current paper we give a colouring procedure that essentially matches their lower bound to within a polylogarithmic factor:
 
 \begin{thm}\label{d_degenerate_upper_bound}
-  There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d n^{1/3}\log  n$.
+  There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^{2/3} n^{1/3}\log  n$.
 \end{thm}
 
 Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_bound} follows quickly for a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$:
@@ -56,10 +56,12 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 \begin{thm}\label{degenerate_and_degree}
   There exists a fixed $c>0$ such that
   for all integers $d,\Delta \ge 1$, and $n> \Delta$, every $d$-degenerate $n$-vertex graph $G$ of maximum degree at most $\Delta$ has
-  $\trn(G)\leq c d\sqrt{\Delta}\log^{3/2}  n$.
+  $\trn(G)\leq c \sqrt{d\Delta}\log^{3/2}  n$.
 \end{thm}
 
-\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument.  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of vertex degrees is at most $2dn$.  Therefore, the set $S:=\{v\in V(G):\deg_G(v)\ge n^{2/3}/\log n\}$ has size at most $2dn/n^{2/3}=2dn^{1/3}\log n$.  Since $G-S$ has maximum degree $\Delta\le n^{2/3}/\log n$, $G-S$ has a us-colouring $\varphi$ using at most $cd\Delta\log^{3/2} n = cdn^{1/3}\log  n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cdn^{1/3}\log  n+2dn^{1/3}\le c'dn^{1/3}\log  n$ for some $c'>2c$.
+\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of vertex degrees is at most $2dn$.  Let $\Delta:=d^{1/3}n^{2/3}/\log n$.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2d^{2/3}n^{1/3}\log n$.  Since $G-S$ has maximum degree $\Delta$, $G-S$ has a us-colouring $\varphi$ using at most $c\sqrt{d\Delta}\log^{3/2} n = cd^{2/3}n^{1/3}\log  n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cd^{2/3}n^{1/3}\log  n+2d^{2/3}n^{1/3}= (c+2)d^{2/3}n^{1/3}\log  n$.  In the next section, we prove \cref{degenerate_and_degree}.
+
+\todo[inline]{I think if we're a little more careful we can get a better dependence on $d$.  I don't care much, except that $(dn)^{1/3}\log n$ is much prettier than $d^{2/3}n^{1/3}\log n$.}
 
 \section{The Proof}
 
@@ -121,8 +123,8 @@ We use standard graph-theoretic terminology and conventions as used by \citet{di
   \]
   Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\min\{|C_{v,w}|/j,\sqrt{\Delta}\}$ where $j$ is chosen uniformly in $\{1,\ldots,\Delta\}$.
 
-  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge Cd\sqrt{\Delta}\log^
-  {3/2} n\right)\le n^{-\Omega(C/d)} = o(1/n)$ when $C$ is a sufficiently large multiple of $d$.  This completes the proof.
+  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge C\sqrt{\Delta}\log^
+  {3/2} n\right)\le n^{-\Omega(C^2/(d+C))} = n^{-\Omega(c')}$ for $C:=\sqrt{c'd}$.  Thus, the number of additional colours needed to recolour $P$ is $O(\sqrt{d\Delta}\log^{3/2} n)$.
 \end{proof}
 
 \section{Generalization to $\ell$-Vertex-Ranking}
