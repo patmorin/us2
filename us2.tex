@@ -153,70 +153,78 @@ A vertex colouring $\varphi$ of $G$ is ab \defin{$\ell$-vertex-ranking} of $G$ i
 We make use of the following inequality of Bernstein \cite[Corollary~2.11]{boucheron.lugosi.ea:concentration}:
 
 \begin{thm}\label{bernstein_theorem}
-  Let $k$ be a positive number, let $X_1,\ldots,X_n$ be independent random variables such that $\Pr(X_i\le k)=1$ for each $i\in\{1,\ldots,n\}$, and let $X:=\sum_{i=1}^n X_i$. Then
+  Let $k$ be a positive number, let $X_1,\ldots,X_n$ be independent random variables such that $\Pr(X_i\le M)=1$ for each $i\in\{1,\ldots,n\}$, and let $X:=\sum_{i=1}^n X_i$. Then
   \begin{equation}
     \Pr\left(X \ge \E(X)+ t\right)
-      \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^n \E((X_i-\E(X_i))^2)+\tfrac{1}{3}kt}\right) \enspace . \label{bernstein}
+      \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^n \E((X_i-\E(X_i))^2)+\tfrac{1}{3}Mt}\right) \enspace . \label{bernstein}
   \end{equation}
 \end{thm}
-We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has the following distribution (for some $x_i\le k^2$):
+We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has the following distribution (for some $x_i\le kM$):
 \[
   X_i = \begin{cases}
-          k & \text{with probability $x_i/k^2$} \\
-          x_i/j & \text{with probability $1/k$ for $j\in\{x_i/k+1,\ldots,k\}$}
+          M & \text{with probability $x_i/kM$} \\
+          x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{k,x_i/j)$.
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.
 Then we have
-\[
-  \E(X_i)=\frac{x_i}{k^2}\cdot k + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \frac{x_i}{j}
-  = \frac{x_i}{k}(1+H_{k}-H_{x_i/k})
-  \le \frac{x_i}{k}(1+H_{k})
-  \le \frac{x_i(2+\ln k)}{k}
-  = O\left(\frac{x_i\log k}{k}\right)
-\]
+\begin{align*}
+  \E(X_i)
+  & =\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \frac{x_i}{j} \\
+  & = \frac{x_i}{k} + \frac{x_i}{k}(H_{k}-H_{x_i/M}) \\
+  & \le \frac{x_i}{k} + \frac{x_i}{k}(1+H_{k}) \\
+  & \le \frac{x_i(2+\ln k)}{k} \\
+  % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
+  & = O\left(\frac{x_i\log k}{k}\right)
+\end{align*}
 so
 \[
-  (\E(X_i))^2 = O\left(\left(\frac{x_i\log k}{k}\right)^2\right) = O(x_i\log^2 k) \enspace ,
+  (\E(X_i))^2 = O\left(\left(\frac{x_i\log k}{k}\right)^2\right) = O\left(\frac{x_i^2\log^2 k}{k^2}\right) \enspace ,
 \]
-since $x_i\le k^2$,
+since $x_i\le k^2$.  Now let $k:=d^{2/3}\sqrt{\Delta\log\Delta}$, so $M:=d^{1/3}\sqrt{\Delta/\log\Delta}$, $k/M=d^{1/3}\log\Delta$, and $k^2=d^{4/3}\Delta\log\Delta$.
 and
 \begin{align*}
   \E((X_i-\E(X_i))^2)
-  & = \frac{x_i}{k^2}\cdot(k-\E(X_i))^2
+  & = \frac{x_i}{kM}\cdot(k-\E(X_i))^2
     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{x_i}{k^2}\left(k^2-2k\E(X_i)+(\E(X_i))^2\right)
+  & = \frac{x_i}{kM}\left(k^2-2k\E(X_i)+(\E(X_i))^2\right)
     + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & \le \frac{x_i}{k^2}\left(k^2 + (\E(X_i))^2\right)
+  & \le \frac{x_i}{kM}\left(k^2 + (\E(X_i))^2\right)
     + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = x_i + O\left(\frac{x_i^2\log^2 k}{k^2}\right)
+  & = \frac{x_i k^2}{kM} + O\left(\frac{x_i^3\log^2 k}{k^3M}\right)
       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & \le O(x_i\log^2 k)
+  & = \frac{x_i k}{M} + O\left(\frac{x_i^2\log^2 k}{k^2}\right)
       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
-      & \text{(since $x_i\le k^2$)} \\
- & = O(x_i\log^2 k) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2}-\frac{2x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
- & \le O(x_i\log^2 k) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
- & = O(x_i\log^2 k) +  \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
-   + \left(\sum_{j=x_i/k}^k O\left(\frac{x_i\log^2 k}{k}\right)\right) \\
- & \le O(x_i\log^2 k) + \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
-    + O(x_i\log^2 k)\\
-  & \le O(x_i\log^2 k) + \frac{\pi^2 x_i}{6} + O(x_i\log^2 k) \\
-  & = O(x_i\log^2 k)
+      & \text{(since $x_i\le kM$)} \\
+  & = \frac{x_i k}{M} + O\left(\frac{x_i^2\log^2 k}{d^{4/3}\Delta\log\Delta}\right)
+      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = O(x_id^{1/3}\log\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  % & \le O(x_id^{1/3}\log\Delta)
+  %     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
+  %     & \text{(since $x_i\le k^2$)} \\
+ & = O(x_id^{1/3}\log\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2}-\frac{2x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
+ & \le O(x_id^{1/3}\log\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
+ & = O(x_id^{1/3}\log\Delta) +  \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
+   + \left(\sum_{j=x_i/k}^k O\left(\frac{x_i^2\log^2 k}{k^3}\right)\right) \\
+ & \le O(x_id^{1/3}\log\Delta) + \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
+    + O\left(\frac{x_i^2\log^2 k}{k^2}\right)\\
+  & \le O(x_id^{1/3}\log\Delta) + \frac{\pi^2 x_i}{6} + O(x_id^{1/3}\log\Delta) \\
+  & = O(x_id^{1/3}\log\Delta)
 \end{align*}
 where the penultimate inequality follows from the inequality $\sum_{j=a}^{\infty} 1/j^2 \le \pi^2/(6a)$, valid for all integers $a\ge 1$.
 
-To apply this in our setting, let $k:=\sqrt{\Delta}$, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=\min\{|C_{v,w_i}|,\Delta\}$.  We have the constraints $\sum_{i=1}^n x_i \le (4d-1)k^2 < 4d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)=\sum_{i=1}^n O(x_i\log^2 x_i)$ subject to this constraint is easy and gives
+To apply this in our setting, let $k:=d^{2/3}\sqrt{\Delta\log\Delta}$, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=\min\{|C_{v,w_i}|,\Delta\}$.  We have the constraints $\sum_{i=1}^n x_i \le (4d-1)k^2 < 4d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)=\sum_{i=1}^n O(d^{1/3}x_i\log \Delta)$ subject to this constraint is easy and gives
 \[
-  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d\Delta\log^2 \Delta)
+  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d^{4/3}\Delta\log \Delta)
 \]
-Setting $t=C\sqrt{\Delta}\log^{3/2} n$ and putting this into \cref{bernstein} gives:
+Setting $t=C\sqrt{\Delta}\log n$ and putting this into \cref{bernstein} gives:
 \begin{align*}
   \Pr(X\ge \E(X)+t)
-  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log^{3/2} n) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}\left(\sqrt{\Delta}\log^{3/2} n\right)^2}{O(d\Delta\log^2\Delta) + \tfrac{1}{3}kt}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^3 n}{O(d\Delta\log^2\Delta) + \tfrac{1}{3}kt}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^2 n}{O(d\Delta\log^2\Delta) + \tfrac{1}{3}C\Delta\log^{3/2}\Delta}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^2 n}{O(d\Delta\log^2n) + \tfrac{1}{3}C\Delta\log^{3/2}n}\right)
+  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log n) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}\left(C\sqrt{\Delta}\log n\right)^2}{O(d^{4/3}\Delta\log\Delta) + \tfrac{1}{3}kt}\right) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^2 n}{O(d^{4/3}\Delta\log\Delta) + \tfrac{1}{3}kt}\right) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^2 n}{O(d^{4/3}\Delta\log\Delta) + \tfrac{1}{3}C\Delta\log^{3/2}n}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^2 n}{O(d^{4/3}\Delta\log n) + \tfrac{1}{3}C\Delta\log^{3/2} n}\right)
   & \text{(since $\Delta \le n$)} \\
   & \le \exp \left(-\Omega((C^2/(d+C))\log n)\right) \\
   & \le n^{-\Omega(C^2/(d+C))} \enspace .
