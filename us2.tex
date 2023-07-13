@@ -45,13 +45,13 @@
 
 A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\varphi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.
 
-\citet{karpas.neiman.ea:on} showed that for every $d$-degenerate $n$-vertex graph $G$, $\trn(G)\in O(d\sqrt{n})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.  They leave the question of closing the gap between these bounds as an open problem. In the current paper we give a colouring procedure that essentially matches their lower bound to within a polylogarithmic factor:
+\citet{karpas.neiman.ea:on} showed that for every $d$-degenerate $n$-vertex graph $G$, $\trn(G)\in O(d\sqrt{n})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.  They leave the question of closing the gap between these bounds as an open problem.  In the current paper we give a colouring procedure that, for fixed $d$, gives the bound $\trn(G)=O(n^{1/3}\log n)$, matching their lower bound to within a polylogarithmic factor.  More precisely:
 
 \begin{thm}\label{d_degenerate_upper_bound}
-  There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^{2/3} n^{1/3}\log  n$.
+  There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^{2/3} n^{1/3}\log^{5/6}  n$.
 \end{thm}
 
-Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_bound} follows quickly for a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$:
+Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_bound} follows quickly from a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$:
 
 \begin{thm}\label{degenerate_and_degree}
   There exists a fixed $c>0$ such that
