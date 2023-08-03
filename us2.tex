@@ -30,7 +30,7 @@
 \maketitle
 
 \begin{abstract}
-  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd^{2/3} n^{1/3}\log n$.  These results extend to the $\ell$-vertex-ranking problem in which one considers paths $v_0,\ldots,v_r$ of length up to $\ell$ and requires that $\varphi(v_0)\neq\varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$.  In this setting, for any fixed $\ell$ and $d$, the bound on the $\ell$-vertex-ranking number of $d$-degenerate graphs is $\lrn(G)\in O(n^{(\ell-1)/(\ell+1)}\log n)$.
+  A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd^{2/3} n^{1/3}\log n$.  These results extend to the $\ell$-vertex-ranking problem in which one considers paths $v_0,\ldots,v_r$ of length $r\le \ell$ and requires that $\varphi(v_0)\neq\varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$.  In this setting, for any fixed $\ell$ and $d$, the bound on the $\ell$-vertex-ranking number of $d$-degenerate graphs is $\lrn(G)\in O(n^{(\ell-1)/(\ell+1)}\log n)$.
 \end{abstract}
 
 
@@ -45,13 +45,13 @@
 
 A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\varphi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a us-colouring $\varphi:V(G)\to\{1,\ldots,k\}$.
 
-\citet{karpas.neiman.ea:on} showed that for every $d$-degenerate $n$-vertex graph $G$, $\trn(G)\in O(d\sqrt{n})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.  They leave the question of closing the gap between these bounds as an open problem.  In the current paper we give a colouring procedure that, for fixed $d$, gives the bound $\trn(G)=O(n^{1/3}\log n)$, matching their lower bound to within a polylogarithmic factor.  More precisely:
+\citet{karpas.neiman.ea:on} showed that for every $d$-degenerate $n$-vertex graph $G$, $\trn(G)\in O(d\sqrt{n})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.  They leave the question of closing the gap between these bounds as an open problem. In the current paper we give a colouring procedure that essentially matches their lower bound to within a polylogarithmic factor.  In particular, for fixed $d$, $\trn(G)\in \tilde{O}(n^{1/3})$.
 
 \begin{thm}\label{d_degenerate_upper_bound}
   There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^{2/3} n^{1/3}\log^{5/6}  n$.
 \end{thm}
 
-Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_bound} follows quickly from a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$:
+Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_bound} follows quickly for a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$:
 
 \begin{thm}\label{degenerate_and_degree}
   There exists a fixed $c>0$ such that
@@ -59,72 +59,75 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
   $\trn(G)\leq c \sqrt{d\Delta}\log^{5/4} n$.
 \end{thm}
 
-\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of vertex degrees is at most $2dn$.  Let $\Delta:=d^{1/3}n^{2/3}\log^{-5/6} n$.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2d^{2/3}n^{1/3}\log^{5/6} n$.  Since $G-S$ has maximum degree $\Delta$, $G-S$ has a us-colouring $\varphi$ using at most $c\sqrt{d\Delta}\log^{5/4} n = cd^{2/3}dn^{1/3}\log^{5/6}  n$ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than any colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cd^{2/3}n^{1/3}\log^{5/6} n+2d^{2/3}n^{1/3}\log^{5/6} n= (c+2)d^{2/3}n^{1/3}\log^{5/6} n$.  In the next section, we prove \cref{degenerate_and_degree}.
+\Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of vertex degrees is at most $2dn$.  Let $\Delta:=d^{1/3}n^{2/3}\log^{-5/6} n$.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2d^{2/3}n^{1/3}\log^{5/6} n$.  Since $G-S$ has maximum degree $\Delta$, $G-S$ has a us-colouring $\varphi$ using at most
+\[
+  c\sqrt{d\Delta}\log^{5/4} n
+  = c\cdot \sqrt{\frac{d^{4/3}n^{2/3}}{\log^{5/6} n}}\cdot \log^{5/4} n
+  = c\cdot \frac{d^{2/3}n^{1/3}}{\log^{5/12} n}\cdot \log^{5/4} n
+  = c\cdot d^{2/3}n^{1/3}\log^{5/6} n
+\]
+ colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than every colour used in the colouring of $G-S$.  Thus, $\trn(G)\le cd^{2/3}n^{1/3}\log^{5/6} n+2d^{2/3}n^{1/3}\log^{5/6} n= (c+2)d^{2/3}n^{1/3}\log^{5/6} n$.  In the next section, we prove \cref{degenerate_and_degree}.
 
 \todo[inline]{I think if we're a little more careful we can get a better dependence on $d$.  I don't care much, except that $(dn)^{1/3}\log n$ is much prettier than $d^{2/3}n^{1/3}\log n$.}
-\todo{Done. Tomorrow I will reread everything.}
 
 \section{The Proof}
 
-We use standard graph-theoretic terminology and conventions as used by \citet{diestel:graph}. A graph $G$ has vertex set $V(G)$ and edge set $E(G)$.  For an integer $\ell$, $G^\ell$ denotes the graph with vertex set $V(G)$ that contains an edge $vw$ if and only if $G$ contains a path of length at most $\ell$ with endpoints $v$ and $w$.
+We use standard graph-theoretic terminology and conventions as used in the textbook by \citet{diestel:graph}. A graph $G$ has vertex set $V(G)$ and edge set $E(G)$.  For an integer $\ell$, $G^\ell$ denotes the graph with vertex set $V(G)$ that contains an edge $vw$ if and only if $G$ contains a path of length at most $\ell$ with endpoints $v$ and $w$.
 
 \begin{proof}[Proof of \cref{degenerate_and_degree}]
-  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges and the sum of all vertex degrees in $G[S_{i-1}]$is at most $2d|S_{i-1}|$, so $|S_i|\le |S_{i-1}|/2$ for each $i\ge 1$.  Let $k$ be the maximum integer such that $S_i$ is non-empty.  For each $i\in\{0,\ldots,k\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
+  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore $2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i|$, so $|S_i|\le |S_{i-1}|/2$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
 
-  % We will construct a us-colouring $\varphi$ of $G$ using a product colouring.  For each $i\in\{0,\ldots,k\}$, we compute a proper colouring of the graph $(G[L_i])^2$.  Since each vertex in $G[L_i]$ has degree less than $4d$,
-  % % in $G[S_i]\subseteq G[L_i]$,
-  % this colouring requires at most $16d^2$ colours.  This colouring is one factor in the product colouring of $G$.
-  % \todo[inline]{During the next round of revisions, we can get rid of this second colouring.  An appropriate definition of \defin{problematic} vertices will capture both monochromatic edges and three-vertex paths within a single layer.}
-
-  We compute our colouring using a two-phase process. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k:=2\sqrt{d\Delta}\log^{1/4}\Delta$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,k\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)=O(\sqrt{d\Delta}\log^{5/4}\Delta)$.
+  We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k:=2\sqrt{d\Delta}\log^{1/4}\Delta$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)=O(\sqrt{d\Delta}\log^{5/4}\Delta)$.
 
   % where $\Phi$
   % where $\Phi_i:=\{2i\sqrt{\Delta}+1,\ldots,2(i+1)\sqrt{\Delta}\}$ and is used to colour the vertices of $L_i$, for each $i\in\{0,\ldots,k\}$.
 
-  Fix an arbitrary total order $<$ on the vertices of $S_i$ for each $i\in\{0,\ldots,k\}$ and define the total order $<$ on $V(G)$ in which $v <w$ if $v\in L_i$, $w\in L_j$, and $i<j$ or if $v,w\in L_i$ and $v<w$.  Let $H$ be the directed acyclic graph obtained from $G^2$ by directing each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$.  We claim that each vertex $v$ has out-degree at most $(4d-1)(2\Delta+1)$ in $H$.  To see this, consider some edge $\overrightarrow{vw}$ and suppose $v\in L_i$.  The existence of $\overrightarrow{vw}$ in $H$ implies at least one of the following:
-  \begin{compactenum}
+  Fix an arbitrary total order $<_i$ on the vertices of $L_i$ for each $i\in\{0,\ldots,q\}$ and define the total order $<$ on $V(G)$ in which $v <w$ if $v\in L_i$, $w\in L_j$, and $i<j$ or if $v,w\in L_i$ and $v<_iw$.  Let $H$ be the directed acyclic graph obtained from $G^2$ by directing each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$.  We claim that each vertex $v$ has out-degree at most $(4d-1)(2\Delta+1)$ in $H$.  To see this, consider some edge $\overrightarrow{vw}$ of $H$ and suppose $v\in L_i$.  The edge  $\overrightarrow{vw}$ is of one of the following types:
+  \begin{compactenum}[(T1)]
     \item $vw\in E(G)$.  Since $v<w$ and $v\in L_i$, $w\in S_i$.  Since $v\in L_i$, $\deg_{G[S_i]}(v)\le 4d-1$, so this type of edge contributes at most $4d-1$ to the out-degree of $v$.
-    \item $G$ contains a path $vyw$ with $y < v < w$ or $v < y < w$.  Since $\deg_G(v)\le\Delta$, there are at most $\Delta$ choices for $y$.  For each such $y$ there are at most $4d-1$ choices for $w$.  Therefore, these types of vertices contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
-    \item $G$ contains a path $vyw$ with $v < w < y$.  Since $v<y$ there are at most $4d-1$ choices for $y$ and for each such $y$, $\deg_G(y)\le\Delta$, so there are at most $\Delta$ choices for $w$.  Therefore, these types of edges contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
+    \item $G$ contains a path $vyw$ with $y < v < w$ or $v < y < w$.  Since $\deg_G(v)\le\Delta$, there are at most $\Delta$ choices for $y$.  For each such $y$ there are at most $4d-1$ choices for $w$ (since $y<w$).  Therefore, this type of edge contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
+    \item $G$ contains a path $vyw$ with $v < w < y$.  Since $v<y$ there are at most $4d-1$ choices for $y$ and for each such $y$, $\deg_G(y)\le\Delta$, so there are at most $\Delta$ choices for $w$.  Therefore, this type of edge contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
   \end{compactenum}
-  We colour the vertices of $G$ in the order given by $<$.  When colouring some vertex $w\in L_i$ we count, for each colour $\alpha\in \Phi_i$, the number $N_\alpha(w)$ of neighbours $y\in N_G(w)$ such that $y < w$ and $y$ has colour $\alpha$ or $y$ already has a neighbour $u$ of colour $\alpha$.  We choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains at least half the colours in $\Phi_i$.  Specifically we choose the colour of $w$ from the subpalette $\Phi_w:=\{\alpha\in\Phi_i: N_{\alpha}(w)<M\}$ where $M:=4d\Delta/k = 4\sqrt{d\Delta}\log^{-1/4}\Delta$.  This subpalette contains at least $k$ colours because the number of $\alpha\in\Phi_i$ with $N_\alpha(w)\ge M$ is at most $k$   (since $\sum_{\alpha\in\Phi_i} N_\alpha(w) \le 4d\Delta = kM$).
+  We colour the vertices of $G$ in the order given by $<$.  When colouring some vertex $w\in L_i$ we count, for each colour $\alpha\in \Phi_i$, the number $N_\alpha(w)$ of neighbours $y\in N_G(w)$ such that $y < w$ and $y$ has colour $\alpha$ or $y$ already has a neighbour $u$ of colour $\alpha$. Observe that $\sum_{\alpha\in \Phi_i} N_\alpha(w)\le 4d\Delta$ since there are at most $\Delta$ choices for $y$ and for each $y$ there are at most $4d-1$ choices for $w$.
+
+  We choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains at least half the colours in $\Phi_i$.  Specifically we choose the colour of $w$ from the subpalette $\Phi_w:=\{\alpha\in\Phi_i: N_{\alpha}(w)<M\}$ where $M:=4d\Delta/k = 2\sqrt{d\Delta}\log^{-1/4}\Delta$.  This subpalette contains at least $k$ colours because the number of $\alpha\in\Phi_i$ with $N_\alpha(w)\ge M$ is at most $k$   (since $\sum_{\alpha\in\Phi_i} N_\alpha(w) \le 4d\Delta = kM$).
   % Since $\sum_{\alpha\in\Phi_i} N_\alpha(w)\le\deg_G(w)\le\Delta$, the set $\Phi_w$ has size at least $2\sqrt{\Delta}-\sqrt{\Delta}=\sqrt{\Delta}$.
   This completes the description of the first-phase colouring $\varphi$ of $G$.
 
   % The resulting product colouring is a proper colouring because each edge $vw$ of $G$ either has both endpoints in $L_i$ for some $i\in\{0,\ldots,k\}$, in which case $v$ and $w$ have different colours in the first factor of the product colouring or the second factor in the colours of $v$ and $w$ are taken from disjoint palettes.  We claim that the only violations of the us-colouring conditions occur at three-vertex paths $vyw$ with $v,w\in L_j$ for some $j\in\{0,\ldots,k\}$ and $y\in L_i$ for some $j\in\{0,\ldots,j-1\}$. Indeed, since the colour of $v$ and $w$ are the same, $v$ and $w$ must be in the same layer $L_j$ and $y\not\in L_j$.  Since the colour of $v$ and $w$ is larger than that of $y$, $j> i$.
 
-  We say that a vertex $y$ is \defin{problematic} if $y$ has a neighbour of the same colour or if $y$ has neighbours $u$ and $w$ in $G$ such that $y\in L_i$, $u,w\in L_j$, $i \le j$ and $u$ and $w$ receive the same colour in phase one.  At this point, we can offer some justification for the definition of the colour set $\Phi_w$ that we choose from when colouring $w$. For each problematic vertex $y$, there exists a minimum vertex $w$ (with respect to $<$) such that $y$ becomes problematic precisely when $w$ is coloured.  When this happens, we say that $w$ \defin{completes} $y$. By definition, if $w$ chooses the colour $\alpha\in\Phi_w$, then it completes at most $|N_{\alpha}(w)|<M$ vertices.
+  We say that a vertex $y$ is \defin{problematic} if $y$ has a neighbour in $G$ that receives the same colour as $y$ in phase one or if $G$ contains a path $vyw$ such that $y\in L_i$, $u,w\in L_j$, $i \le j$ and $u$ and $w$ receive the same colour in phase one.  At this point, we can offer some justification for the definition of the colour set $\Phi_w$ that we choose from when colouring $w$. For each problematic vertex $y$, there exists a minimum vertex $w$ (with respect to $<$) such that $y$ becomes problematic precisely when $w$ is coloured.  When this happens, we say that $w$ \defin{completes} $y$. By definition, if $w$ chooses the colour $\alpha\in\Phi_w$, then it completes at most $|N_{\alpha}(w)|<M$ vertices.
 
 
 
-  Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $C\sqrt{\Delta}\log^{5/4} n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{q+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of each vertex in $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree in $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  Since $H$ is acyclic, this implies that $G^2[P]$ is $(C\sqrt{\Delta}\log^{5/4} n)$-degenerate, so the $C\sqrt{\Delta}\log^{5/4} n+1$ colours in $\Phi_{q+1}$ are sufficient to properly colour it.
+  Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $C\sqrt{\Delta}\log^{5/4} n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{q+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree of $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  Since $H$ is acyclic, this implies that $G^2[P]$ is $(C\sqrt{\Delta}\log^{5/4} n)$-degenerate, so the $C\sqrt{\Delta}\log^{5/4} n+1$ colours in $\Phi_{q+1}$ are sufficient to properly colour it.
 
-  For each vertex $v$ of $H$, let $N_H(v):=\{v\}\cup \{y\in V(H): \overrightarrow{vy}\in E(H)\}$ be the set of out-neighbours of $v$ in $H$.  We now focus on a specific vertex $v$ in $G$ and show that, with probability $1-o(1/n)$, $|N_H(v)\cap P|\le C\sqrt{\Delta}\log^{5/4} n$.  This shows that with probability $1-o(1)$, every vertex $v$ of $P$ has out-degree at most $C\sqrt{\Delta}\log^{5/4} n$ in $H[P]$.  In particular, it implies that there exists a colouring of $G$ with this property.
+  For each vertex $v$ of $H$, let $N_H[v]:=\{v\}\cup \{y\in V(H): \overrightarrow{vy}\in E(H)\}$ be the set of out-neighbours of $v$ in $H$, plus $v$ itself.  We now focus on a specific vertex $v$ in $G$ and show that after the first phase, $|N_H[v]\cap P|\le C\sqrt{\Delta}\log^{5/4} n$ with probability $1-o(1/n)$.  The union bound then implies that, with probability $1-o(1)$, the maximum out-degree in $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  In particular, it implies that there exists a colouring of $G$ with this property.
 
-  Define $\outn(v):=N_H(v)\cap P$. For any vertex $w$ of $H$, let $\comp(v,w):=\{y\in N_H(v):\text{$w$ completes $y$}\}$.  Observe that
+  For any vertex $p$ of $G$, define $\outn(p):=N_H[p]\cap P$. For any vertex $w$ of $H$, let $\comp(p,w):=\{y\in N_H(p):\text{$w$ completes $y$}\}$.  Observe that
   \[
-    \outn(v) = \bigcup_{w\in V(H)} \comp(v,w) = \bigcup_{w>v} \comp(v,w) \enspace .
+    \outn(p) = \bigcup_{w\in V(H)} \comp(p,w) = \bigcup_{w>p} \comp(p,w) \enspace .
   \]
-  For any vertex $w>v$, let $C_{v,w}:=\{y\in N_H(v): yw\in E(G),\, y < w\}$, which is the set of vertices in $N_H(v)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(v,w)$ contain exactly those vertices $y\in C_{v,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(v,w)$ contains every $y\in C_{v,w}$ that would be completed if we were to set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed by vertices other than $w$).
+  For any vertex $w>p$, let $C_{p,w}:=\{y\in N_H(p): yw\in E(G),\, y < w\}$, which is the set of vertices in $N_H(p)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(p,w)$ contain exactly those vertices $y\in C_{p,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(p,w)$ contains every $y\in C_{p,w}$ that would be completed if we were to set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed by vertices other than $w$).
 
-  Recall that $N_\alpha(w)$ counts the number of neighbours $y$ of $w$ such that $y < w$ and $y$ has colour $\alpha$ or has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(v,w)|\le N_\alpha(w)\le M$ for each $\alpha\in\Phi_w$.  Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(v,w):=\comp'_\alpha(v,w)$.  We want to study the random variable $n'_{v,w}:=|\comp'(v,w)|\ge |\comp(v,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $n'_{v,w}\le M$ with probability $1$.
+  Recall that $N_\alpha(w)$ counts the number of neighbours $y$ of $w$ such that $y < w$ and $y$ has colour $\alpha$ or has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(p,w)|\le N_\alpha(w)< M$ for each $\alpha\in\Phi_w$.  Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(p,w):=\comp'_\alpha(p,w)$.  We want to study the random variable $n'_{p,w}:=|\comp'(p,w)|\ge |\comp(p,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $n'_{p,w}\le M$ with probability $1$.
 
-  Let $\alpha_1,\ldots,\alpha_p$ be the colours in $\Phi_w$ ordered so that,
+  Let $\alpha_1,\ldots,\alpha_t$ be the colours in $\Phi_w$ ordered so that,
   \[
-    |\comp'_{\alpha_1}(v,w)|\ge|\comp'_{\alpha_2}(v,w)|\ge\cdots\ge |\comp'_{\alpha_p}(v,w)| \enspace .
+    |\comp'_{\alpha_1}(p,w)|\ge|\comp'_{\alpha_2}(p,w)|\ge\cdots\ge |\comp'_{\alpha_t}(p,w)| \enspace .
   \]
-  Immediately before colouring $w\in L_i$, each $y\in C_{v,w}$ is assigned a colour (possibly in $\Phi_i$) and has at most $4d-2$ neighbours that have already received a colour in $\Phi_i$.  Therefore, $y$ appears in
-  $\comp'_{\alpha}(v,w)$ for at most $4d-1$ values of $\alpha$, so
+  Immediately before colouring $w\in L_i$, each $y\in C_{p,w}$ is assigned a colour (possibly in $\Phi_i$) and has at most $4d-2$ neighbours that have already received a colour in $\Phi_i$.  Therefore, $y$ appears in
+  $\comp'_{\alpha}(p,w)$ for at most $4d-1$ values of $\alpha$, so
   \[
-    \sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(v,w)| \le 4d| C_{v,w}| \enspace .
+    \sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(p,w)| \le 4d| C_{p,w}| \enspace .
   \]
-  Therefore $i|\comp'_{\alpha_i}(v,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(v,w)|\le 4d|C_{v,w}|$, so
+  Therefore $i|\comp'_{\alpha_i}(p,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(p,w)|\le 4d|C_{p,w}|$, so
   \[
-    |\comp'_{\alpha_i}(v,w)|\le 4d|C_{v,w}|/i \enspace .
+    |\comp'_{\alpha_i}(p,w)|\le \frac{4d|C_{p,w}|}{i} \enspace .
   \]
-  Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{v,w}$ is dominated by a random variable $N'_{v,w}:=\min\{4d|C_{v,w}|/j,M\}$ where $j$ is chosen uniformly in $\{1,\ldots,k\}$.
+  Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{p,w}$ is dominated by a random variable $N'_{p,w}:=\min\{4d|C_{p,w}|/j,M\}$ where $j$ is chosen uniformly in $\{1,\ldots,k\}$.
 
-  Therefore, $|\outn(v)|$ is dominated by a sum $X:=\sum_{w> v} N'_{v,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge C\sqrt{\Delta}\log^{5/4} n\right)\le n^{-\Omega(C^2/(d+C\sqrt{d/\log n}))} = n^{-\Omega(c')}$ for $C:=\sqrt{c'd}$.  Thus, the number of additional colours needed to recolour $P$ is $C\sqrt{\Delta}\log^{5/4} n = O(\sqrt{d\Delta}\log^{5/4} n)$.
+  Therefore, $|\outn(p)|$ is dominated by a sum $X:=\sum_{w> v} N'_{p,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge C\sqrt{\Delta}\log^{5/4} n\right)\le n^{-\Omega(C^2/(d+C\sqrt{d/\log n}))} = n^{-\Omega(c')}$ for $C:=\sqrt{c'd}$ and some fixed $c'>0$.  Thus, the number of additional colours needed to recolour $P$ is $C\sqrt{\Delta}\log^{5/4} n = O(\sqrt{d\Delta}\log^{5/4} n)$.
 \end{proof}
 
 \section{Generalization to $\ell$-Vertex-Ranking}
@@ -162,7 +165,7 @@ We make use of the following inequality of Bernstein \cite[Corollary~2.11]{bouch
 We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has the following distribution (for some $x_i\le kM$):
 \[
   X_i = \begin{cases}
-          M & \text{with probability $x_i/kM$} \\
+          M & \text{with probability $x_i/(kM)$} \\
           x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
@@ -173,11 +176,11 @@ Then we have
   & =\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \frac{x_i}{j} \\
   & = \frac{x_i}{k} + \frac{x_i}{k}(H_{k}-H_{x_i/M}) \\
   & \le \frac{x_i}{k} + \frac{x_i}{k}(1+H_{k}) \\
-  & \le \frac{x_i(2+\ln k)}{k} \\
+  & \le \frac{x_i(3+\ln k)}{k} \\
   % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log k}{k}\right) \enspace .
 \end{align*}
-Recall that we have already chosen $k:=\sqrt{d\Delta}\log^{1/4}\Delta$ and $M:=4\sqrt{d\Delta}/\log^{1/4}\Delta$.  Therefore $k/M=\log^{1/2}\Delta$ and $k^2=d\Delta\log^{1/2}\Delta$, so
+\todo{Continue reading here... (Aug 3)}Recall that we have already chosen $k:=\sqrt{d\Delta}\log^{1/4}\Delta$ and $M:=4\sqrt{d\Delta}/\log^{1/4}\Delta$.  Therefore $k/M=\log^{1/2}\Delta$ and $k^2=d\Delta\log^{1/2}\Delta$, so
 \begin{align*}
   (\E(X_i))^2
   & = O\left(\left(\frac{x_i\log k}{k}\right)^2\right) \\
