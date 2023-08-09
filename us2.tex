@@ -180,7 +180,7 @@ Then we have
   % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log k}{k}\right) \enspace .
 \end{align*}
-\todo{Continue reading here... (Aug 3)}Recall that we have already chosen $k:=\sqrt{d\Delta}\log^{1/4}\Delta$ and $M:=4\sqrt{d\Delta}/\log^{1/4}\Delta$.  Therefore $k/M=\log^{1/2}\Delta$ and $k^2=d\Delta\log^{1/2}\Delta$, so
+\todo{Continue reading here... (Aug 3)}Recall that we have already chosen $k:=\sqrt{d\Delta}\log^{1/4}\Delta$ and $M:=4\sqrt{d\Delta}/\log^{1/4}\Delta$.  Therefore $k/M=\tfrac{1}{4}\log^{1/2}\Delta$ and $k^2=d\Delta\log^{1/2}\Delta$, so
 \begin{align*}
   (\E(X_i))^2
   & = O\left(\left(\frac{x_i\log k}{k}\right)^2\right) \\
@@ -188,14 +188,17 @@ Then we have
   & = O\left(\frac{x_i^2\log^2 \Delta}{d\Delta\log^{1/2}\Delta}\right) \\
   & = O\left(\frac{x_i^2\log^{3/2} \Delta}{d\Delta}\right) \\
   & = O(x_i\log^{3/2} \Delta)
-  \enspace .
+
 \end{align*}
-So
+and
 \begin{align*}
   \E((X_i-\E(X_i))^2)
-  & = \frac{x_i}{kM}\cdot(k-\E(X_i))^2
+  % & = \E(X_i^2 - 2X_i\E(X_i) + \E(X_i)^2 \\
+  & = \Pr(X_i=M)\cdot(M-\E(X_i))^2
+    + \sum_{j=x_i/k+1}^k \Pr(X_i=j)\cdot\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = \frac{x_i}{kM}\cdot(M-\E(X_i))^2
     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{x_i}{kM}\left(k^2-2k\E(X_i)+(\E(X_i))^2\right)
+  & = \frac{x_i}{kM}\left(M^2-2M\E(X_i)+(\E(X_i))^2\right)
     + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
   & \le \frac{x_i}{kM}\left(k^2 + (\E(X_i))^2\right)
     + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
