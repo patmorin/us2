@@ -169,26 +169,28 @@ We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has th
           x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{v,w_i}|\le 4d\deg_G(w_i)\le 4d\Delta$.  Observe that $\sum_{i=1}^n x_i = \sum_{i=1}^n 4d|C_{v,w_i}|\le 16d^2|N_H(p)|=O(d^3\Delta)$.  
 Then we have
 \begin{align*}
   \E(X_i)
+  & =\Pr(X_i=m)\cdot M + \sum_{j=x_i/M+1}^k \Pr(X_i=j)\cdot\frac{x_i}{j} \\
   & =\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \frac{x_i}{j} \\
   & = \frac{x_i}{k} + \frac{x_i}{k}(H_{k}-H_{x_i/M}) \\
   & \le \frac{x_i}{k} + \frac{x_i}{k}(1+H_{k}) \\
   & \le \frac{x_i(3+\ln k)}{k} \\
   % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
-  & = O\left(\frac{x_i\log k}{k}\right) \enspace .
+  & = O\left(\frac{x_i\log k}{k}\right) \\
+  & = O\left(\frac{x_i\log \Delta}{k}\right)
+  \enspace ,
 \end{align*}
-\todo{Continue reading here... (Aug 3)}Recall that we have already chosen $k:=\sqrt{d\Delta}\log^{1/4}\Delta$ and $M:=4\sqrt{d\Delta}/\log^{1/4}\Delta$.  Therefore $k/M=\tfrac{1}{4}\log^{1/2}\Delta$ and $k^2=d\Delta\log^{1/2}\Delta$, so
+where the last line comes from the fact that we have already chosen $k:=\sqrt{d\Delta}\log^{?}\Delta$.  Recall that $M:=4d\Delta/k=4\sqrt{d\Delta}\log^{-?}\Delta$.  Therefore $k/M=\tfrac{1}{4}\log^{2?}\Delta$ and $k^2=d\Delta\log^{2?}\Delta$, so
 \begin{align*}
   (\E(X_i))^2
-  & = O\left(\left(\frac{x_i\log k}{k}\right)^2\right) \\
+  & = O\left(\left(\frac{x_i\log \Delta}{k}\right)^2\right) \\
   & = O\left(\frac{x_i^2\log^2 \Delta}{k^2}\right) \\
-  & = O\left(\frac{x_i^2\log^2 \Delta}{d\Delta\log^{1/2}\Delta}\right) \\
-  & = O\left(\frac{x_i^2\log^{3/2} \Delta}{d\Delta}\right) \\
-  & = O(x_i\log^{3/2} \Delta)
-
+  & = O\left(\frac{x_i^2\log^2 \Delta}{d\Delta\log^{2?}\Delta}\right) \\
+  & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
+  & = O(x_i\log^{2-2?} \Delta)
 \end{align*}
 and
 \begin{align*}
@@ -200,36 +202,41 @@ and
     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
   & = \frac{x_i}{kM}\left(M^2-2M\E(X_i)+(\E(X_i))^2\right)
     + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & \le \frac{x_i}{kM}\left(k^2 + (\E(X_i))^2\right)
+  & \le \frac{x_i}{kM}\left(M^2 + (\E(X_i))^2\right)
     + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{x_i k^2}{kM} + O\left(\frac{x_i^3\log^2 k}{k^3M}\right)
+  & = \frac{M x_i}{k} + O\left(\frac{x_i^2\log^{2-2?} \Delta}{kM}\right)
       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{x_i k}{M} + O\left(\frac{x_i^2\log^2 k}{k^2}\right)
+  & \le x_i + O\left(\frac{x_i^2\log^{2-2?} \Delta}{kM}\right)
+      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = O\left(x_i\log^{2-2?} \Delta\right)
       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
       & \text{(since $x_i\le kM$)} \\
-  & = x_i\log^{1/2}\Delta + O\left(\frac{x_i^2\log^2 k}{k^2}\right)
-      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
-      & \text{(since $k/M=\log^{1/2}\Delta$)}
-      \\
+  % & = x_i\log^{2-2?}\Delta + O\left(\frac{x_i^2\log^2 k}{k^2}\right)
+  %     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
+  %     & \text{(since $k/M=\log^{1/2}\Delta$)}
+  %     \\
   % & = x_i\log\Delta + O\left(\frac{x_i^2\log^2 k}{d\Delta\log\Delta}\right)
   %     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
   %     & \text{(since $k^2=d\Delta\log\Delta$)}
   %     \\
-  & = O(x_i\log^{3/2}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  % & = O(x_i\log^{2-2?}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
   % & \text{(since $x_i\le 4d\Delta$)} \\
- & = O(x_i\log\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2}-\frac{2x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
- & \le O(x_i\log\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
- & = O(x_i\log^{3/2}\Delta) +  \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
-   + \left(\sum_{j=x_i/k}^k O\left(\frac{x_i^2\log^2 k}{k^3}\right)\right) \\
- & \le O(x_i\log^{3/2}\Delta) + \left(\frac{x_i^2}{k}\sum_{j=x_i/k+1}^k\frac{1}{j^2}\right)
-    + O\left(\frac{x_i^2\log^2 k}{k^2}\right)\\
-  & \le O(x_i\log^{3/2}\Delta) + \frac{\pi^2 x_i}{6} + O(x_i\log^{3/2}\Delta)
-  & \text{(as above)} \\
-  & = O(x_i\log^{3/2}\Delta)
+ & = O(x_i\log^{2-2?}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \left(\frac{x_i^2}{j^2}-\frac{2x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
+ & \le O(x_i\log^{2-2?}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
+ & \le O(x_i\log^{2-2?}\Delta) +  \left(\frac{x_i^2}{k}\cdot\sum_{j=x_i/M+1}^k\frac{1}{j^2}\right)
+   + (\E(X_i))^2 \\
+ & \le O(x_i\log^{2-2?}\Delta) + \frac{\pi^2 Mx_i}{6k} \\
+  % & \le O(x_i\log^{3/2}\Delta) + \frac{\pi^2 x_i}{6}  \\
+  & = O(x_i\log^{2-2?}\Delta)
 \end{align*}
 where the penultimate inequality follows from the inequality $\sum_{j=a}^{\infty} 1/j^2 \le \pi^2/(6a)$, valid for all integers $a\ge 1$.
 
-To apply this in our setting, let $k:=\sqrt{d\Delta\log\Delta}$, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=\min\{|C_{v,w_i}|,\Delta\}$.  We have the constraints $\sum_{i=1}^n x_i \le (4d-1)k^2 < 4d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)=\sum_{i=1}^n O(x_i\log \Delta)$ subject to this constraint is easy and gives
+% To apply this in our setting, let $k:=\sqrt{d\Delta\log\Delta}$,
+For each $y\in N_H[p]$, there are at most $4d$ vertices $w$ such at $yw\in E(G)$ and $y< w$.  Therefore,
+$\sum_{i=1}^n |C_{p,w_i}| \le 4d|N_H(p)|= O()$
+
+
+In out setting, we have the constraints $\sum_{i=1}^n x_i \le (4d-1)k^2 < 4d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)=\sum_{i=1}^n O(x_i\log \Delta)$ subject to this constraint is easy and gives
 \[
   \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d\Delta\log^{3/2} \Delta)
 \]
