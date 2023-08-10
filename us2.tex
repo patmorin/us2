@@ -74,6 +74,8 @@ Like the upper bound in \cite{karpas.neiman.ea:on} \cref{d_degenerate_upper_boun
 
 We use standard graph-theoretic terminology and conventions as used in the textbook by \citet{diestel:graph}. A graph $G$ has vertex set $V(G)$ and edge set $E(G)$.  For an integer $\ell$, $G^\ell$ denotes the graph with vertex set $V(G)$ that contains an edge $vw$ if and only if $G$ contains a path of length at most $\ell$ with endpoints $v$ and $w$.
 
+When considering a directed graph $\overrightarrow{G}$, $N_{\overrightarrow{G}}(v):=\{w\in V(G):\overrightarrow{vw}\in E(G)\}$ denotes the (open) out-neighbourhood of a vertex $v$ in $\overrightarrow{G}$ and $\deg_{\overrightarrow{G}}(v):=|N_{\overrightarrow{G}}(v)|$ is the out-degree of $v$ in $\overrightarrow{G}$.  We also define $N_{\overrightarrow{G}}[v]:=\{v\}\cup N_{\overrightarrow{G}}(v)$ to be the closed out-neighbourhood of $v$ in $\overrightarrow{G}$.
+
 \begin{proof}[Proof of \cref{degenerate_and_degree}]
   Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore $2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i|$, so $|S_i|\le |S_{i-1}|/2$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
 
@@ -82,11 +84,13 @@ We use standard graph-theoretic terminology and conventions as used in the textb
   % where $\Phi$
   % where $\Phi_i:=\{2i\sqrt{\Delta}+1,\ldots,2(i+1)\sqrt{\Delta}\}$ and is used to colour the vertices of $L_i$, for each $i\in\{0,\ldots,k\}$.
 
-  Fix an arbitrary total order $<_i$ on the vertices of $L_i$ for each $i\in\{0,\ldots,q\}$ and define the total order $<$ on $V(G)$ in which $v <w$ if $v\in L_i$, $w\in L_j$, and $i<j$ or if $v,w\in L_i$ and $v<_iw$.  Let $H$ be the directed acyclic graph obtained from $G^2$ by directing each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$.  We claim that each vertex $v$ has out-degree at most $(4d-1)(2\Delta+1)$ in $H$.  To see this, consider some edge $\overrightarrow{vw}$ of $H$ and suppose $v\in L_i$.  The edge  $\overrightarrow{vw}$ is of one of the following types:
+  Fix an arbitrary total order $<_i$ on the vertices of $L_i$ for each $i\in\{0,\ldots,q\}$ and define the total order $<$ on $V(G)$ in which $v <w$ if $v\in L_i$, $w\in L_j$, and $i<j$ or if $v,w\in L_i$ and $v<_iw$.  Let $\overrightarrow{G}$ be the directed acyclic graph obtained from $G$ by directed each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$. Let $\overrightarrow{H}$ be the directed acyclic graph obtained from $G^2$ by directing each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$.  (Note that $\overrightarrow{H}$ contains an edge for every length-$2$ path in $G$, not just length-$2$ directed paths in $\overrightarrow{G}$.)
+
+  First, observe that the maximum out-degree of any vertex in $\overrightarrow{G}$ is less than $4d$. Indeed, a vertex $v$ is contained in $L_i$ precisely because $\deg_{G[S_i]}(v)<4d$.  The out-degree bound then follows from the fact that $N_{\overightarrow{G}}(v)\subseteq S_i$, $\deg_{\overrightarrow{G}}(v)\le\deg_{G[S_i]}(v)<4d$.  We claim that for each vertex $v$, $\deg_{\overightarrow{H}}(v)\le (4d-1)(2\Delta+1)$.  To see this, suppose $v\in L_i$ and consider some edge $\overrightarrow{vw}$ of $\overrightarrow{H}$.  The edge  $\overrightarrow{vw}$ is of one of the following types:
   \begin{compactenum}[(T1)]
-    \item $vw\in E(G)$.  Since $v<w$ and $v\in L_i$, $w\in S_i$.  Since $v\in L_i$, $\deg_{G[S_i]}(v)\le 4d-1$, so this type of edge contributes at most $4d-1$ to the out-degree of $v$.
-    \item $G$ contains a path $vyw$ with $y < v < w$ or $v < y < w$.  Since $\deg_G(v)\le\Delta$, there are at most $\Delta$ choices for $y$.  For each such $y$ there are at most $4d-1$ choices for $w$ (since $y<w$).  Therefore, this type of edge contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
-    \item $G$ contains a path $vyw$ with $v < w < y$.  Since $v<y$ there are at most $4d-1$ choices for $y$ and for each such $y$, $\deg_G(y)\le\Delta$, so there are at most $\Delta$ choices for $w$.  Therefore, this type of edge contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
+    \item $\overightarrow{vw}\in E(\overightarrow{G})$. Edges of this type contribute at most $\deg_{\overightarrow{G}}(v)\le 4d-1$ to $\deg_{\overightarrow{H}}(v)$.
+    \item $G$ contains a path $vyw$ with $y < v < w$ or $v < y < w$.  Since $\deg_G(v)\le\Delta$, there are at most $\Delta$ choices for $y$.  For each such $y$ there are at most $4d-1$ choices for $w$ (since $y<w$).  Therefore, edges of this type contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
+    \item $G$ contains a path $vyw$ with $v < w < y$.  Since $v<y$ there are at most $4d-1$ choices for $y$ and for each such $y$, $\deg_G(y)\le\Delta$, so there are at most $\Delta$ choices for $w$.  Therefore, edges of this type contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
   \end{compactenum}
   We colour the vertices of $G$ in the order given by $<$.  When colouring some vertex $w\in L_i$ we count, for each colour $\alpha\in \Phi_i$, the number $N_\alpha(w)$ of neighbours $y\in N_G(w)$ such that $y < w$ and $y$ has colour $\alpha$ or $y$ already has a neighbour $u$ of colour $\alpha$. Observe that $\sum_{\alpha\in \Phi_i} N_\alpha(w)\le 4d\Delta$ since there are at most $\Delta$ choices for $y$ and for each $y$ there are at most $4d-1$ choices for $w$.
 
@@ -100,15 +104,15 @@ We use standard graph-theoretic terminology and conventions as used in the textb
 
 
 
-  Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $C\sqrt{\Delta}\log^{5/4} n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{q+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree of $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  Since $H$ is acyclic, this implies that $G^2[P]$ is $(C\sqrt{\Delta}\log^{5/4} n)$-degenerate, so the $C\sqrt{\Delta}\log^{5/4} n+1$ colours in $\Phi_{q+1}$ are sufficient to properly colour it.
+  Let $P$ be the set of all problematic vertices in $G$.  We will re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $C\sqrt{\Delta}\log^{5/4} n+1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{q+1}$, the only violations that could occur after recolouring would be caused by paths (with two or three vertices) whose endpoints are in $P$.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after phase 1, the maximum out-degree of $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$ for some constant $C$ that does not depend on $d$, $\Delta$, or $n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree of $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  Since $\overrightarrow{H}$ is acyclic, this implies that $G^2[P]$ is $(C\sqrt{\Delta}\log^{5/4} n)$-degenerate, so the $C\sqrt{\Delta}\log^{5/4} n+1$ colours in $\Phi_{q+1}$ are sufficient to properly colour it.
 
-  For each vertex $v$ of $H$, let $N_H[v]:=\{v\}\cup \{y\in V(H): \overrightarrow{vy}\in E(H)\}$ be the set of out-neighbours of $v$ in $H$, plus $v$ itself.  We now focus on a specific vertex $v$ in $G$ and show that after the first phase, $|N_H[v]\cap P|\le C\sqrt{\Delta}\log^{5/4} n$ with probability $1-o(1/n)$.  The union bound then implies that, with probability $1-o(1)$, the maximum out-degree in $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  In particular, it implies that there exists a colouring of $G$ with this property.
+  We now focus on a specific vertex $v$ in $G$ and show that after the first phase, $|N_{\overrightarrow{H}}[v]\cap P|\le C\sqrt{\Delta}\log^{5/4} n$ with probability $1-o(1/n)$.  The union bound then implies that, with probability $1-o(1)$, the maximum out-degree in $H[P]$ is at most $C\sqrt{\Delta}\log^{5/4} n$.  In particular, it implies that there exists a colouring of $G$ with this property.
 
-  For any vertex $p$ of $G$, define $\outn(p):=N_H[p]\cap P$. For any vertex $w$ of $H$, let $\comp(p,w):=\{y\in N_H(p):\text{$w$ completes $y$}\}$.  Observe that
+  For any vertex $p$ of $G$, define $\outn(p):=N_{\overrightarrow{H}}[p]\cap P$. For any vertex $w$ of $\overrightarrow{H}$, let $\comp(p,w):=\{y\in N_{\overrightarrow{H}}(p):\text{$w$ completes $y$}\}$.  Observe that
   \[
     \outn(p) = \bigcup_{w\in V(H)} \comp(p,w) = \bigcup_{w>p} \comp(p,w) \enspace .
   \]
-  For any vertex $w>p$, let $C_{p,w}:=\{y\in N_H(p): yw\in E(G),\, y < w\}$, which is the set of vertices in $N_H(p)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(p,w)$ contain exactly those vertices $y\in C_{p,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(p,w)$ contains every $y\in C_{p,w}$ that would be completed if we were to set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed by vertices other than $w$).
+  For any vertex $w>p$, let $C_{p,w}:=\bigcup_{y\in N_{\overrightarrow{H}}(p)} N_{\overrightarrow{G}}(y)$, which is the set of vertices in $N_{\overrightarrow{H}}(p)$ that $w$ could potentially complete.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(p,w)$ contain exactly those vertices $y\in C_{p,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(p,w)$ contains every $y\in C_{p,w}$ that would be completed if we were to set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed by vertices other than $w$).
 
   Recall that $N_\alpha(w)$ counts the number of neighbours $y$ of $w$ such that $y < w$ and $y$ has colour $\alpha$ or has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(p,w)|\le N_\alpha(w)< M$ for each $\alpha\in\Phi_w$.  Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(p,w):=\comp'_\alpha(p,w)$.  We want to study the random variable $n'_{p,w}:=|\comp'(p,w)|\ge |\comp(p,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $n'_{p,w}\le M$ with probability $1$.
 
@@ -139,7 +143,7 @@ A vertex colouring $\varphi$ of $G$ is ab \defin{$\ell$-vertex-ranking} of $G$ i
 \end{thm}
 
 \begin{proof}[Proof Sketch]
-  Let $p:=n^{(\ell-1)/(\ell+1)}$ and let $\Delta=n^{2/(\ell+1)}$.  As in the proof of \cref{d_degenerate_upper_bound} eliminate all vertices of degree at last $\Delta$ using $n/\Delta = n^{(\ell-1)/(\ell+1)}=p$ additional high colours.  Next, proceed exactly as in the proof of \cref{degenerate_and_degree} except define $H$ as the directed version of $G^{\ell}$.  Observe that, for every directed edge $\overrightarrow{vy}$ of $H$, $G$ contains a path $v_0,\ldots,v_r$ with $v_0=v$, $v_r=y$, $r\le \ell$ such that $v_a\in L_i$ and $v_{a+1}\in L_j$ for some $i\le j$.  The number of such paths is $O(\Delta^{\ell-1})$. When colouring a vertex $w$ choose the colour of $w$ randomly from a $p$ element subset of a palette of $2p$ colours chosen.  Similar calculations show that, with high probability the number of problematic vertices in $N_H(v)$ is at most $O(|N_H(v)|\log n/p)=O(\Delta^{\ell-1}/p)=O(p\log n)$.  Thus, the subgraph of $G^\ell$ induced by the set of problematic vertices is $O(p\log n)$-degenerate and can be properly coloured with $O(p\log n)$ colours.
+  Let $p:=n^{(\ell-1)/(\ell+1)}$ and let $\Delta=n^{2/(\ell+1)}$.  As in the proof of \cref{d_degenerate_upper_bound} eliminate all vertices of degree at last $\Delta$ using $n/\Delta = n^{(\ell-1)/(\ell+1)}=p$ additional high colours.  Next, proceed exactly as in the proof of \cref{degenerate_and_degree} except define $\overrightarrow{H}$ as the directed version of $G^{\ell}$.  Observe that, for every directed edge $\overrightarrow{vy}$ of $\overrightarrow{H}$, $G$ contains a path $v_0,\ldots,v_r$ with $v_0=v$, $v_r=y$, $r\le \ell$ such that $v_a\in L_i$ and $v_{a+1}\in L_j$ for some $i\le j$.  The number of such paths is $O(\Delta^{\ell-1})$. When colouring a vertex $w$ choose the colour of $w$ randomly from a $p$ element subset of a palette of $2p$ colours chosen.  Similar calculations show that, with high probability the number of problematic vertices in $N_{\overrightarrow{H}}(v)$ is at most $O(|N_{\overrightarrow{H}}(v)|\log n/p)=O(\Delta^{\ell-1}/p)=O(p\log n)$.  Thus, the subgraph of $G^\ell$ induced by the set of problematic vertices is $O(p\log n)$-degenerate and can be properly coloured with $O(p\log n)$ colours.
 \end{proof}
 
 \todo[inline]{There seems to be a link here with $r$-weak colouring numbers since we've fixed a total order and we're basically counting paths of length up to $\ell$ that start at $v$ and finish at some vertex that comes after $v$.  We should explore this.}
@@ -169,7 +173,14 @@ We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has th
           x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{v,w_i}|\le 4d\deg_G(w_i)\le 4d\Delta$.  Observe that $\sum_{i=1}^n x_i = \sum_{i=1}^n 4d|C_{v,w_i}|\le 16d^2|N_H(p)|=O(d^3\Delta)$.  
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{v,w_i}|$.  Bot the maximum value and the sum of $x_1,\ldots,x_n$ is important for us.  Since $C_{v,w}\subseteq N_G(w)$, we have $x_i\le 4d\deg_G(w_i)\le 4d\Delta$ for all $i\in\{1,\ldots,n\}$. The sum can be bounded by
+\[
+  \sum_{i=1}^n x_i
+    = \sum_{i=1}^n 4d|C_{v,w_i}|
+    \le 4d\cdot \sum_{y\in N_{\overrightarrow{H}}[p]} \deg_{\overrightarrow{G}}(y)
+    \le 16d^2|N_{\overrightarrow{H}}[p]|=O(d^3\Delta)
+  \enspace .
+\]
 Then we have
 \begin{align*}
   \E(X_i)
@@ -183,68 +194,54 @@ Then we have
   & = O\left(\frac{x_i\log \Delta}{k}\right)
   \enspace ,
 \end{align*}
-where the last line comes from the fact that we have already chosen $k:=\sqrt{d\Delta}\log^{?}\Delta$.  Recall that $M:=4d\Delta/k=4\sqrt{d\Delta}\log^{-?}\Delta$.  Therefore $k/M=\tfrac{1}{4}\log^{2?}\Delta$ and $k^2=d\Delta\log^{2?}\Delta$, so
+where the last line comes from the fact that we have already chosen $k:=d^?\sqrt{\Delta}\log^{?}\Delta$.
+% Therefore $k/M=\tfrac{1}{4}\log^{2?}\Delta$ and $k^2=d\Delta\log^{2?}\Delta$, so
+Therefore,
 \begin{align*}
   (\E(X_i))^2
   & = O\left(\left(\frac{x_i\log \Delta}{k}\right)^2\right) \\
   & = O\left(\frac{x_i^2\log^2 \Delta}{k^2}\right) \\
-  & = O\left(\frac{x_i^2\log^2 \Delta}{d\Delta\log^{2?}\Delta}\right) \\
-  & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
-  & = O(x_i\log^{2-2?} \Delta)
+  & = O\left(\frac{x_i^2\log^2 \Delta}{d^{2?}\Delta\log^{2?}\Delta}\right) \\
+  % & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
+  & = O(d^{1-2?}x_i\log^{2-2?} \Delta) \enspace .
 \end{align*}
-and
+Recall that $M:=4d\Delta/k=4d^{1-?}\sqrt{\Delta}\log^{-?}\Delta$. Therefore,
 \begin{align*}
   \E((X_i-\E(X_i))^2)
-  % & = \E(X_i^2 - 2X_i\E(X_i) + \E(X_i)^2 \\
-  & = \Pr(X_i=M)\cdot(M-\E(X_i))^2
-    + \sum_{j=x_i/k+1}^k \Pr(X_i=j)\cdot\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
   & = \frac{x_i}{kM}\cdot(M-\E(X_i))^2
-    + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{x_i}{kM}\left(M^2-2M\E(X_i)+(\E(X_i))^2\right)
-    + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+    + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
   & \le \frac{x_i}{kM}\left(M^2 + (\E(X_i))^2\right)
-    + \frac{1}{k}\cdot \sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{M x_i}{k} + O\left(\frac{x_i^2\log^{2-2?} \Delta}{kM}\right)
-      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & \le x_i + O\left(\frac{x_i^2\log^{2-2?} \Delta}{kM}\right)
-      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = O\left(x_i\log^{2-2?} \Delta\right)
+    + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & = \frac{M x_i}{k} + \frac{x_i}{kM}\cdot (\E(X_i))^2
+      + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+  & < x_i + \frac{x_i}{kM}\cdot (\E(X_i))^2
       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
-      & \text{(since $x_i\le kM$)} \\
-  % & = x_i\log^{2-2?}\Delta + O\left(\frac{x_i^2\log^2 k}{k^2}\right)
-  %     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
-  %     & \text{(since $k/M=\log^{1/2}\Delta$)}
-  %     \\
-  % & = x_i\log\Delta + O\left(\frac{x_i^2\log^2 k}{d\Delta\log\Delta}\right)
-  %     + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
-  %     & \text{(since $k^2=d\Delta\log\Delta$)}
-  %     \\
-  % & = O(x_i\log^{2-2?}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  % & \text{(since $x_i\le 4d\Delta$)} \\
- & = O(x_i\log^{2-2?}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \left(\frac{x_i^2}{j^2}-\frac{2x_i \E(X_i)}{j} + (\E(X_i))^2\right) \\
- & \le O(x_i\log^{2-2?}\Delta) + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
- & \le O(x_i\log^{2-2?}\Delta) +  \left(\frac{x_i^2}{k}\cdot\sum_{j=x_i/M+1}^k\frac{1}{j^2}\right)
-   + (\E(X_i))^2 \\
- & \le O(x_i\log^{2-2?}\Delta) + \frac{\pi^2 Mx_i}{6k} \\
-  % & \le O(x_i\log^{3/2}\Delta) + \frac{\pi^2 x_i}{6}  \\
-  & = O(x_i\log^{2-2?}\Delta)
+      & \text{(since $M/k < 1$)} \\
+  & \le x_i + (\E(X_i))^2
+      + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2
+      & \text{\quad(since $x_i\le 4d\Delta= kM$)} \\
+ & < x_i + (\E(X_i))^2 + \sum_{j=x_i/M+1}^k \frac{1}{k}\left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
+ & \le x_i + 2(\E(X_i))^2  +  \sum_{j=x_i/M+1}^k\frac{1}{k}\frac{x_i^2}{j^2}
+ & \text{(since $(k-x_i/M)/k \le 1$)} \\
+ & = x_i + 2(\E(X_i))^2  +  \frac{x_i^2}{k}\cdot \sum_{j=x_i/M+1}^k\frac{1}{j^2}
+ & \text{(since $(k-x_i/M)/k \le 1$)} \\
+ & < x_i + 2(\E(X_i))^2 + \frac{x_i^2}{k}\cdot\frac{M\pi^2}{6 x_i}
+    & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$, for $a\ge 1$)} \\
+ & < (1+\pi^2/6)x_i + 2(\E(X_i))^2
+    & \text{(since $M<k$)} \\
+  & = O(d^{1-2?}x_i\log^{2-2?}\Delta) \enspace .
 \end{align*}
-where the penultimate inequality follows from the inequality $\sum_{j=a}^{\infty} 1/j^2 \le \pi^2/(6a)$, valid for all integers $a\ge 1$.
 
-% To apply this in our setting, let $k:=\sqrt{d\Delta\log\Delta}$,
-For each $y\in N_H[p]$, there are at most $4d$ vertices $w$ such at $yw\in E(G)$ and $y< w$.  Therefore,
-$\sum_{i=1}^n |C_{p,w_i}| \le 4d|N_H(p)|= O()$
-
-
-In out setting, we have the constraints $\sum_{i=1}^n x_i \le (4d-1)k^2 < 4d\Delta$.  Maximizing $\sum_{i=1}^n\E((X_i-\E(X_i))^2)=\sum_{i=1}^n O(x_i\log \Delta)$ subject to this constraint is easy and gives
+Recall that $\sum_{i=1}^n x_i = O(d^3\Delta)$, so
 \[
-  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d\Delta\log^{3/2} \Delta)
+  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d^{4-2?}\Delta\log^{2-2?} \Delta)
 \]
-Setting $t=C\sqrt{\Delta}\log^{5/4} n$ and putting this into \cref{bernstein} gives:
+Setting $t=ck$ and putting this into \cref{bernstein} gives:
 \begin{align*}
   \Pr(X\ge \E(X)+t)
-  & = \Pr(X\ge \E(X)+C\sqrt{\Delta}\log^{5/4} n) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}\left(C\sqrt{\Delta}\log^{5/4} n\right)^2}{O(d\Delta\log^{3/2}\Delta) + \tfrac{1}{3}Mt}\right) \\
+  & = \Pr(X\ge \E(X)+k) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2?}\Delta\log^{2-2?}\Delta) + \tfrac{1}{3}Mt}\right) \\
+  & \text{Continue here.... (Aug 10)} \\
   & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2}\Delta) + \tfrac{1}{3}Mt}\right) \\
   & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2}\Delta) + \tfrac{1}{3}C\Delta\sqrt{d}\log^{3/4} n}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
   & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2} n) + \tfrac{1}{3}C\Delta\sqrt{d}\log^{3/4} n}\right)
