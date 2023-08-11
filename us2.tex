@@ -173,7 +173,9 @@ We will apply \cref{bernstein_theorem} to random variables in which $X_i$ has th
           x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{v,w_i}|$.  Bot the maximum value and the sum of $x_1,\ldots,x_n$ is important for us.  Since $C_{v,w}\subseteq N_G(w)$, we have $x_i\le 4d\deg_G(w_i)\le 4d\Delta$ for all $i\in\{1,\ldots,n\}$. The sum can be bounded by
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{v,w_i}|$.  In the rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein}.
+
+Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us.  Since $C_{v,w}\subseteq N_G(w)$, we have $x_i\le 4d\deg_G(w_i)\le 4d\Delta$ for all $i\in\{1,\ldots,n\}$. The sum can be bounded by
 \[
   \sum_{i=1}^n x_i
     = \sum_{i=1}^n 4d|C_{v,w_i}|
@@ -191,21 +193,22 @@ Then we have
   & \le \frac{x_i(3+\ln k)}{k} \\
   % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log k}{k}\right) \\
-  & = O\left(\frac{x_i\log \Delta}{k}\right)
+  & = O\left(\frac{x_i\log \Delta}{k}\right) \\
+  & = O\left(\frac{x_i\log n}{k}\right)
   \enspace ,
 \end{align*}
-where the last line comes from the fact that we have already chosen $k:=d^?\sqrt{\Delta}\log^{?}\Delta$.
+where the last line comes from the fact that $\Delta\le n$ and we have already chosen $k:=d^?\sqrt{\Delta}\log^{?} n$.
 % Therefore $k/M=\tfrac{1}{4}\log^{2?}\Delta$ and $k^2=d\Delta\log^{2?}\Delta$, so
 Therefore,
 \begin{align*}
   (\E(X_i))^2
-  & = O\left(\left(\frac{x_i\log \Delta}{k}\right)^2\right) \\
-  & = O\left(\frac{x_i^2\log^2 \Delta}{k^2}\right) \\
-  & = O\left(\frac{x_i^2\log^2 \Delta}{d^{2?}\Delta\log^{2?}\Delta}\right) \\
+  & = O\left(\left(\frac{x_i\log n}{k}\right)^2\right) \\
+  & = O\left(\frac{x_i^2\log^2 n}{k^2}\right) \\
+  & = O\left(\frac{x_i^2\log^2 n}{d^{2?}\Delta\log^{2?}\Delta}\right) \\
   % & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
-  & = O(d^{1-2?}x_i\log^{2-2?} \Delta) \enspace .
+  & = O(d^{1-2?}x_i\log^{2-2?} n) \enspace .
 \end{align*}
-Recall that $M:=4d\Delta/k=4d^{1-?}\sqrt{\Delta}\log^{-?}\Delta$. Therefore,
+Recall that $M:=4d\Delta/k=4d^{1-?}\sqrt{\Delta}\log^{-?}n$. Therefore,
 \begin{align*}
   \E((X_i-\E(X_i))^2)
   & = \frac{x_i}{kM}\cdot(M-\E(X_i))^2
@@ -229,28 +232,42 @@ Recall that $M:=4d\Delta/k=4d^{1-?}\sqrt{\Delta}\log^{-?}\Delta$. Therefore,
     & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$, for $a\ge 1$)} \\
  & < (1+\pi^2/6)x_i + 2(\E(X_i))^2
     & \text{(since $M<k$)} \\
-  & = O(d^{1-2?}x_i\log^{2-2?}\Delta) \enspace .
+  & = O(d^{1-2?}x_i\log^{2-2?}n) \enspace .
 \end{align*}
 
 Recall that $\sum_{i=1}^n x_i = O(d^3\Delta)$, so
 \[
-  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d^{4-2?}\Delta\log^{2-2?} \Delta)
+  \E\left(\sum_{i=1}^n X_i\right)
+  = O\left(\frac{d^3\Delta\log n}{k}\right)
+  = O\left(d^{3-?}\sqrt{\Delta}\log^{1-?} n\right) \enspace .
 \]
-Setting $t=ck$ and putting this into \cref{bernstein} gives:
+and
+\[
+  \sum_{i=1}^n\E((X_i-\E(X_i))^2) = O(d^{4-2?}\Delta\log^{2-2?} n)
+\]
+Setting $t=ck$, for some $c\ge 1$, and putting this into \cref{bernstein} gives:
 \begin{align*}
   \Pr(X\ge \E(X)+t)
-  & = \Pr(X\ge \E(X)+k) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2?}\Delta\log^{2-2?}\Delta) + \tfrac{1}{3}Mt}\right) \\
-  & \text{Continue here.... (Aug 10)} \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2}\Delta) + \tfrac{1}{3}Mt}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2}\Delta) + \tfrac{1}{3}C\Delta\sqrt{d}\log^{3/4} n}\right) & \text{(since $k=\sqrt{\Delta}$)} \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2} n) + \tfrac{1}{3}C\Delta\sqrt{d}\log^{3/4} n}\right)
-  & \text{(since $\Delta \le n$)} \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}C^2\Delta\log^{5/2} n}{O(d\Delta\log^{3/2} n) + \tfrac{1}{3}C\Delta\sqrt{d}\log^{3/4} n}\right) \\
-  & \le \exp \left(-\Omega\left(\frac{C^2\log n}{d + C\sqrt{d}\log^{-7/4} n}\right)\right) \enspace .
+  & = \Pr(X\ge \E(X)+ck) \\
+  & \le \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2?}\Delta\log^{2-2?}n) + \tfrac{1}{3}Mck}\right) \\
+  & = \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2?}\Delta\log^{2-2?}n) + \tfrac{4}{3}cd\Delta}\right)
+    & \text{(since $M=4d\Delta/k$)} \\
+  & = \exp \left(-\frac{\tfrac{1}{2}c^2d^{2?}\Delta\log^{2?}n}{O(d^{4-2?}\Delta\log^{2-2?}n) + \tfrac{4}{3}cd\Delta}\right)
+    & \text{(since $k=d^?\sqrt{\Delta}\log^?n$)}\\
+  & \le \exp \left(-\frac{\tfrac{1}{2}c^2d^{2?}\Delta\log^{2?}n}{O(cd^{4-2?}\Delta\log^{2-2?}n) + \tfrac{4}{3}cd\Delta}\right)
+  & \text{(since $c\ge 1$)}\\
+  & \le \exp \left(-\frac{\tfrac{1}{2}c^2d^{2?}\Delta\log^{2?}n}{O(cd^{4-2?}\Delta\log^{2-2?}n) + \tfrac{4}{3}cd^{4-2?}\Delta}\right)
+  & \text{(since $4-2?\ge 1$)}\\
+  & \le \exp \left(-\frac{\tfrac{1}{2}c^2d^{2?}\Delta\log^{2?}n}{O(cd^{4-2?}\Delta\log^{2-2?}n) + \tfrac{4}{3}cd^{4-2?}\Delta\log^{2-2?}n}\right)
+  & \text{(since $2-2?\ge 0$)}\\
+  & = \exp \left(-\Omega\left(cd^{4?-4}\log^{4?-2}n\right)\right) \\
+  & = \exp \left(-\Omega\left(c\log^{4?-2}n\right)\right)
+  & \text{(since $4?-4\ge 0$)}\\
+  & = \exp \left(-\Omega\left(c\log n\right)\right)
+  & \text{(since $4?-2\ge 1$)}\\
+  & = n^{-\Omega(c)} = o(1/n)
 \end{align*}
-Solving the quadratic equation $C^2/(d+C\sqrt{d}\log^{-7/4} n) \ge c'$ gives $C\in\Theta(\sqrt{c'd})$. Thus, for $C:=\sqrt{c'd}$,
-\[
-  \Pr(X\ge \E(X)+t) \le \exp(-\Omega(c'\log n)) = n^{-\Omega(c')} \enspace .
-\]
+for any sufficiently large constant $c$.
+
+
 \end{document}
