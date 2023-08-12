@@ -154,125 +154,169 @@ A vertex colouring $\varphi$ of $G$ is ab \defin{$\ell$-vertex-ranking} of $G$ i
 
 \section{Bounding the Tail of \texorpdfstring{\boldmath$|\outn(v)|$}{out(v)}}
 
-We make use of the following inequality of Bernstein \cite[Corollary~2.11]{boucheron.lugosi.ea:concentration}:
+We make use of the following inequality of Hoeffding \cite[??]{boucheron.lugosi.ea:concentration}:
 
-\begin{thm}\label{bernstein_theorem}
-  Let $k$ be a positive number, let $X_1,\ldots,X_r$ be independent random variables such that $\Pr(X_i\le M)=1$ for each $i\in\{1,\ldots,r\}$, and let $X:=\sum_{i=1}^r X_i$. Then
+\begin{thm}\label{hoeffding_theorem}
+  Let $X_1,\ldots,X_r$ be independent random variables such that $\Pr(X_i\le M_i)=1$ for each $i\in\{1,\ldots,r\}$, and let $X:=\sum_{i=1}^r X_i$. Then
   \begin{equation}
     \Pr\left(X \ge \E(X)+ t\right)
-      \le \exp\left(\frac{\tfrac{1}{2}t^2}{\sum_{i=1}^r \E((X_i-\E(X_i))^2)+\tfrac{1}{3}Mt}\right) \enspace . \label{bernstein}
+      \le \exp\left(-\frac{2t^2}{\sum_{i=1}^r M_i^2}\right) \enspace . \label{hoeffding}
   \end{equation}
 \end{thm}
-We will apply \cref{bernstein_theorem} to a random variable $X:=\sum_{i=1}^r X_i$ in which each $X_i$ has the following distribution (for some $x_i\le kM$):
+We will apply \cref{hoeffding_theorem} to a random variable $X:=\sum_{i=1}^r X_i$ in which each $X_i$ has the following distribution (for some $x_i\le kM$):
 \[
   X_i = \begin{cases}
           M & \text{with probability $x_i/(kM)$} \\
           x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, recall that we are attempting to upper bound $|N^+_H(p)\cap P|\le\{$ let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{p,w_i}|$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $o(1/n)$.  In our setting $k:=d^a\sqrt{\Delta}\log^b n$ for some constants $a,b>0$.  By the end of the appendix, we will have shows that $a=3/2$ and $b=3/4$ satisfy our requirements.
-
-Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us.  Since $C_{v,w}\subseteq N_G(w)$, we have $x_i\le 4d\deg_G(w_i)\le 4d\Delta$ for all $i\in\{1,\ldots,n\}$, so $\max\{x_1,\ldots,x_n\}\le 4d\Delta$. The sum can be bounded by
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_r\}:=\bigcup_{y\in N^+H(p)} N^+_G(y)$ and let $x_i:=4d|C_{p,w_i}|$, for each $i\in\{1,\ldots,r\}$.
+Observe that $w_1,\ldots,w_r$ are precisely the vertices that could complete some $y\in N^+_H(p)$.  We have already defined $k=d^a\sqrt{\Delta}\log^{b} n$ and we have $M_i:=\max\{N_\alpha(w_i):\alpha \in \Phi_{w_i}\}\le 4d|C_{p,w_i}|/k\le 4d\deg_G(w_i)/k\le 4d\Delta/k$.  Then
 \[
-  \sum_{i=1}^n x_i
-    = \sum_{i=1}^n 4d|C_{v,w_i}|
-    \le 4d\cdot \sum_{y\in N_{H}[p]} \deg_{G}(y)
-    \le 16d^2|N_{H}[p]|=O(d^3\Delta)
-  \enspace .
+   \sum_{i=1}^r M_i\le \sum_{i=1}^r\sum_{\alpha} N_\alpha(w_i)
+   \le \sum_{y\in N^+_H(p)}\deg^+_G(y)^2
+   < |N^+_H(p)|\cdot 16d^2 = O(d^3\Delta) \enspace .
 \]
-Then we have
+The number of vertices $y$ in $N^+_H(p)$ that are problematic is dominated by the random variable $X:=\sum_{i=1}^r X_i$.  Then
 \begin{align*}
   \E(X_i)
   & =\Pr(X_i=M)\cdot M + \sum_{j=x_i/M+1}^k \Pr(X_i=j)\cdot\frac{x_i}{j} \\
   & =\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \frac{x_i}{j} \\
-  & = \frac{x_i}{k} + \frac{x_i}{k}(H_{k}-H_{x_i/M}) \\
-  & \le \frac{x_i}{k}(1+H_{k}) \\
+  & \le \frac{x_i}{k} + \frac{1}{k}\cdot\sum_{j=1}^k \frac{x_i}{j} \\
   & \le \frac{x_i(2+\ln k)}{k} \\
   % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log n}{k}\right)
   \enspace ,
 \end{align*}
-where the last line comes from the fact that $d,\Delta \le n$.
-Therefore,
+since $d,\Delta\le n$.  Then
+\[
+  \E(X) := \sum_{i=1}^r\E(X_i) \le \left(\sum_{i=1}^r x_i)\cdot O\left(\frac{\log n}{k}\right) = O\left(\frac{d^3\Delta\log n}{k}\right)
+\]
+
+To apply \cref{hoeffding}, we first upper bound the denominator, $\sum_{i=1}^r M_i^2$.  Since $f(x)=x^2$ is convex and increasing on $[0,\infty]$, the denominator is maximized by setting as many terms as possible to their largest allowable value given the local constraint $M_i \le 4d\Delta/k$.  However, the number of these terms is limited to $O(d^2k)$ by the global constraint $\sum_{i=1}^r M_i= O(d^3\Delta)$, giving
+\[
+    \sum_{i=1}^r M_i^2 \le \left(\frac{4d\Delta}{k}\right)^2\cdot O(d^2k) = O\left(\frac{d^4\Delta^2}{k}\right)
+\]
+by convexity.
+Setting $t=ck\log n$ and applying \cref{hoeffding} we get
 \begin{align*}
-  (\E(X_i))^2
-  & = O\left(\left(\frac{x_i\log n}{k}\right)^2\right) \\
-  & = O\left(\frac{x_i^2\log^2 n}{k^2}\right) \\
-  & = O\left(\frac{x_i^2\log^2 n}{d^{2a}\Delta\log^{2b}\Delta}\right) \\
-  % & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
-  & = O(d^{1-2a}x_i\log^{2-2b} n) \enspace .
+  \Pr(X\ge \E(X) + ck\log n)
+  & \le \exp\left(-\frac{2(ck\log n)^2}{\sum_{i=1}^r M_i^2}\right) \\
+  & \le \exp\left(-\Omega\left(\frac{c^2k^4\log^2 n}{d^4\Delta^2}\right)\right) \\
+  & = \exp\left(-\Omega\left(\frac{c^2d^{4a}\log^{2+4b} n}{d^4}\right)\right) \\
+  & \le \exp(-\Omega(c^2\log n)) = n^{-\Omega(c^2)} = o(1/n)
 \end{align*}
-Recall that $M:=4d\Delta/k=4d^{1-a}\sqrt{\Delta}\log^{-b}n$. Therefore,
-\begin{align*}
-  \E((X_i-\E(X_i))^2)
-  & = \frac{x_i}{kM}\cdot(M-\E(X_i))^2
-    + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & \le \frac{x_i}{kM}\left(M^2 + (\E(X_i))^2\right)
-    + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = \frac{M x_i}{k} + \frac{x_i}{kM}\cdot (\E(X_i))^2
-      + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & = x_id^{1-2a}\log^{-2b}n + \frac{x_i}{kM}\cdot (\E(X_i))^2
-      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & < x_i + \frac{x_i}{kM}\cdot (\E(X_i))^2
-      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
-      & \text{(for $a\ge 1/2$)} \\
-  & \le x_i + (\E(X_i))^2
-      + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2
-      & \text{\quad(since $x_i\le 4d\Delta= kM$)} \\
- & < x_i + (\E(X_i))^2 + \sum_{j=x_i/M+1}^k \frac{1}{k}\left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
- & \le x_i + 2(\E(X_i))^2  +  \sum_{j=x_i/M+1}^k\frac{1}{k}\cdot\frac{x_i^2}{j^2}
- & \text{(since $(k-x_i/M)/k \le 1$)} \\
- & = x_i + 2(\E(X_i))^2  +  \frac{x_i^2}{k}\cdot \sum_{j=x_i/M+1}^k\frac{1}{j^2} \\
- & < x_i + 2(\E(X_i))^2 + \frac{x_i^2}{k}\cdot\frac{M\pi^2}{6 x_i}
-    & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$, for $a\ge 1$)} \\
- & < (1+\pi^2/6)x_i + 2(\E(X_i))^2
-    & \text{(for $a\ge 1/2$)} \\
-  & = O(d^{1-2a}x_i\log^{2-2b}n) \enspace .
-\end{align*}
-Recall that $\sum_{i=1}^r x_i = O(d^3\Delta)$, so
+for any $a\ge 1$ and $b\ge -1/4$ and some sufficiently large constant $c$.  In particular, for $a=3/2$ and $b=1/2$ we get
 \[
   \E(X)
-  = \sum_{i=1}^r \E(X_i)
-  = \sum_{i=1}^r O\left(\frac{x_i\log n}{k}\right)
-  = O\left(\frac{d^3\Delta\log n}{k}\right)
-  = O\left(d^{3-a}\sqrt{\Delta}\log^{1-b} n\right) \enspace .
 \]
-and
-\[
-  \sum_{i=1}^r\E((X_i-\E(X_i))^2)
-  = \sum_{i=1}^r O(d^{1-2a}x_i\log^{2-2b} n)
-  = O(d^{4-2a}\Delta\log^{2-2b} n)  \enspace .
-\]
-Setting $t=ck\log n$, for some $c\ge 1$, and plugging this into \cref{bernstein} gives:
-\begin{align*}
-  \Pr(X\ge \E(X)+t)
-  & = \Pr(X\ge \E(X)+ck) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{1}{3}Mck\log n}\right) \\
-  & = \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta\log n}\right)
-    & \text{(since $Mk=4d\Delta$)} \\
-  % & = \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta\log n}\right)
-  & \text{(since $c\ge 1$)}\\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log n}\right)
-  & \text{(for $a\le 3/2$)}\\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log^{2-2b}n}\right)
-  & \text{(for $b\le 1/2$)}\\
-  & = \exp \left(-\frac{\tfrac{1}{2}(c^2d^{2a}\Delta\log^{2+2b} n)}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log^{2-2b}n}\right) \\
-  & = \exp \left(-\Omega\left(cd^{4a-4}\log^{4b}n\right)\right) \\
-  & \le \exp \left(-\Omega\left(c\log^{4b}n\right)\right)
-  & \text{(for $a\ge 1$)}\\
-  & \le \exp \left(-\Omega\left(c\log n\right)\right)
-  & \text{(for $b\ge 1/4$)}\\
-  & = n^{-\Omega(c)} = o(1/n)
-\end{align*}
-for any sufficiently large constant $c$.  This calculations assumes that $1\le a\le 3/2$ and that $1/4\le b\le 1/2$.  In particular, $a:=3/2$ and $b:=1/2$ satisfy these requirements.  In this case,
-\[
-  \E(X)+t = O(d^3\Delta\log n/k + k)
-  = O(d^{3-a}\sqrt{\Delta}\log^{1-b} n + d^a\sqrt{\Delta}\log^{b} n)
-  = O(d^{3/2}\sqrt{\Delta}\log^{1/2}n) \enspace .
-  % = O(d^{3/2}\log^{1/4} n + d^{3/2}\log^{3/4} n)
-  % = O(d^{3/2}\log^{3/4} n)  \enspace .
-\]
-Thus, $\Pr(X\ge c'd^{3/2}\log^{1/2} n) \le n^{-\Omega(c')}=o(1/n)$ for a sufficiently large constant $c'$.
+
+
+%
+% The rest of this appendix is devoted to bounding the various quantities that appear in \cref{hoeffding} so that we can show that the right-hand side of \cref{hoeffding} is $o(1/n)$.  In our setting $k:=d^a\sqrt{\Delta}\log^b n$ for some constants $a,b>0$.  By the end of the appendix, we will have shows that $a=3/2$ and $b=3/4$ satisfy our requirements.
+%
+% Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us.  Since $C_{v,w}\subseteq N_G(w)$, we have $x_i\le 4d\deg_G(w_i)\le 4d\Delta$ for all $i\in\{1,\ldots,n\}$, so $\max\{x_1,\ldots,x_n\}\le 4d\Delta$. The sum can be bounded by
+% \[
+%   \sum_{i=1}^n x_i
+%     = \sum_{i=1}^n 4d|C_{v,w_i}|
+%     \le 4d\cdot \sum_{y\in N_{H}[p]} \deg_{G}(y)
+%     \le 16d^2|N_{H}[p]|=O(d^3\Delta)
+%   \enspace .
+% \]
+% Then we have
+% \begin{align*}
+%   \E(X_i)
+%   & =\Pr(X_i=M)\cdot M + \sum_{j=x_i/M+1}^k \Pr(X_i=j)\cdot\frac{x_i}{j} \\
+%   & =\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \frac{x_i}{j} \\
+%   & = \frac{x_i}{k} + \frac{x_i}{k}(H_{k}-H_{x_i/M}) \\
+%   & \le \frac{x_i}{k}(1+H_{k}) \\
+%   & \le \frac{x_i(2+\ln k)}{k} \\
+%   % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
+%   & = O\left(\frac{x_i\log k}{k}\right) \\
+%   & = O\left(\frac{x_i\log n}{k}\right)
+%   \enspace ,
+% \end{align*}
+% where the last line comes from the fact that $d,\Delta \le n$.
+% Therefore,
+% \begin{align*}
+%   (\E(X_i))^2
+%   & = O\left(\left(\frac{x_i\log n}{k}\right)^2\right) \\
+%   & = O\left(\frac{x_i^2\log^2 n}{k^2}\right) \\
+%   & = O\left(\frac{x_i^2\log^2 n}{d^{2a}\Delta\log^{2b}\Delta}\right) \\
+%   % & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
+%   & = O(d^{1-2a}x_i\log^{2-2b} n) \enspace .
+% \end{align*}
+% Recall that $M:=4d\Delta/k=4d^{1-a}\sqrt{\Delta}\log^{-b}n$. Therefore,
+% \begin{align*}
+%   \E((X_i-\E(X_i))^2)
+%   & = \frac{x_i}{kM}\cdot(M-\E(X_i))^2
+%     + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+%   & \le \frac{x_i}{kM}\left(M^2 + (\E(X_i))^2\right)
+%     + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+%   & = \frac{M x_i}{k} + \frac{x_i}{kM}\cdot (\E(X_i))^2
+%       + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+%   & = x_id^{1-2a}\log^{-2b}n + \frac{x_i}{kM}\cdot (\E(X_i))^2
+%       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
+%   & < x_i + \frac{x_i}{kM}\cdot (\E(X_i))^2
+%       + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
+%       & \text{(for $a\ge 1/2$)} \\
+%   & \le x_i + (\E(X_i))^2
+%       + \sum_{j=x_i/k+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2
+%       & \text{\quad(since $x_i\le 4d\Delta= kM$)} \\
+%  & < x_i + (\E(X_i))^2 + \sum_{j=x_i/M+1}^k \frac{1}{k}\left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
+%  & \le x_i + 2(\E(X_i))^2  +  \sum_{j=x_i/M+1}^k\frac{1}{k}\cdot\frac{x_i^2}{j^2}
+%  & \text{(since $(k-x_i/M)/k \le 1$)} \\
+%  & = x_i + 2(\E(X_i))^2  +  \frac{x_i^2}{k}\cdot \sum_{j=x_i/M+1}^k\frac{1}{j^2} \\
+%  & < x_i + 2(\E(X_i))^2 + \frac{x_i^2}{k}\cdot\frac{M\pi^2}{6 x_i}
+%     & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$, for $a\ge 1$)} \\
+%  & < (1+\pi^2/6)x_i + 2(\E(X_i))^2
+%     & \text{(for $a\ge 1/2$)} \\
+%   & = O(d^{1-2a}x_i\log^{2-2b}n) \enspace .
+% \end{align*}
+% Recall that $\sum_{i=1}^r x_i = O(d^3\Delta)$, so
+% \[
+%   \E(X)
+%   = \sum_{i=1}^r \E(X_i)
+%   = \sum_{i=1}^r O\left(\frac{x_i\log n}{k}\right)
+%   = O\left(\frac{d^3\Delta\log n}{k}\right)
+%   = O\left(d^{3-a}\sqrt{\Delta}\log^{1-b} n\right) \enspace .
+% \]
+% and
+% \[
+%   \sum_{i=1}^r\E((X_i-\E(X_i))^2)
+%   = \sum_{i=1}^r O(d^{1-2a}x_i\log^{2-2b} n)
+%   = O(d^{4-2a}\Delta\log^{2-2b} n)  \enspace .
+% \]
+% Setting $t=ck\log n$, for some $c\ge 1$, and plugging this into \cref{hoeffding} gives:
+% \begin{align*}
+%   \Pr(X\ge \E(X)+t)
+%   & = \Pr(X\ge \E(X)+ck) \\
+%   & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{1}{3}Mck\log n}\right) \\
+%   & = \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta\log n}\right)
+%     & \text{(since $Mk=4d\Delta$)} \\
+%   % & = \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta}\right) \\
+%   & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta\log n}\right)
+%   & \text{(since $c\ge 1$)}\\
+%   & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log n}\right)
+%   & \text{(for $a\le 3/2$)}\\
+%   & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log^{2-2b}n}\right)
+%   & \text{(for $b\le 1/2$)}\\
+%   & = \exp \left(-\frac{\tfrac{1}{2}(c^2d^{2a}\Delta\log^{2+2b} n)}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log^{2-2b}n}\right) \\
+%   & = \exp \left(-\Omega\left(cd^{4a-4}\log^{4b}n\right)\right) \\
+%   & \le \exp \left(-\Omega\left(c\log^{4b}n\right)\right)
+%   & \text{(for $a\ge 1$)}\\
+%   & \le \exp \left(-\Omega\left(c\log n\right)\right)
+%   & \text{(for $b\ge 1/4$)}\\
+%   & = n^{-\Omega(c)} = o(1/n)
+% \end{align*}
+% for any sufficiently large constant $c$.  This calculations assumes that $1\le a\le 3/2$ and that $1/4\le b\le 1/2$.  In particular, $a:=3/2$ and $b:=1/2$ satisfy these requirements.  In this case,
+% \[
+%   \E(X)+t = O(d^3\Delta\log n/k + k)
+%   = O(d^{3-a}\sqrt{\Delta}\log^{1-b} n + d^a\sqrt{\Delta}\log^{b} n)
+%   = O(d^{3/2}\sqrt{\Delta}\log^{1/2}n) \enspace .
+%   % = O(d^{3/2}\log^{1/4} n + d^{3/2}\log^{3/4} n)
+%   % = O(d^{3/2}\log^{3/4} n)  \enspace .
+% \]
+% Thus, $\Pr(X\ge c'd^{3/2}\log^{1/2} n) \le n^{-\Omega(c')}=o(1/n)$ for a sufficiently large constant $c'$.
 \end{document}
