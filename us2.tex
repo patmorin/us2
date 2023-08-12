@@ -85,7 +85,7 @@ When considering a directed graph $G$, $N^+_{G}(v):=\{w\in V(G):\overrightarrow{
 
   Fix an arbitrary total order $<_i$ on the vertices of $L_i$ for each $i\in\{0,\ldots,q\}$ and define the total order $<$ on $V(G)$ in which $v <w$ if $v\in L_i$, $w\in L_j$, and $i<j$ or if $v,w\in L_i$ and $v<_iw$. Let $H$ be the directed acyclic graph obtained from $G^2$ by directing each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$.  In the discussion that follows, we will use the notations $N^+_G(v)$ and $\deg^+_G(v)$.  When we do so, we are referring to the directed acyclic graph obtained by orienting each edge $vw$ of $G$ as $\overrightarrow{vw}$ so that $v<w$.  (Note that $H$ contains an edge for every length-$2$ path in the undirected graph $G$, not just length-$2$ directed paths in the oriented version of $G$.)
 
-  First, observe that $\deg^_G(v)< 4d$ for any vertex $v$ of $G$. Indeed, a vertex $v$ is contained in $L_i$ precisely because $\deg_{G[S_i]}(v)<4d$.  The out-degree bound then follows from the fact that $N_{G}(v)\subseteq S_i$, and $\deg^+_{G}(v)\le\deg_{G[S_i]}(v)<4d$.  We claim that for each vertex $v$ of $G$, $\deg^+_{H}(v)\le (4d-1)(2\Delta+1)$.  To see this, suppose $v\in L_i$ and consider some edge $\overrightarrow{vw}$ of $H$.  The edge  $\overrightarrow{vw}$ is of one of the following types:
+  First, observe that $\deg^+_G(v)< 4d$ for any vertex $v$ of $G$. Indeed, a vertex $v$ is contained in $L_i$ precisely because $\deg_{G[S_i]}(v)<4d$.  The out-degree bound then follows from the fact that $N_{G}(v)\subseteq S_i$, and $\deg^+_{G}(v)\le\deg_{G[S_i]}(v)<4d$.  We claim that for each vertex $v$ of $G$, $\deg^+_{H}(v)\le (4d-1)(2\Delta+1)$.  To see this, suppose $v\in L_i$ and consider some edge $\overrightarrow{vw}$ of $H$.  The edge  $\overrightarrow{vw}$ is of one of the following types:
   \begin{compactenum}[(T1)]
     \item $\overrightarrow{vw}\in E(G)$. Edges of this type contribute at most $\deg^+_{G}(v)\le 4d-1$ to $\deg^+_{H}(v)$.
     \item $G$ contains a path $vyw$ with $y < v < w$ or $v < y < w$.  Since $\deg_G(v)\le\Delta$, there are at most $\Delta$ choices for $y$.  For each such $y$ there are at most $4d-1$ choices for $w$ (since $y<w$).  Therefore, edges of this type contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
@@ -128,7 +128,7 @@ When considering a directed graph $G$, $N^+_{G}(v):=\{w\in V(G):\overrightarrow{
   \]
   Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $n'_{p,w}$ is dominated by a random variable $N'_{p,w}:=\min\{4d|C_{p,w}|/j,M\}$ where $j$ is chosen uniformly in $\{1,\ldots,k\}$.
 
-  Therefore, $|\outn(p)|$ is dominated by a sum $X:=\sum_{w> v} N'_{p,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr\left(X\ge ck\log n})\le n^{-\Omega(c)}$.  Thus, the number of additional colours needed to recolour $P$ is $O(k\log n)$.
+  Therefore, $|\outn(p)|$ is dominated by a sum $X:=\sum_{w> v} N'_{p,w}$ of independent random variables.  In the appendix, we show how to use one of Bernstein's Inequalities to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours needed to recolour $P$ is $O(k\log n)$.
 \end{proof}
 
 \section{Generalization to $\ell$-Vertex-Ranking}
@@ -170,7 +170,7 @@ We will apply \cref{bernstein_theorem} to a random variable $X:=\sum_{i=1}^r X_i
           x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{v,w_i}|$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $o(1/n)$.  In our setting $k:=d^a\sqrt{\Delta}\log^b n$ for some constants $a,b>0$.  By the end of the appendix, we will have shows that $a=3/2$ and $b=3/4$ satisfy our requirements.
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, recall that we are attempting to upper bound $|N^+_H(p)\cap P|\le\{$ let $\{w_1,\ldots,w_n\}:=\{w\in V(H):w>v\}$, and let $x_i:=4d|C_{p,w_i}|$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $o(1/n)$.  In our setting $k:=d^a\sqrt{\Delta}\log^b n$ for some constants $a,b>0$.  By the end of the appendix, we will have shows that $a=3/2$ and $b=3/4$ satisfy our requirements.
 
 Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us.  Since $C_{v,w}\subseteq N_G(w)$, we have $x_i\le 4d\deg_G(w_i)\le 4d\Delta$ for all $i\in\{1,\ldots,n\}$, so $\max\{x_1,\ldots,x_n\}\le 4d\Delta$. The sum can be bounded by
 \[
