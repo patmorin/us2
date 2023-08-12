@@ -166,18 +166,33 @@ We make use of the following inequality of Hoeffding \cite[??]{boucheron.lugosi.
 We will apply \cref{hoeffding_theorem} to a random variable $X:=\sum_{i=1}^r X_i$ in which each $X_i$ has the following distribution (for some $x_i\le kM$):
 \[
   X_i = \begin{cases}
-          M & \text{with probability $x_i/(kM)$} \\
-          x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M+1,\ldots,k\}$}
+          M_i & \text{with probability $x_i/(kM_i)$} \\
+          x_i/j & \text{with probability $1/k$ for $j\in\{x_i/M_i+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_r\}:=\bigcup_{y\in N^+H(p)} N^+_G(y)$ and let $x_i:=4d|C_{p,w_i}|$, for each $i\in\{1,\ldots,r\}$.
-Observe that $w_1,\ldots,w_r$ are precisely the vertices that could complete some $y\in N^+_H(p)$.  We have already defined $k=d^a\sqrt{\Delta}\log^{b} n$ and we have $M_i:=\max\{N_\alpha(w_i):\alpha \in \Phi_{w_i}\}\le 4d|C_{p,w_i}|/k\le 4d\deg_G(w_i)/k\le 4d\Delta/k$.  Then
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M_i,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_r\}:=\bigcup_{y\in N^+H(p)} N^+_G(y)$ and let $x_i:=4d|C_{p,w_i}|$, for each $i\in\{1,\ldots,r\}$.
+Observe that $w_1,\ldots,w_r$ are precisely the vertices that could complete some $y\in N^+_H(p)$.  We have already defined $k=d^a\sqrt{\Delta}\log^{b} n$ and we have $M_i:=\max\{N_\alpha(w_i):\alpha \in \Phi_{w_i}\}\le 4d\Delta/k$. Observe that $w_i$ has at least $kM_i$ neighbours $y$ in $N^+_H(p)$ such that $w\in N^+_G(y)$.  Therefore $w$ contributes at least $kM_i$ to $\sum_{y\in N^+_H(p)}\deg^+_G(y)= O(d^2\Delta)$.  Therefore $\sum_{i=1}^r M_i = O(d^2\Delta/k)$.  We can now upper bound the denominator in \cref{hoeffding}.  Since $f(x)=x^2$ is convex and increasing on $[0,\infty]$, the denominator is maximized by setting as many terms as possible to their largest allowable value given the local constraint $M_i \le 4d\Delta/k$.  However, the number of these terms is limited to $O(d^2)$ by the global constraint $\sum_{i=1}^r M_i= O(d^2\Delta/k)$, giving
 \[
-   \sum_{i=1}^r M_i\le \sum_{i=1}^r\sum_{\alpha} N_\alpha(w_i)
-   \le \sum_{y\in N^+_H(p)}\deg^+_G(y)^2
-   < |N^+_H(p)|\cdot 16d^2 = O(d^3\Delta) \enspace .
+    \sum_{i=1}^r M_i^2 \le \left(\frac{4d\Delta}{k}\right)^2\cdot O(d^2) = O\left(\frac{d^4\Delta^2}{k^2}\right)
 \]
-The number of vertices $y$ in $N^+_H(p)$ that are problematic is dominated by the random variable $X:=\sum_{i=1}^r X_i$.  Then
+by convexity.
+
+% Then
+% \[
+%    \sum_{i=1}^r M_i\le \sum_{i=1}^r\sum_{\alpha} N_\alpha(w_i)
+%    \le \sum_{y\in N^+_H(p)}\deg^+_G(y)^2
+%    < |N^+_H(p)|\cdot 16d^2 = O(d^3\Delta) \enspace .
+% \]
+
+Setting $t=ck\log n$ and applying \cref{hoeffding} we get
+\begin{align*}
+  \Pr(X\ge \E(X) + ck\log n)
+  & \le \exp\left(-\frac{2(ck\log n)^2}{\sum_{i=1}^r M_i^2}\right) \\
+  & \le \exp\left(-\Omega\left(\frac{c^2k^4\log^2 n}{d^4\Delta^2}\right)\right) \\
+  & = \exp\left(-\Omega\left(\frac{c^2d^{4a}\log^{2+4b} n}{d^4}\right)\right) \\
+  & \le \exp(-\Omega(c^2\log n)) = n^{-\Omega(c^2)} = o(1/n)
+\end{align*}
+for any $a\ge 1$ and $b\ge -1/4$ and some sufficiently large constant $c$.  In particular, $a=3/2$ and $b=1/2$ satisfy these constraints.  All that remains is to upper bound $\E(X)$.  We begin with $\E(X_i)$:
 \begin{align*}
   \E(X_i)
   & =\Pr(X_i=M)\cdot M + \sum_{j=x_i/M+1}^k \Pr(X_i=j)\cdot\frac{x_i}{j} \\
@@ -191,28 +206,18 @@ The number of vertices $y$ in $N^+_H(p)$ that are problematic is dominated by th
 \end{align*}
 since $d,\Delta\le n$.  Then
 \[
-  \E(X) := \sum_{i=1}^r\E(X_i) \le \left(\sum_{i=1}^r x_i)\cdot O\left(\frac{\log n}{k}\right) = O\left(\frac{d^3\Delta\log n}{k}\right)
+  \E(X) := \sum_{i=1}^r\E(X_i) \le \left(\sum_{i=1}^r x_i\right)\cdot O\left(\frac{\log n}{k}\right) = O\left(\frac{d^3\Delta\log n}{k}\right)
+   \enspace .
 \]
-
-To apply \cref{hoeffding}, we first upper bound the denominator, $\sum_{i=1}^r M_i^2$.  Since $f(x)=x^2$ is convex and increasing on $[0,\infty]$, the denominator is maximized by setting as many terms as possible to their largest allowable value given the local constraint $M_i \le 4d\Delta/k$.  However, the number of these terms is limited to $O(d^2k)$ by the global constraint $\sum_{i=1}^r M_i= O(d^3\Delta)$, giving
+In this case,
 \[
-    \sum_{i=1}^r M_i^2 \le \left(\frac{4d\Delta}{k}\right)^2\cdot O(d^2k) = O\left(\frac{d^4\Delta^2}{k}\right)
+  \E(X)+t = O(d^3\Delta\log n/k + ck\log n)
+  = O(d^{3-a}\sqrt{\Delta}\log^{1-b} n + d^a\sqrt{\Delta}\log^{b} n)
+  = O(d^{3/2}\sqrt{\Delta}\log^{1/2}n) \enspace .
+  % = O(d^{3/2}\log^{1/4} n + d^{3/2}\log^{3/4} n)
+  % = O(d^{3/2}\log^{3/4} n)  \enspace .
 \]
-by convexity.
-Setting $t=ck\log n$ and applying \cref{hoeffding} we get
-\begin{align*}
-  \Pr(X\ge \E(X) + ck\log n)
-  & \le \exp\left(-\frac{2(ck\log n)^2}{\sum_{i=1}^r M_i^2}\right) \\
-  & \le \exp\left(-\Omega\left(\frac{c^2k^4\log^2 n}{d^4\Delta^2}\right)\right) \\
-  & = \exp\left(-\Omega\left(\frac{c^2d^{4a}\log^{2+4b} n}{d^4}\right)\right) \\
-  & \le \exp(-\Omega(c^2\log n)) = n^{-\Omega(c^2)} = o(1/n)
-\end{align*}
-for any $a\ge 1$ and $b\ge -1/4$ and some sufficiently large constant $c$.  In particular, for $a=3/2$ and $b=1/2$ we get
-\[
-  \E(X)
-\]
-
-
+Thus, $\Pr(X\ge c'd^{3/2}\log^{1/2} n) \le n^{-\Omega(c')}=o(1/n)$ for a sufficiently large constant $c'$.
 %
 % The rest of this appendix is devoted to bounding the various quantities that appear in \cref{hoeffding} so that we can show that the right-hand side of \cref{hoeffding} is $o(1/n)$.  In our setting $k:=d^a\sqrt{\Delta}\log^b n$ for some constants $a,b>0$.  By the end of the appendix, we will have shows that $a=3/2$ and $b=3/4$ satisfy our requirements.
 %
