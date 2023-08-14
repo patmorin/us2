@@ -130,7 +130,7 @@ For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed 
 
   Therefore, $|N^+_H(p)\cap P|$ is dominated by a sum $X:=\sum_{w\in C_p} X_{p,w}$ of independent random variables.  For each $w\in C_p$, $X_{p,w}\le M_w\le M$.
 
-  \todo[inline]{There may actually be a problem here.  The value $M_w$ depends on $N^-_G(w)$.  It doesn't (and can't) take into account $|N^-_G(w)\cap P|$.  We need an upper bound on $\sum_{w\in C_p}M_w$.  Right now, the only upper bound I can see is $\sum_{w\in C_p} 4d|N^-_G(w)|/k \le |C_p|\cdot 4d\Delta= O(d^3\Delta^2)$.  The $\Delta^2$ is a killer....}
+  \todo[inline]{There may actually be a problem here.  The value $M_w$ depends on $N^-_G(w)$.  It doesn't (and can't) take into account $|N^-_G(w)\cap P|$.  We need an upper bound on $\sum_{w\in C_p}M_w$.  Right now, the only upper bound I can see is $\sum_{w\in C_p} 4d|N^-_G(w)|/k \le |C_p|\cdot 4d\Delta/k= O(d^3\Delta^2/k)$.  The $\Delta^2$ is a killer....  Maybe we have to go back to using Bernstein's Inequality?}
 
 
 
@@ -188,7 +188,7 @@ We will apply \cref{hoeffding_theorem} to a random variable $X:=\sum_{i=1}^r X_i
 This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M_i,x_i/j)$.
 
 
-To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_r\}:=\bigcup_{y\in N^+H(p)} N^+_G(y)$ and let $x_i:=4d|C_{p,w_i}|$, for each $i\in\{1,\ldots,r\}$.
+To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_r\}:=\bigcup_{y\in N^+_H(p)} N^+_G(y)$ and let $x_i:=4d|C_{p,w_i}|$, for each $i\in\{1,\ldots,r\}$.
 Observe that $w_1,\ldots,w_r$ are precisely the vertices that could complete some $y\in N^+_H(p)$.  We have already defined $k=d^a\sqrt{\Delta}$ and we have $M_i:=\max\{N_\alpha(w_i):\alpha \in \Phi_{w_i}\}\le 4d\Delta/k$.  We can now upper bound the denominator in \cref{hoeffding}.  Since $f(x)=x^2$ is convex and increasing on $[0,\infty]$, the denominator is maximized by setting as many terms as possible to their largest allowable value given the local constraint $M_i \le 4d\Delta/k$.  However, the number of these terms is limited to $O(d^3)$ by the global constraint $\sum_{i=1}^r M_i= O(d^4\Delta/k)$, giving
 \[
     \sum_{i=1}^r M_i^2 \le \left(\frac{4d\Delta}{k}\right)^2\cdot O(d^3) = O\left(\frac{d^5\Delta^2}{k^2}\right) \enspace .
