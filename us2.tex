@@ -216,26 +216,6 @@ Recall that $M:=4d\Delta/k=4d^{1-a}\sqrt{\Delta}\log^{-b}n$. Therefore,
      & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$ for $a\ge 1$)} \\
   & = \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2 \\
   & \le \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + 2\cdot (\E(X_i))^2   & \text{(since $x_i\le 4d\Delta=kM$)} \\
-  % & = O(x_id^{1-2a}\log^{-2b} n) + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2 \\
-  % & \le O(x_id^{1-2a}\log^{-2b} n) + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2 \\
-  % & \le O(x_id^{1-2a}\log^{-2b} n) + 2\cdot (\E(X_i))^2
-  % & \text{(since $x_i\le 4d\Delta=kM$)} \\
- %  & = x_id^{1-2a}\log^{-2b}n + \frac{x_i}{kM}\cdot (\E(X_i))^2
- %      + \frac{1}{k}\cdot\sum_{j=x_i/k+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
- %  & < x_i + \frac{x_i}{kM}\cdot (\E(X_i))^2
- %      + \frac{1}{k}\cdot\sum_{j=x_i/M+1}^k \left(\frac{x_i}{j}-\E(X_i)\right)^2
- %      & \text{(for $a\ge 1/2$ and $b\ge 0$)} \\
- %  & \le x_i + (\E(X_i))^2
- %      + \sum_{j=x_i/M+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2
- %      & \text{\quad(since $x_i\le 4d\Delta= kM$)} \\
- % & < x_i + (\E(X_i))^2 + \sum_{j=x_i/M+1}^k \frac{1}{k}\left(\frac{x_i^2}{j^2} + (\E(X_i))^2\right) \\
- % & \le x_i + 2(\E(X_i))^2  +  \sum_{j=x_i/M+1}^k\frac{1}{k}\cdot\frac{x_i^2}{j^2}
- % & \text{(since $(k-x_i/M)/k \le 1$)} \\
- % & = x_i + 2(\E(X_i))^2  +  \frac{x_i^2}{k}\cdot \sum_{j=x_i/M+1}^k\frac{1}{j^2} \\
- % & < x_i + 2(\E(X_i))^2 + \frac{x_i^2}{k}\cdot\frac{M\pi^2}{6 x_i}
- %    & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$, for $a\ge 1$)} \\
- % & < (1+\pi^2/6)x_i + 2(\E(X_i))^2
- %    & \text{(for $a\ge 1/2$)} \\
  & = O(d^{1-2a}x_i\log^{-2b}n) + O(d^{1-2a}\log^{2-2b} n) \\
   & = O(d^{1-2a}x_i\log^{2-2b}n) \enspace .
 \end{align*}
