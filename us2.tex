@@ -192,7 +192,7 @@ We say that a path $\Pi$ in $\mathcal{P}$ is a \defin{problem} if its two endpoi
 
 Observe that any violation of the $\ell$-vertex-ranking condition on a path $\Pi=x_0,\ldots,x_r$ implies that $\Pi$ is a problem.  For every problem $\Pi$ we choose the vertex $y:=x_{r-1}$ closest to the cause, $x_r$, of the problem and declare $y$ to be a \defin{problematic} vertex. Let $P$ be the set of problematic vertices.  Again, we will recolour $P$ using large colours.  To do this safely, we need to show that this doesn't introduce any new problems.  For this, we need to show that (for some appropriate definition of $H$), $H[P]$ is $k$-degenerate, with high probability.
 
-I know what to do.  Partition into groups $L_0,\ldots,L_q$ as before and use disjoint colour sets $\Phi_0 < \Phi_1<\cdots<\Phi_q$.  Then the only problems we have to worry about have both endpoints in $L_j$ for some $j$ and all internal vertices in $L_0\cup\cdots\cup L_j$.  Now, when we compute the sum of $x_i$, each vertex $y\in N_H^+(p)$ can contribute only $16d^2$ to the sum.  So in the end, we get $\E(X)=\tilde{O}(\Delta^{\floor\ell/2\rfloor}/k)$. 
+I know what to do.  Partition into groups $L_0,\ldots,L_q$ as before and use disjoint colour sets $\Phi_0 < \Phi_1<\cdots<\Phi_q$.  Then the only problems we have to worry about have both endpoints in $L_j$ for some $j$ and all internal vertices in $L_0\cup\cdots\cup L_j$.  Now, when we compute the sum of $x_i$, each vertex $y\in N_H^+(p)$ can contribute only $16d^2$ to the sum.  So in the end, we get $\E(X)=\tilde{O}(\Delta^{\lfloor\ell/2\rfloor}/k)$. 
 
 
 
