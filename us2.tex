@@ -150,15 +150,16 @@ For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed 
 
 \section{Generalization to \boldmath$\ell$-Vertex-Ranking}
 
+\subsection{Cheap Tricks}
 
-\subsection{A Cheap Argument}
-
-\begin{lem}
+\begin{lem}\label{cairns_trick}
   For any integers $\ell\ge 1$, $d\ge 1$, $\Delta\ge d$, and any $d$-degenerate graph $G$ of maximum degree at most $\Delta$, the graph $G^{\ell}$ is $2^{\ell+2} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$-degenerate.
 \end{lem}
 
 \begin{proof}
-  Let $<$ be a total order on the vertices of $G$ such that each vertex $v$ of $G$ has at most $d$ neighbours $u$ such that $u<v$.  For each edge $vw$ of $G^{\ell}$, select some path $\Pi_{vw}:=x_0,\ldots,x_r$ in $G$ with endpoints $x_0:=v$ and $x_r:=w$ and having $r\le\ell$ edges.  Say that an edge $x_ix_{i+1}$ of $\Pi{vw}$ is a \defin{downstream} edge if $x_i < x_{i+1}$, otherwise it is an \defin{upstream} edge.  If at least half the edges of $\Pi_{vw}$ are downstream edges then orient the edge $vw$ as $\overrightarrow{vw}$, otherwise orient it as $\overleftarrow{vw}$.  We claim that the resulting oriented version of $G^{\ell}$ has maximum out-degree at most $2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.  To see this, observe that for each edge $\overrightarrow{vw}$ we can describe the path $\Pi_{vw}$ as follows.  We first specify length $r$ of the path, then a sequence of $r$ bits that describe which edges of $\Pi_{vw}$ are upstream and which are downstream.  Given $x_i$, if $x_ix_{i+1}$ is a downstream edge then there are at most $d$ options for $x_{i+1}$.  If $x_ix_{i+1}$ is an upstream edge then there are at most $\Delta$ options for $x_{i+1}$.  For a given $r$, the number of such paths is therefore at most $2^rd^{\lceil r/2\rceil}\Delta^{\lfloor r/2\rfloor}$, since at least half the edges of $\Pi_{vw}$ are downstream edges.  Summing over $r$ from $1$ to $\ell$ establishes the claim.  Therefore $G^{\ell}$ has an orientation in which each vertex has maximum out-degree $2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.  This implies that $G^{\ell}$ is $2^{\ell+2} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$-degenerate, as required.
+  Let $<$ be a $d$-degenerate ordering of $V(G)$, so that each vertex has at most $d$ neighbours that precede it in the order.  For each edge $vw$ of $G^{\ell}$, select some path $\Pi_{vw}:=x_0,\ldots,x_r$ in $G$ with endpoints $x_0:=v$ and $x_r:=w$ and having $r\le\ell$ edges.  Say that an edge $x_ix_{i+1}$ of $\Pi_{vw}$ is a \defin{downstream} edge of $\Pi_{vw}$ if $x_i < x_{i+1}$, otherwise it is an \defin{upstream} edge.  Consider the following orientation of $G^\ell$.  For each edge $vw$ of $G^\ell$, if at least half the edges of $\Pi_{vw}$ are downstream edges of $\Pi_{vw}$ then orient the edge $vw$ as $\overrightarrow{vw}$, otherwise orient it as $\overleftarrow{vw}$.
+
+  We claim that the resulting orientation of $G^{\ell}$ has maximum out-degree at most $2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.  To see this, consider a vertex $v$ and some edge $\overrightarrow{vw}$ that contributes to the out-degree of $v$.  Suppose that $\Pi_{vw}:=x_0,\ldots,x_r$ has length $r\in\{1,\ldots,\ell\}$. Given $v$, we can uniquely identify $\Pi_{vw}$ (and hence $w$) from the following description: We first specify a sequence of $r$ bits that describes which edges of $\Pi_{vw}$ are upstream and which are downstream.  Next, we specify $x_1,\ldots,x_r$.  We know that $x_0=v$. Given $x_i$ for some $i\in\{0,\ldots,r-1\}$, if $x_ix_{i+1}$ is a downstream edge then there are at most $d$ options for $x_{i+1}$.  If $x_ix_{i+1}$ is an upstream edge then there are at most $\Delta$ options for $x_{i+1}$.  For a given $r$, the number of such paths is therefore at most $2^rd^{\lceil r/2\rceil}\Delta^{\lfloor r/2\rfloor}$, since at least half the edges of $\Pi_{vw}$ are downstream edges.  Summing over $r$ from $1$ to $\ell$ establishes the claim.  Therefore $G^{\ell}$ has an orientation in which each vertex has maximum out-degree $2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$. This implies that any $k$-vertex subgraph of $G^\ell$ contains at most $k2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$ edges and therefore total degree at most $k2^{\ell+2} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.  Therefore any $k$-vertex subgraph of $G^\ell$ contains a vertex of degree at most $2^{\ell+2} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.
 \end{proof}
 
 \begin{thm}\label{l_degenerate}
@@ -166,47 +167,78 @@ For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed 
 \end{thm}
 
 \begin{proof}
-  Let $\Delta:=n^{2/(\ell+2)}$ and let $S:=\{v\in V(G):\deg_G(v)\ge\Delta\}$.  Then $G-S$ is $d$-degenerate and has maximum-degree $\Delta$, so $(G-S)^{\ell}$ is $O(\Delta^{\ell/2})$-degenerate and therefore has a proper colouring using $O(\Delta^{\ell/2})=O(n^{\ell/(\ell+2)})$ colours.  This extends to an $\ell$-vertex-ranking of $G$ by giving each vertex in $S$ a distinct colour large than all vertices of $G-S$.  This requires an additional $n/\Delta=n^{\ell/(\ell+2)}$ colours.
+  (Note that we may treat $d$ and $\ell$ as fixed, so that $n$ is only value that tends to infinity.)
+  Let $\Delta:=n^{1/\lfloor 3\ell/2\rfloor}$ and let $S:=\{v\in V(G):\deg_G(v)\ge\Delta\}$.  Then $G-S$ is $d$-degenerate and has maximum-degree $\Delta$ so, by \cref{cairns_trick}, $(G-S)^{\ell}$ is $O(\Delta^{\lfloor\ell/2\rfloor})$-degenerate and therefore has a proper colouring using $O(\Delta^{\lfloor\ell/2\rfloor})=O(n^{\lfloor\ell/2\rfloor/\lfloor 3\ell/2\rfloor)})=O(n^{1-1/\lfloor 3\ell/2\rfloor})$ colours.  This extends to an $\ell$-vertex-ranking of $G$ by giving each vertex in $S$ a distinct colour that is larger than all vertices of $G-S$.  This requires an additional $|S|=O(n/\Delta)=n^{1-1/\lfloor 3\ell/2\rfloor})$ colours.
+
+  To see that the resulting colouring is an $\ell$-vertex-ranking, consider some path $\Pi=x_0,\ldots,x_r$ in $G$ of length $r\le\ell$.  If $\Pi$ includes a vertex in $S$ then $\max\{\varphi(x):x\in S\cap \{x_0,\ldots,x_r\}\}$ is the largest colour is the unique maximum colour that appears in $\Pi$.  Otherwise, $\Pi$ is a path in $(G-S)^{\ell}$, in which case $\varphi(x_0)\neq\varphi(x_r)$.
 \end{proof}
 
-\subsection{Degenerate Graphs of Small Maximum Degree}
+\subsection{Generalizing \cref{degenerate_and_degree}}
 
-The same proof used to establish \cref{degenerate_and_degree} establishes the following generalization:
+Let $G$ be $d$-degenerate and have maximum-degree $\Delta$.  Then the same argument used to prove \cref{cairns_trick} shows:
 
-\begin{thm}\label{l_degenerate_and_degree}
-  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\ell-3/2}\log n$.
-\end{thm}
+\begin{lem}\label{advanced_cairns}
+  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that for any integer $\Delta\ge d$ and any
+  $d$-degenerate graph $G$ of maximum-degree $\Delta$ there exists a mapping $\rho:\mathcal{P}\to V(G)$ where $\mathcal{P}$ is the set of all paths in $G$ of length at most $\ell$ such that
+  \begin{compactenum}[(i)]
+    \item $\rho(P)$ is an endpoint of $P$ for each $P\in\mathcal{P}$; and
+    \item $|\rho^{-1}(v)| \le c\Delta^{\lfloor\ell/2\rfloor}$ for each $v\in V(G)$.
+  \end{compactenum}
+\end{lem}
 
-% \todo[inline]{If we want to improve the overall result, we should make use of the fact that $\Delta$ is quite big. Below, we set $\Delta=n^{1/(\ell-1/2)}$,
-% so the bound $|N^+_H(p)|\le\Delta^{\ell-1}=n^{1-1/(2\ell-1)}$ is already very close to $n$, and the bound $\sum_{w}x_w \le \Delta^{2\ell-3}=n^{(2\ell-3)/(\ell-1/2)}=n^{2\ell\pm o(1)}$ is much bigger than $n$.  I don't think this is a achievable in a graph with constant degeneracy.
-% }
+Now consider the multigraph $G^*$ with vertex set $V(G^*):=V(G)$ and that contains as many copies of the edge $vw$ as there are paths in $\mathcal{P}$ with endpoints $v$ and $w$.  By \cref{advanced_cairns}, $G^*$ has an orientation whose maximum out-degree is $O(\Delta^{\lfloor\ell/2\rfloor})$ and therefore $G^*$ is $O(\Delta^{\lfloor\ell/2\rfloor})$-degenerate.  Let $<$ denote a degeneracy ordering of the vertices in $G^*$, so that any vertex $v$ has $O(\Delta^{\lfloor\ell/2\rfloor})$ neighbours $u$ with $u<w$.  We colour the vertices of $G$ in increasing order.
+
+We say that a path $\Pi$ in $\mathcal{P}$ is a \defin{problem} if its two endpoints $u$ and $w$ receive the same colour.  If $u < w$ then we say that $w$ is the \defin{cause} of the problem.  When colouring $w$, we use the same trick of choosing randomly from a subpalette $\Phi_w$ of $k$ colours from a global palette $\Phi$ of $2k$ colours.  By the time we colour $w$ we know, for each colour $\alpha\in \Phi$ the number $N_\alpha(w)$ of problems $w$ will cause if we set the colour of $w$ to $\alpha$.  Using the subpalette trick ensures that each colour $\alpha\in\Phi_w$ will cause at most $O(\Delta^{\lfloor\ell/2\rfloor}/k)$ problems.
+
+Observe that any violation of the $\ell$-vertex-ranking condition on a path $\Pi=x_0,\ldots,x_r$ implies that $\Pi$ is a problem.  For every problem $\Pi$ we choose the vertex $y:=x_{r-1}$ closest to the cause, $x_r$, of the problem and declare $y$ to be a \defin{problematic} vertex. Let $P$ be the set of problematic vertices.  Again, we will recolour $P$ using large colours.  To do this safely, we need to show that this doesn't introduce any new problems.  For this, we need to show that (for some appropriate definition of $H$), $H[P]$ is $k$-degenerate, with high probability.
+
+I know what to do.  Partition into groups $L_0,\ldots,L_q$ as before and use disjoint colour sets $\Phi_0 < \Phi_1<\cdots<\Phi_q$.  Then the only problems we have to worry about have both endpoints in $L_j$ for some $j$ and all internal vertices in $L_0\cup\cdots\cup L_j$.  Now, when we compute the sum of $x_i$, each vertex $y\in N_H^+(p)$ can contribute only $16d^2$ to the sum.  So in the end, we get $\E(X)=\tilde{O}(\Delta^{\floor\ell/2\rfloor}/k)$. 
+
+
+
+
+
+
+
+% \subsection{Degenerate Graphs of Small Maximum Degree}
 %
-% \todo[inline]{For example, by Cairn's argument, the number of paths of length $\ell$ with both endpoints in $L_j$ is at most $2|L_j|d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}=O(|L_j|\Delta^{\ell/2})$.  Each such path contributes at most $\ell$ to $\sum_w x_w$, so $\sum_w x_w\le \sum_{i}|L_i|\Delta^{\ell/2}= O(n\Delta^{\ell/2})=n^{1+\ell/4\pm o(1)}$.
-% }
-
-% \todo[inline]{The more I think about, the more it looks like the answer could be something like $O(n^{\ell+2}{\ell+4})$}
-
-\begin{proof}[Proof Sketch]
-  Let $G$ be an $n$-vertex $d$-degenerate graph of maximum degree $\Delta$ and let $k:=\Delta^{\ell-3/2}$. Proceed exactly as in the proof of \cref{degenerate_and_degree} by partitioning $V(G)$ into the sets $L_0,\ldots,L_q$ and defining the total order $<$ as before.  In the first phase, the vertices in $L_i$ will receive colours from a palette $\Phi_i$ of size $2k$, so the first phase will use at most $k(q+1)=O(k\log n)$ colours.
-
-  Now, define $H$ as the oriented version of $G^{\ell}$ where the orientation of each edge is given by $<$.  As before, consider an oriented version of $G$ with orientations also given by $<$.  Observe that, for every directed edge $\overrightarrow{py}$ of $H$, $G$ contains a (undirected) path of length at most $\ell$ that begins at $p$, ends at $y$, and traverses at least one edge of $G$ in the direction it is oriented.  The number of such paths is $O(\Delta^{\ell-1})$.  (Here and throughout this proof, $d$ and $\ell$ are fixed, so factors that depend only on $d$ and $\ell$ do not appear in asymptotic notations.)
-
-  A vertex $y\in L_i$ is \defin{problematic} if, after the first phase, there exist a path $\Pi$ of length at most $\ell$ that begins at a vertex $u\in L_j$, $j\ge i$, contains $y$, ends at a vertex $w\in L_j$ that receives the same colour as $u$.  (This includes the possibility that $u=y$.)  Consider the number of paths $\Pi$ that could result in $y$ being problematic. Any such $\Pi$ is the union of two paths $y\rightsquigarrow u$ and $y\rightsquigarrow w$ of lengths $a$ and $b$, respectively, where $0\le a\le b$ and $1\le a+b\le\ell$. The fact that $y\in L_i$ and $u,w\in L_j$ implies that, for fixed $y$ and fixed $a$ and $b$, the number of such paths $\Pi$ is at most $O(\Delta^{a-1}\cdot\Delta^{b-1})=O(\Delta^{\ell-2})$. The number of ways of fixing $1\le a\le b\le \ell$ depends only on $\ell$.  Thus, for any given $y$ the number of paths that could cause $y$ to become problematic is $O(\Delta^{\ell-2})$.
-
-  When colouring a vertex $w\in L_j$ we choose the colour of $w$ randomly from a $k$-colour subpalette $\Phi_w\subseteq \Phi_i$ chosen to minimize the maximum number $M$ of vertices $y$ that could become problematic by choosing $\varphi(w)\in \Phi_w$.  If $w\in L_j$, then each such $y$ is in $\bigcup_{i=0}^{j} L_i$, and is contained in a path of length at most $\ell$ that begins at $u\in L_j$, contains $y$ and ends at $w\in L_j$.  For a fixed $w$, the number of such paths is $O(\Delta^{\ell-1})$. For each such path $\Pi$, there is at most one colour $\alpha$ (the colour assigned to $u$) such that assigning the colour $\alpha$ to $w$ makes $y$ problematic because of $\Pi$.  This implies that $Mk \le O(\Delta^{\ell-1})$, so $M\le O(\Delta^{\ell-1}/k)=O(\sqrt{\Delta})$.
-
-  To upper bound the maximum out-degree in $H$, we fix some vertex $p$ and study the random variable $X_p:=|N^+_H(p)\cap P|$ where $P$ is the set of problematic vertices after the first phase.  Then $X_p$ is a sum of random variables $\sum_{w>p} X'_{p,w}$ where $X'_{p,w}$ is the number of vertices in $N^+_H(p)$ that become problematic precisely when $w$ is coloured.  For $w\in L_j$, $X'_{p,w}$ is dominated by a random variable $X_{p,w}$ that is distributed like $\min\{M,x_w/r\}$ where $r$ is uniform in $\{1,\ldots,k\}$ and $x_w$ counts the number of paths of length at most $\ell$ that begin at some vertex $u\in L_j$, contain some vertex $y\in N^+_H(p)\cap \bigcup_{i=1}^j L_j$ and end at $w\in L_j$.
-  We can upper bound $\sum_{w>p} x_w$ by summing over $y\in N^+_H(p)$, since each path that contributes to $x_w$ contains some $y\in N_H^+(p)$.  As discussed above, for each $y\in N^+_H(p)$, the number of such paths is $O(\Delta^{\ell-2})$.
-  Therefore, $\sum_{w>p} x_w\le |N^+_H(p)|\cdot O(\Delta^{\ell-2})=O(\Delta^{2\ell-3})$.  Therefore, the random varable $X_p$ is dominated by $X:=\sum_{w>p} X_{p,w}$. The same calculation used in the appendix then shows that
-  \[
-    \E(X) \le O\left(\frac{\Delta^{2\ell-3}\log n}{k}\right)
-    = O\left(\frac{\Delta^{2\ell-3}\log n}{\Delta^{\ell-3/2}}\right)
-    =  O\left(\Delta^{\ell-3/2}\log n\right)=O(k\log n) \enspace .
-  \]
-  More calculations almost identical to those that appear in the appendix show that $\Pr(X_p)\ge ck\log n=n^{-\Omega(c)}$.  Thus, with high probability, the graph $G^{\ell}[P]$ is $O(k\log n)$-degenerate so the vertices in $P$ can be re-coloured using an additional $O(k\log n)$ colours.
-\end{proof}
-
-Unfortunately, \cref{l_degenerate_and_degree} is not strong enough to improve \cref{l_degenerate} for $\ell\ge 3$.  Indeed, using \cref{l_degenerate_and_degree} and the usual trick of colouring high-degree vertices with distinct colours only gives  $\trn(G)\le O(n^{(\ell-3/2)/(\ell-1/2)})$, which is worse than the bound in \cref{l_degenerate} for all $\ell\ge 3$.
+% The same proof used to establish \cref{degenerate_and_degree} establishes the following generalization, which is useful for graphs of bounded degeneracy and moderate maximum degree:
+%
+% \begin{thm}\label{l_degenerate_and_degree}
+%   For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\ell-3/2}\log n$.
+% \end{thm}
+%
+% % \todo[inline]{If we want to improve the overall result, we should make use of the fact that $\Delta$ is quite big. Below, we set $\Delta=n^{1/(\ell-1/2)}$,
+% % so the bound $|N^+_H(p)|\le\Delta^{\ell-1}=n^{1-1/(2\ell-1)}$ is already very close to $n$, and the bound $\sum_{w}x_w \le \Delta^{2\ell-3}=n^{(2\ell-3)/(\ell-1/2)}=n^{2\ell\pm o(1)}$ is much bigger than $n$.  I don't think this is a achievable in a graph with constant degeneracy.
+% % }
+% %
+% % \todo[inline]{For example, by Cairn's argument, the number of paths of length $\ell$ with both endpoints in $L_j$ is at most $2|L_j|d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}=O(|L_j|\Delta^{\ell/2})$.  Each such path contributes at most $\ell$ to $\sum_w x_w$, so $\sum_w x_w\le \sum_{i}|L_i|\Delta^{\ell/2}= O(n\Delta^{\ell/2})=n^{1+\ell/4\pm o(1)}$.
+% % }
+%
+% % \todo[inline]{The more I think about, the more it looks like the answer could be something like $O(n^{\ell+2}{\ell+4})$}
+%
+% \begin{proof}[Proof Sketch]
+%   Let $G$ be an $n$-vertex $d$-degenerate graph of maximum degree $\Delta$ and let $k:=\Delta^{\ell-3/2}$. Proceed exactly as in the proof of \cref{degenerate_and_degree} by partitioning $V(G)$ into the sets $L_0,\ldots,L_q$ and defining the total order $<$ as before.  In the first phase, the vertices in $L_i$ will receive colours from a palette $\Phi_i$ of size $2k$, so the first phase will use at most $k(q+1)=O(k\log n)$ colours.
+%
+%   Now, define $H$ as the oriented version of $G^{\ell}$ where the orientation of each edge is given by $<$.  As before, consider an oriented version of $G$ with orientations also given by $<$.  Observe that, for every directed edge $\overrightarrow{py}$ of $H$, $G$ contains a (undirected) path of length at most $\ell$ that begins at $p$, ends at $y$, and traverses at least one edge of $G$ in the direction it is oriented.  The number of such paths is $O(\Delta^{\ell-1})$.  (Here and throughout this proof, $d$ and $\ell$ are fixed, so factors that depend only on $d$ and $\ell$ do not appear in asymptotic notations.)
+%
+%   A vertex $y\in L_i$ is \defin{problematic} if, after the first phase, there exist a path $\Pi$ of length at most $\ell$ that begins at a vertex $u\in L_j$, $j\ge i$, contains $y$, ends at a vertex $w\in L_j$ that receives the same colour as $u$.  (This includes the possibility that $u=y$.)  Consider the number of paths $\Pi$ that could result in $y$ being problematic. Any such $\Pi$ is the union of two paths $y\rightsquigarrow u$ and $y\rightsquigarrow w$ of lengths $a$ and $b$, respectively, where $0\le a\le b$ and $1\le a+b\le\ell$. The fact that $y\in L_i$ and $u,w\in L_j$ implies that, for fixed $y$ and fixed $a$ and $b$, the number of such paths $\Pi$ is at most $O(\Delta^{a-1}\cdot\Delta^{b-1})=O(\Delta^{\ell-2})$. The number of ways of fixing $1\le a\le b\le \ell$ depends only on $\ell$.  Thus, for any given $y$ the number of paths that could cause $y$ to become problematic is $O(\Delta^{\ell-2})$.
+%
+%
+%   When colouring a vertex $w\in L_j$ we choose the colour of $w$ randomly from a $k$-colour subpalette $\Phi_w\subseteq \Phi_i$ chosen to minimize the maximum number $M$ of vertices $y$ that could become problematic by choosing $\varphi(w)\in \Phi_w$.  If $w\in L_j$, then each such $y$ is in $\bigcup_{i=0}^{j} L_i$, and is contained in a path of length at most $\ell$ that begins at $u\in L_j$, contains $y$ and ends at $w\in L_j$.  For a fixed $w$, the number of such paths is $O(\Delta^{\ell-1})$. For each such path $\Pi$, there is at most one colour $\alpha$ (the colour assigned to $u$) such that assigning the colour $\alpha$ to $w$ makes $y$ problematic because of $\Pi$.  This implies that $Mk \le O(\Delta^{\ell-1})$, so $M\le O(\Delta^{\ell-1}/k)=O(\sqrt{\Delta})$.
+%
+%   To upper bound the maximum out-degree in $H$, we fix some vertex $p$ and study the random variable $X_p:=|N^+_H(p)\cap P|$ where $P$ is the set of problematic vertices after the first phase.  Then $X_p$ is a sum of random variables $\sum_{w>p} X'_{p,w}$ where $X'_{p,w}$ is the number of vertices in $N^+_H(p)$ that become problematic precisely when $w$ is coloured.  For $w\in L_j$, $X'_{p,w}$ is dominated by a random variable $X_{p,w}$ that is distributed like $\min\{M,x_w/r\}$ where $r$ is uniform in $\{1,\ldots,k\}$ and $x_w$ counts the number of paths of length at most $\ell$ that begin at some vertex $u\in L_j$, contain some vertex $y\in N^+_H(p)\cap \bigcup_{i=1}^j L_j$ and end at $w\in L_j$.
+%   We can upper bound $\sum_{w>p} x_w$ by summing over $y\in N^+_H(p)$, since each path that contributes to $x_w$ contains some $y\in N_H^+(p)$.  As discussed above, for each $y\in N^+_H(p)$, the number of such paths is $O(\Delta^{\ell-2})$.
+%   Therefore, $\sum_{w>p} x_w\le |N^+_H(p)|\cdot O(\Delta^{\ell-2})=O(\Delta^{2\ell-3})$.  Therefore, the random varable $X_p$ is dominated by $X:=\sum_{w>p} X_{p,w}$. The same calculation used in the appendix then shows that
+%   \[
+%     \E(X) \le O\left(\frac{\Delta^{2\ell-3}\log n}{k}\right)
+%     = O\left(\frac{\Delta^{2\ell-3}\log n}{\Delta^{\ell-3/2}}\right)
+%     =  O\left(\Delta^{\ell-3/2}\log n\right)=O(k\log n) \enspace .
+%   \]
+%   More calculations almost identical to those that appear in the appendix show that $\Pr(X_p)\ge ck\log n=n^{-\Omega(c)}$.  Thus, with high probability, the graph $G^{\ell}[P]$ is $O(k\log n)$-degenerate so the vertices in $P$ can be re-coloured using an additional $O(k\log n)$ colours.
+% \end{proof}
+%
+% Unfortunately, \cref{l_degenerate_and_degree} is not strong enough to improve \cref{l_degenerate} for $\ell\ge 3$.  Indeed, using \cref{l_degenerate_and_degree} and the usual trick of colouring high-degree vertices with distinct colours only gives  $\trn(G)\le O(n^{(\ell-3/2)/(\ell-1/2)})$, which is worse than the bound in \cref{l_degenerate} for all $\ell\ge 3$.
 
 
 
