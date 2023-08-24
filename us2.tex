@@ -239,16 +239,15 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
 
   We now describe the first phase colouring algorithm.  Consider the multigraph $G^*$ that, for each $vw\in V(G)$ contains as many copies of the edge $vw$ as there are undirected paths in $\mathcal{P}$ with endpoints $v$ and $w$.  The existence of $\rho$ implies that $G^*$ has an orientation in which each edge has out-degree $O(\Delta^{\lfloor\ell /2})$.  By \cref{orientation_to_degeneracy}, $G^*$ is $O(\Delta^{\lfloor\ell /2})$-degenerate.  Label the vertices of $G$ as $v_1,\ldots,v_n$ so that $v_i$ has degree $O(\Delta^{\lfloor\ell /2})$ in $G^*[\{v_1,\ldots,v_{i}\}]$.
 
-  Let $\tau:\mathcal{P}\to V(G)$ be the mapping that maps $\Pi\in\mathcal{P}$ to $v_j$ if and only if the endpoints of $\Pi$ are $v_i$ and $v_j$ and $i < j$.\footnote{The two mappings $\tau$ and $\rho$ are similar. The difference is that $\rho$ corresponds to some orientation of $G^*$ and $\tau$ corresponds to an acyclic orientation of $G^*$.}  Consider some vertex $w\in L_j$.  For each $\alpha \in \Phi_j$, let $N_{\alpha}(w)$ be the number of paths in $\tau^{-1}(w)$ whose other endpoint (not $w$) is assigned the colour $\alpha$. If $w=v_j$ then $N_{\alpha}(w)$ is completely determined by the colours of $v_1,\ldots,v_{j-1}$.  If $w$ is assigned the colour $\alpha$ then exactly $N_{\alpha}(w)$ paths in $\tau^{-1}(w)$ will become problematic.  Therefore, $\sum_{\alpha\in\Phi_i} N_\alpha(w)=|\tau^{-1}(w)|=O(\Delta^{\lfloor\ell /2\rfloor})$.
+  Let $\tau:\mathcal{P}\to V(G)$ be the mapping that maps $\Pi\in\mathcal{P}$ to $v_j$ if and only if the endpoints of $\Pi$ are $v_i$ and $v_j$ and $i < j$.\footnote{The two mappings $\tau$ and $\rho$ are similar. The difference is that $\rho$ corresponds to some orientation of $G^*$ and $\tau$ corresponds to an acyclic orientation of $G^*$.}  Consider some vertex $w\in L_j$.  For each $\alpha \in \Phi_j$, let $N_{\alpha}(w)$ be the number of paths in $\tau^{-1}(w)$ whose other endpoint (not $w$) is assigned the colour $\alpha$. If $w=v_j$ then $N_{\alpha}(w)$ is completely determined by the colours of $v_1,\ldots,v_{j-1}$.  If $w$ is assigned the colour $\alpha$ then exactly $N_{\alpha}(w)$ paths in $\tau^{-1}(w)$ will become problematic.  Therefore, $\sum_{\alpha\in\Phi_i} N_\alpha(w)=|\tau^{-1}(w)|$.
 
-  We choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains exactly half the colours in $\Phi_i$.  Specifically we choose from a palette $\Phi_w\subset \Phi_i$ that contains the $k$ colours $\alpha$ in $\Phi_i$ with the smallest $N_\alpha(w)$ values, so that  $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le\min\{N_\alpha(w):\alpha\in\Phi_i\setminus\Phi_w\}$.  Let $M:=c\Delta^{\lfloor\ell/2\rfloor}/k$.
+  We choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains exactly half the colours in $\Phi_i$.  Specifically we choose from a palette $\Phi_w\subset \Phi_i$ that contains the $k$ colours $\alpha$ in $\Phi_i$ with the smallest $N_\alpha(w)$ values, so that  $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le\min\{N_\alpha(w):\alpha\in\Phi_i\setminus\Phi_w\}$.  Let $M:=c\Delta^{\lfloor\ell/2\rfloor}/k$ with $c$ sufficiently large so that $Mk\ge \tau^{-1}(w)$.
   Then
   \[
-    Mk = c\Delta^{\lfloor\ell/2\rfloor} \ge \sum_{\alpha\in \Phi_i} N_\alpha(w) \ge \sum_{\alpha\in\Phi_i\setminus\Phi_w}N_\alpha(w) \ge k\max\{N_\alpha(w):\alpha\in \Phi_w\} \enspace ,
+    Mk = |\tau^{-1}(w)|= \sum_{\alpha\in \Phi_i} N_\alpha(w) \ge \sum_{\alpha\in\Phi_i\setminus\Phi_w}N_\alpha(w) \ge k\max\{N_\alpha(w):\alpha\in \Phi_w\} \enspace ,
   \]
   so that $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le M$.  This completes the description of the first-phase colouring $\varphi$ of $G$.
 
-  % As before, we choose $\Phi_w\subseteq\Phi_i$ of size $k$ so that $N_\alpha(w)=O(\Delta^{\lfloor\ell /2\rfloor}/k)$ for all $\alpha\in\Phi_w$. Let $M:=c\Delta^{\lfloor\ell /2\rfloor}/k$ where $c$ is large enough that $N_\alpha(w)\le M$ for all $w\in V(G)$ and all $\alpha\in \Phi_w$. In the first phase, we choose the colour of $w$ uniformly from $\Phi_w$.  This completes the description of the first phase colouring algorithm.
 
   The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the $\ell$-violations of $\varphi$.  For each $\ell$-violation $\Pi$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round, in order to eliminate this $\ell$-violation.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  Then $G'$ has maximum out-degree $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)
 
@@ -256,53 +255,46 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
 
   Let $P$ be the set of all problematic vertices.  By definition, every $\ell$-violation of $\varhpi$ contains at least one vertex in $P$.  In the second phase, we re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have endpoints whose colour is in $\Phi_{q+1}$.  In order to avoid this, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.
 
-  Observe that, for each edge $vw$of $G^\ell$,  graph with vertex set $V(G)$ that, for each undirected path $\Pi\in\mathcal{P}_\ell(G)$ contains the edge between the endpoints of $\Pi$.  By \cref{advanced_cairns,orientation_to_degeneracy}, $H$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Treat $H$ as a directed acyclic graph where each vertex has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.  Let $p$ be an arbitrary vertex of $G$.  We want to study the random variable $X_p$ that counts the number of problematic vertices in $N_H^+(p)$.
+  For each edge $vw$ of $G^\ell$, select some representative path $\Pi_{vw}$ in $\mathcal{P}_\ell(G)$ that has endpoints $v$ and $w$. By using the mapping $\rho$ frpm \cref{advanced_cairns} and directing each edge $vw$ away from $\rho(\Pi_{pw})$ we obtain an orientation of $G^\ell$ with maximum out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.  Let $H$ be the directed graph obtained from $G^{\ell}$ using this orientation.
 
-  Suppose that some $y\in N^+_H(p)$ is problematic.  This occurs when some vertex $w$ (an endpoint of some path in $\gamma^{-1}(y)$).  For each $y\in N^+_H(p)$ let $A_y$ be the set of endpoints of paths in $\gamma^{-1}(y)$ that could complete $y$.  Let $C_p:=\bigcup_{y\in N^+H(p)} A_y$ and, for each $w\in C_p$, let $C_{p,w}:=N^+_H(p)\cap \{\gamma(\Pi):\Pi\in\tau^{-1}(w)\}$.  In words, $C_p$ is the set of vertices $w$ that could complete some vertex $y\in N^+_H(p)$ and $C_{p,w}$ is the set of vertices in $N^+_H(p)$ that $w$ could complete some vertex $y\in C_p$.  Then
+  We want to show that $H[P]$ has chromatic number at most $ck\log n+1$.  To do this, we will show that the maximum out-degree of $H[P]$ is at most $ck\log n$, with high probability.  We will show something stronger: that every vertex $p$ in $H$ has at most $ck\log n$ neighbours in $P$.  To do this, we fix some vertex $p$ of $H$ and study the random variable $|N_H^+(p)\cap P|$.  Instead of focusing on problematic vertices, we focus on problematic paths.  For each problematic vertex $y$, some path $\Pi$ in $\gamma^{-1}(y)$ is problematic. Therefore,
+  \begin{equation}
+    |N^+_H(p)\cap P| \le \sum_{y\in N^+_H(p)} \left|\left\{\Pi\in\gamma^{-1}(y): \text{$\Pi$ is problematic}\right\}\right| =: X'_{p} \enspace .
+    \label{path_upper_bound}
+  \end{equation}
+  We have already established that each $\Pi\in\mathcal{P}$ is problematic with probability at most $1/k$ since this occurs precisely when we choose the same colour $w:=\tau(\Pi)$ for $w$ that was already chosen for the other endpoint of $\Pi$.  Therefore,
+  \begin{align*}
+    \E\left(|N^+_H(p)\cap P|\right)
+    & \le \frac{1}{k}\sum_{y\in N^+_H(p)}|\gamma^{-1}(y)| \\
+    & \le \frac{1}{k}\cdot|N^+_H(p)|\cdot O(\Delta^{\lfloor\ell /2\rfloor-1}) \\
+    & \le \frac{1}{k}\cdot O(\Delta^{2\lfloor\ell /2\rfloor-1}) \\
+    & = O(\Delta^{\lfloor\ell /2\rfloor-1/2}) = O(k) \enspace .
+  \end{align*}
+  This is a good sign. If the event set $\{\text{``$\Pi$ is problematic''}:\Pi\in\mathcal{P}\}$ were mutually independent then it would be a simple matter of applying a Chernoff bound.  Unfortunately this is not the case since, for each vertex $w$, the events $\{\text{``$\Pi$ is problematic''}:\Pi\in\tau^{-1}(w)\}$ are all affected by the colour of $w$. Instead, we have to use a more sophisticated inequality for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  This is somewhat technical (and a little specialized), so we use the rest of the proof to express (an upper bound on) $|N^+_H(p)\cap P|$ as a sum of independent random variables. The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the appendix.
+
+  For each vertex $w$ of $G$, let $\mathcal{P}_{p,w}:=\tau^{-1}(w)\cap (\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y))$ and define
   \[
-    \sum_{y\in N_H^+(p)} |\gamma^{-1}(y)| \le |N_H^+(p)|\cdot O(\Delta^{\lfloor\ell/2\rfloor}-1) \le O(\Delta^{2\lfloor \ell/2\rfloor-1}) \enspace .
+    X'_{p,w} :=\left|\left\{\Pi\in\mathcal{P}_{p,w}:\text{$\Pi$ is problematic}\right\}\right|
+    \enspace .
   \]
+  Since each problematic path $\Pi$ counted by the right-hand-side of \cref{path_upper_bound} becomes problematic when $w:=\tau(\pi)$ is coloured, $X'_p=\sum_{w} X'_{p,w}$.
 
-  \todo[inline]{What comes next is copy-pasted from the proof of \cref{degenerate_and_degree}.}
-
-  For each $w\in C_p$, let $\comp(p,w):=\{y\in C_{p,w}:\text{$w$ completes $y$}\}$.  For each $\alpha\in\Phi_w$, let $\comp_\alpha(p,w)$ contain exactly those vertices $y\in C_{p,w}$ that would be completed by $w$ if we were to set the colour of $w$ to $\alpha$.  By definition $N_\alpha(w)\le |\comp_\alpha(p,w)|\le N_\alpha(w)\le M$.  We want to study the random variable $X'_{p,w}:=|\comp(p,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $X_{p,w} \le M$.
+  For each $\alpha\in\Phi_i$, let $N_\alpha(p,w)$ be the number of paths in $\mathcal{P}_{p,w}$ that would have become problematic if we had set the colour of $w$ to $\alpha$. If $w\in L_j$ then $\sum_{\alpha\in\Phi_w} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(p,w) = |\tau^{-1}(w)|$.
 
   Let $\alpha_1,\ldots,\alpha_t$ be the colours in $\Phi_w$ ordered so that,
   \[
-    |\comp'_{\alpha_1}(p,w)|\ge|\comp'_{\alpha_2}(p,w)|\ge\cdots\ge |\comp'_{\alpha_t}(p,w)| \enspace .
+    N_{\alpha_1}(p,w) \ge N_{\alpha_2}(p,w) \ge\cdots\ge N_{\alpha_k}(p,w) \enspace .
   \]
-  For each $y\in N^+_H(p)$ and each path $\Pi\in \gamma^{-1}(y)\cap \tau^{-1}(w)$, there is at most one choice of colour $\alpha$ for $w$ that makes $\Pi$ problematic.  Therefore, $y$ appears in $\comp_\alpha(p,w)$ for at most $|\gamma^{-1}(y)|= O(\Delta^{\lfloor\ell/2\rfloor}-1)$ values of $\alpha$, so
+  Then, for each $i\in\{1,\ldots,k\}$, $iN_{\alpha_i}(p,w)\le\sum_{j=1}^i N_{\alpha_j}(p,w) \le |\tau^{-1}(w)|$, so
   \[
-    \sum_{\alpha\in\Phi_w} |\comp_{\alpha}(p,w)| \le O(\Delta^{\lfloor\ell/2\rfloor-1})\cdot |C_{p,w}| \enspace .
+    N_{\alpha_i}(p,w)\le \frac{|\tau^{-1}(w)|}{i}=\frac{O(\Delta^{\lfloor\ell/2\rfloor})}{i} \enspace .
   \]
-  Therefore $i|\comp_{\alpha_i}(p,w)|\le\sum_{j=1}^i|\comp_{\alpha_j}(p,w)|\le O(\Delta^{\lfloor\ell/2\rfloor}-1)|C_{p,w}|$, so
-  \[
-    |\comp_{\alpha_i}(p,w)|\le \frac{O(\Delta^{\lfloor\ell/2\rfloor-1})|C_{p,w}|}{i} \enspace .
-  \]
-  Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{O(\Delta^{\lfloor\ell/2\rfloor-1})|C_{p,w}|/j,M\}$ where $j$ is chosen uniformly in $\{1,\ldots,k\}$.
+  Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{O(\Delta^{\lfloor\ell/2\rfloor})/i,M\}$ where $i$ is chosen uniformly in $\{1,\ldots,k\}$.
 
-  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w\in C_p} X_{p,w}$ of independent random variables.  We would like to apply a concentration result to the random variable $X$.  For this, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$, $w\in C_p$.  Thus far, we know that $0\le X_{p,w}\le M$ for each $w\in C_p$. In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply a Bernstein Inequality to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours in $\Phi_{q+1}$ needed to recolour $P$ in the second phase is $O(k\log n)$.  Thus, In this way, the total number of colours used is $O(k\log n)$, so
+  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of independent random variables.  We would like to apply a concentration result to the random variable $X_p$.  For this, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  Thus far, we know that $0\le X_{p,w}\le M$ for all $w$. In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply a Bernstein Inequality to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours in $\Phi_{q+1}$ needed to recolour $P$ in the second phase is $O(k\log n)$.  Thus, In this way, the total number of colours used is $O(k\log n)$, so
   \[
-    \trn(G) \le O(k \log n) = O(d^a\sqrt{\Delta}\log^{1+b} n) = O(d^{3/2}\sqrt{\Delta}\log^{3/2} n) \enspace . \qedhere
+    \lrn(G) = O(k \log n) = O(\Delta^{\lfloor\ell/2\rfloor+1/2}\log n) \enspace . \qedhere
   \]
-
-%
-%   Now, define $H$ as the oriented version of $G^{\ell}$ where the orientation of each edge is given by $<$.  As before, consider an oriented version of $G$ with orientations also given by $<$.  Observe that, for every directed edge $\overrightarrow{py}$ of $H$, $G$ contains a (undirected) path of length at most $\ell$ that begins at $p$, ends at $y$, and traverses at least one edge of $G$ in the direction it is oriented.  The number of such paths is $O(\Delta^{\ell-1})$.  (Here and throughout this proof, $d$ and $\ell$ are fixed, so factors that depend only on $d$ and $\ell$ do not appear in asymptotic notations.)
-%
-%   A vertex $y\in L_i$ is \defin{problematic} if, after the first phase, there exist a path $\Pi$ of length at most $\ell$ that begins at a vertex $u\in L_j$, $j\ge i$, contains $y$, ends at a vertex $w\in L_j$ that receives the same colour as $u$.  (This includes the possibility that $u=y$.)  Consider the number of paths $\Pi$ that could result in $y$ being problematic. Any such $\Pi$ is the union of two paths $y\rightsquigarrow u$ and $y\rightsquigarrow w$ of lengths $a$ and $b$, respectively, where $0\le a\le b$ and $1\le a+b\le\ell$. The fact that $y\in L_i$ and $u,w\in L_j$ implies that, for fixed $y$ and fixed $a$ and $b$, the number of such paths $\Pi$ is at most $O(\Delta^{a-1}\cdot\Delta^{b-1})=O(\Delta^{\ell-2})$. The number of ways of fixing $1\le a\le b\le \ell$ depends only on $\ell$.  Thus, for any given $y$ the number of paths that could cause $y$ to become problematic is $O(\Delta^{\ell-2})$.
-%
-%
-%   When colouring a vertex $w\in L_j$ we choose the colour of $w$ randomly from a $k$-colour subpalette $\Phi_w\subseteq \Phi_i$ chosen to minimize the maximum number $M$ of vertices $y$ that could become problematic by choosing $\varphi(w)\in \Phi_w$.  If $w\in L_j$, then each such $y$ is in $\bigcup_{i=0}^{j} L_i$, and is contained in a path of length at most $\ell$ that begins at $u\in L_j$, contains $y$ and ends at $w\in L_j$.  For a fixed $w$, the number of such paths is $O(\Delta^{\ell-1})$. For each such path $\Pi$, there is at most one colour $\alpha$ (the colour assigned to $u$) such that assigning the colour $\alpha$ to $w$ makes $y$ problematic because of $\Pi$.  This implies that $Mk \le O(\Delta^{\ell-1})$, so $M\le O(\Delta^{\ell-1}/k)=O(\sqrt{\Delta})$.
-%
-%   To upper bound the maximum out-degree in $H$, we fix some vertex $p$ and study the random variable $X_p:=|N^+_H(p)\cap P|$ where $P$ is the set of problematic vertices after the first phase.  Then $X_p$ is a sum of random variables $\sum_{w>p} X'_{p,w}$ where $X'_{p,w}$ is the number of vertices in $N^+_H(p)$ that become problematic precisely when $w$ is coloured.  For $w\in L_j$, $X'_{p,w}$ is dominated by a random variable $X_{p,w}$ that is distributed like $\min\{M,x_w/r\}$ where $r$ is uniform in $\{1,\ldots,k\}$ and $x_w$ counts the number of paths of length at most $\ell$ that begin at some vertex $u\in L_j$, contain some vertex $y\in N^+_H(p)\cap \bigcup_{i=1}^j L_j$ and end at $w\in L_j$.
-%   We can upper bound $\sum_{w>p} x_w$ by summing over $y\in N^+_H(p)$, since each path that contributes to $x_w$ contains some $y\in N_H^+(p)$.  As discussed above, for each $y\in N^+_H(p)$, the number of such paths is $O(\Delta^{\ell-2})$.
-%   Therefore, $\sum_{w>p} x_w\le |N^+_H(p)|\cdot O(\Delta^{\ell-2})=O(\Delta^{2\ell-3})$.  Therefore, the random varable $X_p$ is dominated by $X:=\sum_{w>p} X_{p,w}$. The same calculation used in the appendix then shows that
-%   \[
-%     \E(X) \le O\left(\frac{\Delta^{2\ell-3}\log n}{k}\right)
-%     = O\left(\frac{\Delta^{2\ell-3}\log n}{\Delta^{\ell-3/2}}\right)
-%     =  O\left(\Delta^{\ell-3/2}\log n\right)=O(k\log n) \enspace .
-%   \]
-%   More calculations almost identical to those that appear in the appendix show that $\Pr(X_p)\ge ck\log n=n^{-\Omega(c)}$.  Thus, with high probability, the graph $G^{\ell}[P]$ is $O(k\log n)$-degenerate so the vertices in $P$ can be re-coloured using an additional $O(k\log n)$ colours.
 \end{proof}
 %
 % Unfortunately, \cref{l_degenerate_and_degree} is not strong enough to improve \cref{l_degenerate} for $\ell\ge 3$.  Indeed, using \cref{l_degenerate_and_degree} and the usual trick of colouring high-degree vertices with distinct colours only gives  $\trn(G)\le O(n^{(\ell-3/2)/(\ell-1/2)})$, which is worse than the bound in \cref{l_degenerate} for all $\ell\ge 3$.
