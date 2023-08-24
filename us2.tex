@@ -189,7 +189,7 @@ An \defin{undirected path} $\Pi$ in a graph $G$ is a connected subgraph of $G$ w
 
 \begin{lem}\label{advanced_cairns}
   For any integers $d\ge 2$, $\ell\ge 2$, $\Delta\ge d$ and any
-  $d$-degenerate graph $G$ of maximum-degree $\Delta$ there exists a mapping $\rho:\mathcal{P}_\ell(G)\to V(G)$ such that
+  graph $G$ of maximum-degree $\Delta$ that has an orientation of maximum out-degree $d$ there exists a mapping $\rho:\mathcal{P}_\ell(G)\to V(G)$ such that
   \begin{compactenum}[(i)]
     \item $\rho(P)$ is an endpoint of $P$ for each $P\in\mathcal{P}$; and
     \item $|\rho^{-1}(v)| \le 2^{\ell+1}d^{\ceil \ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$ for each $v\in V(G)$.
@@ -197,7 +197,7 @@ An \defin{undirected path} $\Pi$ in a graph $G$ is a connected subgraph of $G$ w
 \end{lem}
 
 \begin{proof}
-  Let $<$ be a $d$-degenerate ordering of $V(G)$, so that each vertex has at most $d$ neighbours that precede it in the order.  Consider some path $\Pi:=x_0,\ldots,x_r$ in $G$ of length $r\le\ell$.  Say that an edge $x_ix_{i+1}$ of $\Pi$ is a \defin{downstream} edge of $\Pi$ if $x_i < x_{i+1}$, otherwise it is an \defin{upstream} edge.  If at least half the edges of $\Pi$ are downstream edges of $\Pi_{vw}$ then set $\rho(\Pi):=x_0$, otherwise set $\rho(\Pi):=x_r$.
+  Consider some path $\Pi:=x_0,\ldots,x_r$ in $G$ of length $r\le\ell$.  Say that an edge $x_ix_{i+1}$ of $\Pi$ is a \defin{downstream} edge of $\Pi$ if it is oriented away from $x_i$, otherwise it is an \defin{upstream} edge.  If at least half the edges of $\Pi$ are downstream edges of $\Pi_{vw}$ then set $\rho(\Pi):=x_0$, otherwise set $\rho(\Pi):=x_r$.
 
   Observe that for any path $\Pi:=x_0,\ldots,x_r\in \rho^{-1}(x_0)$ can be uniquely reconstructed from the following information:
   \begin{compactenum}[(a)]
@@ -207,57 +207,84 @@ An \defin{undirected path} $\Pi$ in a graph $G$ is a connected subgraph of $G$ w
   The number of choices for (\ref{bitstring}) is $2^r$ and for any (\ref{bitstring}) with at least as many $1$-bits as $0$-bits, the number of choices for (\ref{directions}) is at most $d^{\lceil r/2\rceil}\Delta^{\lfloor r/2\rfloor}$.  So the number of path of length $r$ in $\rho^{-1}(x_0)$ is at most $2^rd^{\lceil r/2\rceil}\Delta^{\lfloor r/2\rfloor}$.  Summing $r$ over $1$ to $\ell$ completes the proof.
 \end{proof}
 
-% Now consider the multigraph $G^*$ with vertex set $V(G^*):=V(G)$ and that contains as many copies of the edge $vw$ as there are paths in $\mathcal{P}$ with endpoints $v$ and $w$.  By \cref{advanced_cairns}, $G^*$ has an orientation whose maximum out-degree is $O(\Delta^{\lfloor\ell/2\rfloor})$ and therefore $G^*$ is $O(\Delta^{\lfloor\ell/2\rfloor})$-degenerate.  Let $<$ denote a degeneracy ordering of the vertices in $G^*$, so that any vertex $v$ has $O(\Delta^{\lfloor\ell/2\rfloor})$ neighbours $u$ with $u<w$.  We colour the vertices of $G$ in increasing order.
-%
-% We say that a path $\Pi$ in $\mathcal{P}$ is a \defin{problem} if its two endpoints $u$ and $w$ receive the same colour.  If $u < w$ then we say that $w$ is the \defin{cause} of the problem.  When colouring $w$, we use the same trick of choosing randomly from a subpalette $\Phi_w$ of $k$ colours from a global palette $\Phi$ of $2k$ colours.  By the time we colour $w$ we know, for each colour $\alpha\in \Phi$ the number $N_\alpha(w)$ of problems $w$ will cause if we set the colour of $w$ to $\alpha$.  Using the subpalette trick ensures that each colour $\alpha\in\Phi_w$ will cause at most $O(\Delta^{\lfloor\ell/2\rfloor}/k)$ problems.
-%
-% Observe that any violation of the $\ell$-vertex-ranking condition on a path $\Pi=x_0,\ldots,x_r$ implies that $\Pi$ is a problem.  For every problem $\Pi$ we choose the vertex $y:=x_{r-1}$ closest to the cause, $x_r$, of the problem and declare $y$ to be a \defin{problematic} vertex. Let $P$ be the set of problematic vertices.  Again, we will recolour $P$ using large colours.  To do this safely, we need to show that this doesn't introduce any new problems.  For this, we need to show that (for some appropriate definition of $H$), $H[P]$ is $k$-degenerate, with high probability.
-%
-% I know what to do.  Partition into groups $L_0,\ldots,L_q$ as before and use disjoint colour sets $\Phi_0 < \Phi_1<\cdots<\Phi_q$.  Then the only problems we have to worry about have both endpoints in $L_j$ for some $j$ and all internal vertices in $L_0\cup\cdots\cup L_j$.  Now, when we compute the sum of $x_i$, each vertex $y\in N_H^+(p)$ can contribute only $16d^2$ to the sum.  So in the end, we get $\E(X)=\tilde{O}(\Delta^{\lfloor\ell/2\rfloor}/k)$.
+For a directed graph $G$ let $\widehat{\mathcal{P}}_\ell(G)$ denote the set of (not necessarily directed) paths $x_0,\ldots,x_r$ in $G$ of length at most $r$ and such that $\overleftarrow{x_0x_1}$ is a directed edge of $G$ and $\overrighttarrow{x_{r-1}x_{r}}$ is also a directed edge of $G$.
 
+\begin{lem}\label{advanced_cairns2}
+  For any integers $d\ge 2$, $\ell\ge 3$, $\Delta\ge d$ and any
+  directed graph $G$ of maximum-degree $\Delta$ and maximum out-degree $d$, there exists a mapping $\rho:\widehat{\mathcal{P}}_\ell(G)\to V(G)$ such that
+  \begin{compactenum}[(i)]
+    \item $\rho(\Pi)\in V(\Pi)$ for each $P\in\mathcal{P}$; and
+    \item $|\rho^{-1}(v)| \le 2^{\ell+1}d^{\lceil \ell/2\rceil+1}\Delta^{\lfloor\ell/2\rfloor-1}$ for each $v\in V(G)$.
+  \end{compactenum}
+\end{lem}
 
-
-
-
-
-
-% \subsection{Degenerate Graphs of Small Maximum Degree}
-%
-% The same proof used to establish \cref{degenerate_and_degree} establishes the following generalization, which is useful for graphs of bounded degeneracy and moderate maximum degree:
-%
-
+\begin{proof}
+  The proof is almost identical to \cref{advanced_cairns2} except that, by assigning a path $\Pi:=x_0,\ldots,x_r$ to one of $v_1$ or $v_{r-1}$ the number of options for describing the path becomes at most $2^{r-1}d^{\lceil r/2\rceil+1}\Delta^{\lfloor r/2\rfloor-1}$ for $r\ge 3$ (and at most $d^r$ for $r\in\{1,2\}$).
+\end{proof}
 
 For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undirected path $\Pi:=x_0,\ldots,x_r$ in $G$ is an \defin{$\ell$-violation} of $\varphi$ if $\Pi$ has length $r\le\ell$ and $\varphi(x_0)=\varphi(x_r)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$.  Observe that $\varphi$ is an $\ell$-vertex-ranking if and only if $G$ contains no $\ell$-violations of $\varphi$.
 
-
 \begin{thm}\label{l_degenerate_and_degree}
-  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{?}\log n$.
+  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n$.
 \end{thm}
 
 \begin{proof}[Proof Sketch]
-  Let $G$ be an $n$-vertex $d$-degenerate graph of maximum degree $\Delta$ and let $k:=\Delta^{?}$. Proceed exactly as in the proof of \cref{degenerate_and_degree} by partitioning $V(G)$ into the sets $L_0,\ldots,L_q$ and defining the total order $<$ as before.  In the first phase, the vertices in $L_i$ will receive colours from a palette $\Phi_i$ of size $2k$, so the first phase will use at most $k(q+1)=O(k\log n)$ colours.  As before, the colours in $\Phi_{i}$ are all larger than the colours in $\Phi_{i-1}$, for each $i\in\{1,\ldots,q\}$.
+  Let $G$ be an $n$-vertex $d$-degenerate graph of maximum-degree $\Delta$.  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore $2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i|$, so $|S_i|\le |S_{i-1}|/2\le n/2^i$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  Since $1\le |S_q|\le n/2^q$, $q\le \log_2 n$.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
 
-  Let $\mathcal{P}$ contain all the undirected paths $x_0,\ldots,x_r$ in $\mathcal{P}_{\ell}(G)$ such that $x_0$ and $x_r$ are in the same layer $L_j$ and $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Let $\rho:\mathcal{P}\to V(G)$ be the mapping given by \cref{advanced_cairns}, restricted to the paths in $\mathcal{P}$.  Let $\Pi:=x_0,\ldots,x_r$ be a path in $\mathcal{P}$.  We say that $\Pi$ is \defin{problematic} if $x_0$ and $x_r$ are assigned the same colour in the first phase of colouring.
+  Let $k:=\Delta^{\lfloor\ell/2\rfloor-1/2}$. We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k:=2d^{a}\sqrt{\Delta}\log^{b}n$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)= O(k\log n)$.
 
-  Although we have not yet completed the description of the first phase colouring, we know enough to prove the following claim:  Any $\ell$-violation $\Pi$ of the first stage colouring is a problematic path in $\mathcal{P}$.  Indeed, if $\Pi=x_0,\ldots,x_r$ is an $\ell$-violation, then the colour of $x_0$ and $x_r$ is the same, so $x_0$ and $x_r$ must be contained in $L_j$ for some $j\in\{0,\ldots,q\}$.  Furthermore the colour of $x_0$ and $x_r$ is at least as large as any colour used on $x_1,\ldots,x_{r-1}$, so no colour in $\Phi_{j+1},\ldots,\Phi_q$ appears at any vertex in $x_1,\ldots,x_{r-1}$.  Therefore, $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Therefore $\Pi\in\mathcal{P}$ and $\Pi$ is problematic because $x_0$ and $x_r$ receive the same colour.
+  Let $\mathcal{P}$ contain all the undirected paths $x_0,\ldots,x_r$ in $\mathcal{P}_{\ell}(G)$ such that $x_0$ and $x_r$ are in the same layer $L_j$ and $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Let $\rho:\mathcal{P}\to V(G)$ be the mapping given by \cref{advanced_cairns}, applied to $G$ (and then restricted to the paths in $\mathcal{P}$).  We will say that a path $\Pi:=x_0,\ldots,x_r$ in $\mathcal{P}$ is \defin{problematic} if $x_0$ and $x_r$ are assigned the same colour in the first phase of the algorithm.
 
-  We now describe the first phase colouring algorithm.  Consider the multigraph $G^*$ that, for each $vw\in V(G)$ contains as many copies of the edge $vw$ as there are undirected paths in $\mathcal{P}$ with endpoints $v$ and $w$.  The existence of $\rho$ implies that $G^*$ has an orientation in which each edge has out-degree $O(\Delta^{\lfloor\ell /2})$.  By \cref{orientation_to_degeneracy}, $G^*$ is $O(\Delta^{\lfloor\ell /2})$-degenerate.  Order the vertices of $G$ in the order $v_1,\ldots,v_n$ so that $v_i$ has degree $O(\Delta^{\lfloor\ell /2})$ in $G^*[\{v_1,\ldots,v_{i}]$.
+  Although we have not yet completed the description of the first phase colouring, we already know enough to prove the following claim:  Any $\ell$-violation $\Pi$ of the first phase colouring is a problematic path in $\mathcal{P}$.  Indeed, if $\Pi=x_0,\ldots,x_r$ is an $\ell$-violation, $x_0$ and $x_r$ are assigned the same colour, so they must both be in $L_j$ for some $j\in\{0,\ldots,q\}$.  Furthermore the colour of $x_0$ is at least as large as any colour used on $x_1,\ldots,x_{r-1}$, so no colour in $\Phi_{j+1},\ldots,\Phi_q$ appears at any vertex in $x_1,\ldots,x_{r-1}$.  Therefore, $\{x_1,\ldots,x_{r-1}\}\subseteq L_0\cup\cdots\cup L_j$.  Therefore $\Pi\in\mathcal{P}$.  Since $x_0$ and $x_r$ have the same colour, $\Pi$ is problematic.
 
-  Let $\tau:\mathcal{P}\to V(G)$ be the mapping that maps $\Pi\in\mathcal{P}$ to $v_j$ if and only if the endpoints of $\Pi$ are $v_i$ and $v_j$ and $i < j$. Then $|\tau^{-1}(w)|=O(\Delta^{\lfloor\ell /2\rfloor})$  Consider some vertex $w\in L_j$.  For each $\alpha \in \Phi_j$, let $N_{\alpha}(w)$ be the number of paths in $\tau^{-1}(w)$ whose other endpoint (not $w$) is assigned the colour $\alpha$. If $w=v_j$ then $N_{\alpha}(w)$ is completely determined by the colours of $v_1,\ldots,v_{j-1}$.  If $w$ is assigned the colour $\alpha$ then exactly $N_{\alpha}(w)$ paths in $\tau^{-1}(w)$ paths will become problematic.  Therefore, $\sum_{\alpha\in\Phi_i} N_\alpha(w)=|\tau^{-1}(w)|=O(\Delta^{\lfloor\ell /2\rfloor})$.  As before, we choose $\Phi_w\subseteq\Phi_i$ of size $k$ so that $N_\alpha(w)=O(\Delta^{\lfloor\ell /2\rfloor}/k)$ for all $\alpha\in\Phi_w$. Let $M:=c\Delta^{\lfloor\ell /2\rfloor}/k$ where $c$ is large enough that $N_\alpha(w)\le M$ for all $w\in V(G)$ and all $\alpha\in \Phi_w$.   In the first phase, we choose the colour of $w$ uniformly from $\Phi_w$.  This completes the description of the first phase colouring algorithm.
+  We now describe the first phase colouring algorithm.  Consider the multigraph $G^*$ that, for each $vw\in V(G)$ contains as many copies of the edge $vw$ as there are undirected paths in $\mathcal{P}$ with endpoints $v$ and $w$.  The existence of $\rho$ implies that $G^*$ has an orientation in which each edge has out-degree $O(\Delta^{\lfloor\ell /2})$.  By \cref{orientation_to_degeneracy}, $G^*$ is $O(\Delta^{\lfloor\ell /2})$-degenerate.  Label the vertices of $G$ as $v_1,\ldots,v_n$ so that $v_i$ has degree $O(\Delta^{\lfloor\ell /2})$ in $G^*[\{v_1,\ldots,v_{i}\}]$.
 
-  Consider a problematic path $\Pi:=x_0,\ldots,x_r$ and suppose, without loss of generality that $\tau(\Pi)=x_0$.  Then $x_r$ was coloured before $x_0$ and $\Pi$ became problematic precisely when $x_0$ was coloured.  When this happens we say that $x_0$ \defin{completes} $\Pi$ and we call $x_1$ a \defin{problematic} vertex.  Let $P$ be the set of all problematic vertices.
-  Observe that, for any $\Pi\in\mathcal{P}$, the probability that $\tau(\Pi)$ completes $\Pi$ is at most $1/k$ since the colour of $\tau(\Pi)$ is chosen from a set of size $k$ and at most one element of this set is the colour of the other endpoint of $\Pi$.  Thus, for any $\Pi\in\mathcal{P}$ the probability that $\Pi$ is problematic is at most $1/k$.
+  Let $\tau:\mathcal{P}\to V(G)$ be the mapping that maps $\Pi\in\mathcal{P}$ to $v_j$ if and only if the endpoints of $\Pi$ are $v_i$ and $v_j$ and $i < j$.\footnote{The two mappings $\tau$ and $\rho$ are similar. The difference is that $\rho$ corresponds to some orientation of $G^*$ and $\tau$ corresponds to an acyclic orientation of $G^*$.}  Consider some vertex $w\in L_j$.  For each $\alpha \in \Phi_j$, let $N_{\alpha}(w)$ be the number of paths in $\tau^{-1}(w)$ whose other endpoint (not $w$) is assigned the colour $\alpha$. If $w=v_j$ then $N_{\alpha}(w)$ is completely determined by the colours of $v_1,\ldots,v_{j-1}$.  If $w$ is assigned the colour $\alpha$ then exactly $N_{\alpha}(w)$ paths in $\tau^{-1}(w)$ will become problematic.  Therefore, $\sum_{\alpha\in\Phi_i} N_\alpha(w)=|\tau^{-1}(w)|=O(\Delta^{\lfloor\ell /2\rfloor})$.
 
-  Let $H$ be the directed multigraph with vertex set $V(G)$ that, for each vertex $p$ of $G$ and each path $p\rightsquigarrow y$ in $\tau^{-1}(p)$ contains a copy of the edge $\overrightarrow{py}$.  Then the maximum out-degree of any vertex in $H$ is $O(\Delta^{\lfloor\ell /2\rfloor})$.  We say that an edge of $H$ is \defin{problematic} if the corresponding undirected path $\Pi$ is problematic.  Since each edge of $H$ is problematic with probability at most $1/k$, the expected number of problematic edges leaving any vertex $p$ is at most $O(\Delta^{\lfloor\ell /2\rfloor}/k)$.
+  We choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains exactly half the colours in $\Phi_i$.  Specifically we choose from a palette $\Phi_w\subset \Phi_i$ that contains the $k$ colours $\alpha$ in $\Phi_i$ with the smallest $N_\alpha(w)$ values, so that  $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le\min\{N_\alpha(w):\alpha\in\Phi_i\setminus\Phi_w\}$.  Let $M:=c\Delta^{\lfloor\ell/2\rfloor}/k$.
+  Then
+  \[
+    Mk = c\Delta^{\lfloor\ell/2\rfloor} \ge \sum_{\alpha\in \Phi_i} N_\alpha(w) \ge \sum_{\alpha\in\Phi_i\setminus\Phi_w}N_\alpha(w) \ge k\max\{N_\alpha(w):\alpha\in \Phi_w\} \enspace ,
+  \]
+  so that $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le M$.  This completes the description of the first-phase colouring $\varphi$ of $G$.
 
-  If the events $\{\text{``$e$ is problematic''}:e\in\operatorname{out-edges}_H(p)\}$ were mutually independent, then we could apply a Chernoff bound and be done.  Unfortunately, this is not the case since the choice of colour at a single vertex $w$ can trigger up to $M$ of these events.  Despite this, we will still be able to show that, with high probability, the maximum out-degree of any vertex in $H[P]$ is $O(\Delta^{\lfloor\ell /2\rfloor}\log n/k)$.  Some of the work in doing this involves applying a (somewhat specialist) concentration bound of a type developed by Bernstein for sums of independent random variables.  In the remainder of this proof we set up appropriate random variables.  The statement of the concentration bound and the calculations needed to apply it are in the appendix.
+  % As before, we choose $\Phi_w\subseteq\Phi_i$ of size $k$ so that $N_\alpha(w)=O(\Delta^{\lfloor\ell /2\rfloor}/k)$ for all $\alpha\in\Phi_w$. Let $M:=c\Delta^{\lfloor\ell /2\rfloor}/k$ where $c$ is large enough that $N_\alpha(w)\le M$ for all $w\in V(G)$ and all $\alpha\in \Phi_w$. In the first phase, we choose the colour of $w$ uniformly from $\Phi_w$.  This completes the description of the first phase colouring algorithm.
 
-  \todo[inline]{Do we need randomization here at all?  Starting a new branch to try without it.}
+  The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the $\ell$-violations of $\varphi$.  For each $\ell$-violation $\Pi$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round, in order to eliminate this $\ell$-violation.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  Then $G'$ has maximum out-degree $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)
 
-  Let $p$ be an arbitrary vertex of $G$.  We want to study the random variable $X_p$ that counts the number of problematic paths in $\tau^{-1}(p)$.
+  Consider a problematic path $\Pi:=x_0,\ldots,x_r$ and suppose, without loss of generality that $\tau(\Pi)=x_0$.  Then $x_r$ was coloured before $x_0$ and $\Pi$ became problematic precisely when $x_0$ was coloured.  When this happens we say that the vertex $y:=\gamma(\Pi)$ is \defin{problematic} and we say that $x_0$ \defin{completes} $y$. Note that a vertex $y$ may be completed more than once. Indeed, any path in $\gamma^{-1}(y)$ could complete $y$. Note that it is also not required that $\Pi$ be an $\ell$-violation of $\varphi$.  However, for every $\ell$-violation $\Pi$ of $\varphi$, $\Pi$ is problematic, so $\gamma(\Pi)$ is defined.
 
-  Suppose that some $y\in N^+_H(p)$ is problematic.  Then there exists some undirected path $\Pi:=x_0,\ldots,x_r$ in $\mathcal{P}$ that is problematic, $x_1=y$, and $\tau(\Pi)=x_0$.  If $x_0\in L_j$ then by the definition of $\mathcal{P}$, $y\in\bigcup_{i=0}^j L_i$.  Therefore, $x_0$ is one of the at most $4d$ vertices in $N_G(y)\cap L_j$.
+  Let $P$ be the set of all problematic vertices.  By definition, every $\ell$-violation of $\varhpi$ contains at least one vertex in $P$.  In the second phase, we re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have endpoints whose colour is in $\Phi_{q+1}$.  In order to avoid this, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.
 
+  Observe that, for each edge $vw$of $G^\ell$,  graph with vertex set $V(G)$ that, for each undirected path $\Pi\in\mathcal{P}_\ell(G)$ contains the edge between the endpoints of $\Pi$.  By \cref{advanced_cairns,orientation_to_degeneracy}, $H$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Treat $H$ as a directed acyclic graph where each vertex has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.  Let $p$ be an arbitrary vertex of $G$.  We want to study the random variable $X_p$ that counts the number of problematic vertices in $N_H^+(p)$.
+
+  Suppose that some $y\in N^+_H(p)$ is problematic.  This occurs when some vertex $w$ (an endpoint of some path in $\gamma^{-1}(y)$).  For each $y\in N^+_H(p)$ let $A_y$ be the set of endpoints of paths in $\gamma^{-1}(y)$ that could complete $y$.  Let $C_p:=\bigcup_{y\in N^+H(p)} A_y$ and, for each $w\in C_p$, let $C_{p,w}:=N^+_H(p)\cap \{\gamma(\Pi):\Pi\in\tau^{-1}(w)\}$.  In words, $C_p$ is the set of vertices $w$ that could complete some vertex $y\in N^+_H(p)$ and $C_{p,w}$ is the set of vertices in $N^+_H(p)$ that $w$ could complete some vertex $y\in C_p$.  Then
+  \[
+    \sum_{y\in N_H^+(p)} |\gamma^{-1}(y)| \le |N_H^+(p)|\cdot O(\Delta^{\lfloor\ell/2\rfloor}-1) \le O(\Delta^{2\lfloor \ell/2\rfloor-1}) \enspace .
+  \]
+
+  \todo[inline]{What comes next is copy-pasted from the proof of \cref{degenerate_and_degree}.}
+
+  For each $w\in C_p$, let $\comp(p,w):=\{y\in C_{p,w}:\text{$w$ completes $y$}\}$.  For each $\alpha\in\Phi_w$, let $\comp_\alpha(p,w)$ contain exactly those vertices $y\in C_{p,w}$ that would be completed by $w$ if we were to set the colour of $w$ to $\alpha$.  By definition $N_\alpha(w)\le |\comp_\alpha(p,w)|\le N_\alpha(w)\le M$.  We want to study the random variable $X'_{p,w}:=|\comp(p,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $X_{p,w} \le M$.
+
+  Let $\alpha_1,\ldots,\alpha_t$ be the colours in $\Phi_w$ ordered so that,
+  \[
+    |\comp'_{\alpha_1}(p,w)|\ge|\comp'_{\alpha_2}(p,w)|\ge\cdots\ge |\comp'_{\alpha_t}(p,w)| \enspace .
+  \]
+  For each $y\in N^+_H(p)$ and each path $\Pi\in \gamma^{-1}(y)\cap \tau^{-1}(w)$, there is at most one choice of colour $\alpha$ for $w$ that makes $\Pi$ problematic.  Therefore, $y$ appears in $\comp_\alpha(p,w)$ for at most $|\gamma^{-1}(y)|= O(\Delta^{\lfloor\ell/2\rfloor}-1)$ values of $\alpha$, so
+  \[
+    \sum_{\alpha\in\Phi_w} |\comp_{\alpha}(p,w)| \le O(\Delta^{\lfloor\ell/2\rfloor-1})\cdot |C_{p,w}| \enspace .
+  \]
+  Therefore $i|\comp_{\alpha_i}(p,w)|\le\sum_{j=1}^i|\comp_{\alpha_j}(p,w)|\le O(\Delta^{\lfloor\ell/2\rfloor}-1)|C_{p,w}|$, so
+  \[
+    |\comp_{\alpha_i}(p,w)|\le \frac{O(\Delta^{\lfloor\ell/2\rfloor-1})|C_{p,w}|}{i} \enspace .
+  \]
+  Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{O(\Delta^{\lfloor\ell/2\rfloor-1})|C_{p,w}|/j,M\}$ where $j$ is chosen uniformly in $\{1,\ldots,k\}$.
+
+  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w\in C_p} X_{p,w}$ of independent random variables.  We would like to apply a concentration result to the random variable $X$.  For this, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$, $w\in C_p$.  Thus far, we know that $0\le X_{p,w}\le M$ for each $w\in C_p$. In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply a Bernstein Inequality to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours in $\Phi_{q+1}$ needed to recolour $P$ in the second phase is $O(k\log n)$.  Thus, In this way, the total number of colours used is $O(k\log n)$, so
+  \[
+    \trn(G) \le O(k \log n) = O(d^a\sqrt{\Delta}\log^{1+b} n) = O(d^{3/2}\sqrt{\Delta}\log^{3/2} n) \enspace . \qedhere
+  \]
 
 %
 %   Now, define $H$ as the oriented version of $G^{\ell}$ where the orientation of each edge is given by $<$.  As before, consider an oriented version of $G$ with orientations also given by $<$.  Observe that, for every directed edge $\overrightarrow{py}$ of $H$, $G$ contains a (undirected) path of length at most $\ell$ that begins at $p$, ends at $y$, and traverses at least one edge of $G$ in the direction it is oriented.  The number of such paths is $O(\Delta^{\ell-1})$.  (Here and throughout this proof, $d$ and $\ell$ are fixed, so factors that depend only on $d$ and $\ell$ do not appear in asymptotic notations.)
