@@ -93,18 +93,30 @@ Somewhat surprisingly, the bound in \cref{l_d_degenerate_upper_bound} is the sam
 Like the upper bound on $\rn{2}(G)$ in \cite{karpas.neiman.ea:on}, \cref{l_d_degenerate_upper_bound} follows quickly from a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$. For such graphs, we prove:
 
 \begin{thm}\label{degenerate_and_degree}
-  For all positive integers $d$ and $\ell$ there exists a constant $c:=c(d,\ell)$ such that, for every integer $\Delta\ge d$, every integer $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum-degree at most $\Delta$ has $\lrn(G) \le c\Delta^{\lfloor\ell/2\rfloor-1/2}$.
+  For all positive integers $d$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for every integer $\Delta\ge d$, every integer $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum-degree at most $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n$.  Furthermore, if $\Delta^{\lfloor\ell/2\rfloor-1}\ge\log n$ then $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n$.
+  % \[
+  %    \lrn(G) \le \begin{cases}
+  %                   c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n
+  %                     & \text{for $\ell\in\{2,3\}$} \\
+  %                   c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n
+  %                     & \text{for $\ell\ge 4}
+  %                 \end{cases}
+  % \]
 \end{thm}
 
-\Cref{l_d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  Let $\Delta:=n^{1/(\lfloor\ell/2\rfloor+1/2)}$.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta==2dn^{\texp}$.  Since $G-S$ is $d$-degenerate and has maximum degree $\Delta$, $G-S$ has a unique-superior colouring $\varphi$ using
-\[
-  \lrn(G-S) = O\left(\Delta^{\lfloor\ell/2\rfloor-1/2}\log n\right)
+\Cref{l_d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  $\Delta:=n^{1/(\lfloor\ell/2\rfloor+1/2)}\log^{-x} n$ for some value $x$ to be discussed shortly.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2dn^{\texp}\log^x n$.  Since $G-S$ is $d$-degenerate and has maximum degree $\Delta$, \cref{l_degenerate_and_degree} implies that
+\begin{align*}
+  \lrn(G-S) &
+  \le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n \\
   % cd^{3/2}\sqrt{\Delta}\log^{1/2} n
   % = c\cdot \sqrt{\frac{n^{2/3}}{d^{1/3}\log^{1/2} n}}\cdot \log^{3/4} n
-  = O\left(n^{\frac{\lfloor\ell/2\rfloor-1/2}{\lfloor\ell/2\rfloor+1/2}}\right)
-  = O\left(n^{\dexp}\right)
-\]
-colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than every colour used in the colouring of $G-S$.  Thus, $\trn(G)\le |S|+\lrn(G-S) = O(n^{\texp})$, which establishes \cref{l_d_degenerate_upper_bound}.
+  & = cn^{\frac{\lfloor\ell/2\rfloor-1/2}{\lfloor\ell/2\rfloor+1/2}}\log^{5/4-x(\lfloor\ell/2\rfloor-1/2)} n \\
+  & = cn^{\dexp}\log^{5/4-x(\lfloor\ell/2\rfloor-1/2)} n \\
+  & \le cn^{\dexp}\log^{5/4-x/2} n \\
+  % & = O\left(n^{\dexp}\right)
+\end{align*}
+where the last inequality follows from the fact that $\lfloor\ell/2\rfloor-1/2\ge 1/2$ for all $\ell\ge 2$.  Taking $x:=5/6$, we get $|S|=O(n^{\texp}\log^{5/6} n)=O(n^{\texp}\log n)$ and  $\lrn(G-S)= O(n^{\texp}\log^{5/4-5/12} n)
+= O(n^{\texp}\log^{5/6} n)$.  We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than every colour used in the colouring of $G-S$.  Thus, $\trn(G)\le |S|+\lrn(G-S) \le O(n^{\texp}\log n)$, which establishes \cref{l_d_degenerate_upper_bound}.  Note that this argument actually proves a slightly stronger result than \cref{l_d_degenerate_upper_bound}.  For $\ell\ge 4$, further improvements to the logarithmic factor in \cref{l_d_degenerate_upper_bound} can be obtained using the ``Furthermore'' clause of \cref{l_degenerate_and_degree}.
 
 
 % The case $\ell=2$ resolves an open problem of \citet{karpas.neiman.ea:on}.
@@ -225,8 +237,7 @@ An \defin{undirected path} $\Pi$ in a graph $G$ is a connected subgraph of $G$ w
 
 For a graph $G$, let $\mathcal{P}_\ell(G)$ denote the set of all undirected paths of length at most $\ell$ in $G$.  The set $\mathcal{P}_\ell(G)$ is critical for us, since this is precisely the set of paths that need to be considered to determine if a vertex-colouring $\varphi$ of $G$ is an $\ell$-vertex-ranking.  The following lemma shows that the paths in $\mathcal{P}_\ell(G)$ can be mapped onto their endpoints in such a way that no endpoint receives too many paths.  Its proof uses a technique introduced by Cairns \cite{?} to upper bound the number of length-$\ell$ paths in planar graphs (see also \cite[Lemma~5]{devroye.dujmovic.ea:notes}).
 
-
-\todo[inline]{Bruce attributes this technique to Cairns. Do we have a reference?}
+\todo[inline]{When I learned this trick from Bruce (Rio, 2017) he attributed it to Cairns. Do we have a reference?}
 
 
 
@@ -277,17 +288,21 @@ In order to obtain the bound in \cref{l_degenerate_and_degree} we need a special
 For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undirected path $\Pi:=x_0,\ldots,x_r$ in $G$ is an \defin{$\ell$-violation} of $\varphi$ if $\Pi$ has length $r\le\ell$ and $\varphi(x_0)=\varphi(x_r)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$.  Observe that $\varphi$ is an $\ell$-vertex-ranking if and only if $G$ contains no $\ell$-violations of $\varphi$.
 
 \begin{thm}\label{l_degenerate_and_degree}
-  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n$.
+  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1+b} n$.
 \end{thm}
 
 \begin{proof}
-  Let $G$ be an $n$-vertex $d$-degenerate graph of maximum-degree $\Delta$.  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore $2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i|$, so $|S_i|\le |S_{i-1}|/2\le n/2^i$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  Since $1\le |S_q|\le n/2^q$, $q\le \log_2 n$.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
+  Let $G$ be an $n$-vertex $d$-degenerate graph of maximum-degree $\Delta$.  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore
+  \[
+    2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i| \enspace ,
+  \]
+  so $|S_i|\le |S_{i-1}|/2\le n/2^i$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  Since $1\le |S_q|\le n/2^q$, $q\le \log_2 n$.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
 
-  Let $k:=\Delta^{\lfloor\ell/2\rfloor-1/2}$, so that our goal is to find an $\ell$-vertex-ranking of $G$ using $O(k\log n)$ colours. We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k:=2d^{a}\sqrt{\Delta}\log^{b}n$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)= O(k\log n)$.  The first phase colouring $\varphi:V(G)\to\Phi_0\cup\cdots\cup\Phi_q$ will have some $\ell$-violations which will be eliminated by re-colouring some vertices in the second phase using an additional palette $\Phi_{q+1}$ of size $O(k\log n)$.
+  Let $k:=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$, so that our goal is to find an $\ell$-vertex-ranking of $G$ using $O(k\log n)$ colours. We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k$, such that for each $1\le i < j\le q$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)= O(k\log n)$.  The first phase colouring $\varphi:V(G)\to\Phi_0\cup\cdots\cup\Phi_q$ will have some $\ell$-violations which will be eliminated by re-colouring some vertices in the second phase using an additional palette $\Phi_{q+1}$ of size $O(k\log n)$.
 
   Let $\mathcal{P}$ contain all the undirected paths $x_0,\ldots,x_r$ in $\mathcal{P}_{\ell}(G)$ such that $x_0$ and $x_r$ are in the same layer $L_j$ and $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Let $\rho:\mathcal{P}\to V(G)$ be the mapping given by \cref{advanced_cairns}, applied to $G$, restricted to the paths in $\mathcal{P}$. (The purpose of the restriction is so that $\rho^{-1}(v)$ denotes a subset of $\mathcal{P}$.)  We will say that a path $\Pi:=x_0,\ldots,x_r$ in $\mathcal{P}$ is \defin{problematic} if $x_0$ and $x_r$ are assigned the same colour in the first phase of the algorithm.
 
-  Although we have not yet completed the description of the first phase colouring procedure, we already know enough to prove the following claim:  Any $\ell$-violation $\Pi$ of the first phase colouring $\varphi$ is a problematic path in $\mathcal{P}$.  Indeed, if $\Pi=x_0,\ldots,x_r$ is an $\ell$-violation, then $\varphi(x_0)=\varphi(x_r)\in \Phi_j$ for some $j\in\{0,\ldots,q\}$.  Thus $x_0,x_r\in L_j$ for some $j\in\{0,\ldots,q\}$.  Furthermore, since $\Pi$ is $\ell$-violation $\varphi(x_0)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$, so no colour in $\Phi_{j+1},\ldots,\Phi_q$ appears at any vertex in $x_1,\ldots,x_{r-1}$.  Therefore, $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Therefore $\Pi\in\mathcal{P}$.  Since $\varphi(x_0)=\varphi(x_r)$, $\Pi$ is problematic.
+  Although we have not yet completed the description of the first phase colouring procedure, we already know enough to establish the following claim:  Any $\ell$-violation $\Pi$ of the first phase colouring $\varphi$ is a problematic path in $\mathcal{P}$.  Indeed, if $\Pi=x_0,\ldots,x_r$ is an $\ell$-violation, then $\varphi(x_0)=\varphi(x_r)\in \Phi_j$ for some $j\in\{0,\ldots,q\}$.  Thus $x_0,x_r\in L_j$ for some $j\in\{0,\ldots,q\}$.  Furthermore, since $\Pi$ is $\ell$-violation $\varphi(x_0)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$, so no colour in $\Phi_{j+1},\ldots,\Phi_q$ appears at any vertex in $x_1,\ldots,x_{r-1}$.  Therefore, $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Therefore $\Pi\in\mathcal{P}$.  Since $\varphi(x_0)=\varphi(x_r)$, $\Pi$ is problematic.
 
   We now describe the first phase colouring algorithm.  Consider the multigraph $G^*$ that, for each $vw\in V(G)$ contains as many copies of the edge $vw$ as there are undirected paths in $\mathcal{P}$ with endpoints $v$ and $w$.  The existence of $\rho$ implies that $G^*$ has an orientation in which each edge has out-degree $O(\Delta^{\lfloor\ell /2})$.  By \cref{orientation_to_degeneracy}, $G^*$ is $O(\Delta^{\lfloor\ell /2})$-degenerate.  Label the vertices of $G$ as $v_1,\ldots,v_n$ so that $v_i$ has degree $O(\Delta^{\lfloor\ell /2})$ in $G^*[\{v_1,\ldots,v_{i}\}]$. In other words, for each $a\in\{1,\ldots,n\}$ the number of paths in $\mathcal{P}$ with one endpoint at $v_a$ and the other endpoint in $\{v_1,\ldots,v_{a-1}\}$ is $O(\Delta^{\lfloor\ell /2})$.  In the first phase, we will colour the vertices one by one in the order $v_1,\ldots,v_n$.
 
@@ -303,9 +318,15 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
 
   The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the $\ell$-violations of $\varphi$.  For each $\ell$-violation $\Pi$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round, in order to eliminate this $\ell$-violation.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  (Note that if $v$ and $w$ are in the same layer $L_j$ then both edges $\overrightarrow{vw}$ and $\overleftarrow{vw}$ are present in $G'$.)  Then $G'$ has maximum out-degree $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)
 
-  Consider a problematic path $\Pi:=x_0,\ldots,x_r$ and suppose, without loss of generality that $\tau(\Pi)=x_0$.  Then $x_r$ was coloured before $x_0$ and $\Pi$ became problematic precisely when $x_0$ was coloured.  When this happens we say that $x_0$ \defin{completes} $\Pi$.  By the time the colouring is complete, a problematic path $\Pi$ may be an $\ell$-violation.  In order to eliminate this potential $\ell$-violation we will assign a vertex $y\in V(\Pi)$ to be recoloured in the second phase.  Specifically, we will recolour the vertex $y:=\gamma(\Pi)$. So when $\Pi$ is problematic, we say that $y:=\gamma(\Pi)$ is \defin{problematic} and we say that $x_0$ \defin{completes} $y$.\todo{Do we use this term for vertices anymore?} Note that a vertex $y$ may be completed more than once. Indeed, for any path $\Pi$ in $\gamma^{-1}(y)$, the vertex $\tau(\Pi)$ could complete $\Pi$ and therefore complete $y$.  Note that it is also not required that $\Pi$ be an $\ell$-violation of $\varphi$.  However, for every $\ell$-violation $\Pi$ of $\varphi$, $\Pi$ is problematic, so $\gamma(\Pi)$ is defined.
+  Consider a problematic path $\Pi:=x_0,\ldots,x_r$ and suppose, without loss of generality that $\tau(\Pi)=x_0$.  Then $x_r$ was coloured before $x_0$ and $\Pi$ became problematic precisely when $x_0$ was coloured.
+  % When this happens we say that $x_0$ \defin{completes} $\Pi$.
+  By the time the colouring is complete, a problematic path $\Pi$ may be an $\ell$-violation.  In order to eliminate this potential $\ell$-violation we will assign a vertex $y\in V(\Pi)$ to be recoloured in the second phase.  Specifically, we declare the vertex $y:=\gamma(\Pi)$ to be \defin{problematic} and we recolour $y$ in the second phase.  We remark that not every problematic path $\Pi$ becomes an $\ell$-violation, but every $\ell$-violation is a problematic path.  Therefore every $\ell$-violation $\Pi$ contains a problematic vertex $y=\gamma(\Pi)$ that will be recoloured in the second phase.
 
-  Let $P$ be the set of all problematic vertices.  Since every $\ell$-violation $\Pi$ of $\varphi$ is a problematic path and every problematic path contains a problematic vertex $y:=\gamma(\Pi)$, every $\ell$-violation contains at least one vertex of $P$.  In the second phase, we recolour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have endpoints whose colour is in $\Phi_{q+1}$.  In order to avoid this, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.  By definition, this means that any path in $\mathcal{P}_\ell(G)$ with both endpoints in $P$ has endpoints of different colours and is therefore not an $\ell$-violation.
+  % So when $\Pi$ is problematic, we say that $y:=\gamma(\Pi)$ is \defin{problematic} and we say that $x_0$ \defin{completes} $y$.\todo{Do we use this term for vertices anymore?} Note that a vertex $y$ may be completed more than once. Indeed, for any path $\Pi$ in $\gamma^{-1}(y)$, the vertex $\tau(\Pi)$ could complete $\Pi$ and therefore complete $y$.  Note that it is also not required that $\Pi$ be an $\ell$-violation of $\varphi$.  However, for every $\ell$-violation $\Pi$ of $\varphi$, $\Pi$ is problematic, so $\gamma(\Pi)$ is defined.
+
+  Let $P$ be the set of all problematic vertices.
+  % Since every $\ell$-violation $\Pi$ of $\varphi$ is a problematic path and every problematic path contains a problematic vertex $y:=\gamma(\Pi)$, every $\ell$-violation contains at least one vertex of $P$.  
+  In the second phase, we recolour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have endpoints whose colour is in $\Phi_{q+1}$.  In order to avoid this, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.  By definition, this means that any path in $\mathcal{P}_\ell(G)$ with both endpoints in $P$ has endpoints of different colours and is therefore not an $\ell$-violation.
 
   By \cref{degeneracy_of_g_l}, $G^\ell$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Let $H$ be a directed acyclic graph obtained from $G^{\ell}$ in which each vertex has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.
   We want to show that $G^\ell[P]$ has chromatic number at most $ck\log n+1$.  To do this, we will show that the maximum out-degree of $H[P]$ is at most $ck\log n$, with high probability.  In fact, we will show something stronger: that every vertex $p$ in $H$ has at most $ck\log n$ neighbours in $P$.
@@ -321,18 +342,18 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
     & \le \frac{1}{k}\sum_{y\in N^+_H(p)}|\gamma^{-1}(y)| \\
     & \le \frac{1}{k}\cdot|N^+_H(p)|\cdot O(\Delta^{\lfloor\ell /2\rfloor-1}) \\
     & \le \frac{1}{k}\cdot O(\Delta^{2\lfloor\ell /2\rfloor-1}) \\
-    & = O(\Delta^{\lfloor\ell /2\rfloor-1/2}) = O(k) \enspace .
+    & = O(\Delta^{\lfloor\ell /2\rfloor-1/2}\log^{-b} n) = O(k) \enspace .
   \end{align*}
   This is a good sign. If the event set $\{\text{``$\Pi$ is problematic''}:\Pi\in\mathcal{P}\}$ were mutually independent then it would be a simple matter of applying a Chernoff bound.  Unfortunately this is not the case since, for each vertex $w$, the events $\{\text{``$\Pi$ is problematic''}:\Pi\in\tau^{-1}(w)\}$ are all affected by the choice of colour for $w$.
 
-  At this point, the proof veers away from graph theory and into probability.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the appendix. We use the rest of our time here to express (an upper bound on) $|N^+_H(p)\cap P|$ as a sum of independent random variables on which we can apply Bernstein's Inequality.
+  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the appendix. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $|N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ stochastically dominates a random variable $Y$ if $\Pr(Y\ge x) \le \Pr(X\ge x)$ for all $x\in\R$.}
 
   For each vertex $w$ of $G$, let $\mathcal{P}_{p,w}:=\tau^{-1}(w)\cap (\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y))$ and define
   \[
     X'_{p,w} :=\left|\left\{\Pi\in\mathcal{P}_{p,w}:\text{$\Pi$ is problematic}\right\}\right|
     \enspace .
   \]
-  Since each problematic path $\Pi$ counted by the right-hand-side of \cref{path_upper_bound} becomes problematic when $w:=\tau(\Pi)$ is coloured, $X'_p=\sum_{w} X'_{p,w}$.
+  Since each problematic path $\Pi$ counted by the right-hand-side of \cref{path_upper_bound} becomes problematic when $w:=\tau(\Pi)$ is coloured, $X'_p=\sum_{w\in V(G)} X'_{p,w}$.
 
   For each $\alpha\in\Phi_i$, let $N_\alpha(p,w)$ be the number of paths in $\mathcal{P}_{p,w}$ that would have become problematic if we had set the colour of $w$ to $\alpha$. If $w\in L_j$ then $\sum_{\alpha\in\Phi_w} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(w) = |\tau^{-1}(w)|$.
 
@@ -346,9 +367,9 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
   \]
   Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{O(\Delta^{\lfloor\ell/2\rfloor})/i,M\}$ where $i$ is chosen uniformly in $\{1,\ldots,k\}$.
 
-  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of independent random variables.  In order to apply a concentration result to the random variable $X_p$, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  Thus far, we know that $0\le X_{p,w}\le M$ for all $w$, so each term is deterministically upper bounded by $M$.  In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply Bernstein's Inequality to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours in $\Phi_{q+1}$ needed to recolour the vertices of $P$ in the second phase is $O(k\log n)$.  Since the total number of colours used the first phas is $O(k\log n)$, we have
+  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of independent random variables.  In order to apply a concentration result to the random variable $X_p$, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  Thus far, we know that $0\le X_{p,w}\le M$ for all $w$, which is a good starting point, but not enough.  In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply Bernstein's Inequality to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours in $\Phi_{q+1}$ needed to recolour the vertices of $P$ in the second phase is $O(k\log n)$.  Since the total number of colours used in the first phase is $O(k\log n)$, we have
   \[
-    \lrn(G) = O(k \log n) = O(\Delta^{\lfloor\ell/2\rfloor+1/2}\log n) \enspace . \qedhere
+    \lrn(G) = O(k \log n) = O(\Delta^{\lfloor\ell/2\rfloor+1/2}\log^{1+b} n) \enspace . \qedhere
   \]
 \end{proof}
 %
@@ -379,7 +400,7 @@ We will apply \cref{bernstein_theorem} to a random variable $X:=\sum_{i=1}^r X_i
           x_i/j & \text{with probability $1/k$ for each $j\in\{\lfloor x_i/M\rfloor+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=V(G)$, and let $x_i:=|\tau^{-1}(w_i)\cap\left(\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y)\right)|$.  In our setting $k=\Delta^{\lfloor\ell/2\rfloor-1/2}$,  $M=a\Delta^{\lfloor\ell/2\rfloor}/k$ for some constant $a$, and $t=ck\log n$ for some (sufficiently large) constant $c$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $n^{-\Omega(c)}$.
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=V(G)$, and let $x_i:=|\tau^{-1}(w_i)\cap\left(\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y)\right)|$.  In our setting $k=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$ for some $b\ge 1$,  $M=a\Delta^{\lfloor\ell/2\rfloor}/k$ for some constant $a$, and $t=ck\log n$ for some (sufficiently large) constant $c$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $n^{-\Omega(c)}$.
 
 Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us. For the maximum, we have $x_i\le|\tau^{-1}(w_i)|= O(\Delta^{\lfloor\ell/2\rfloor})$ for all $i\in\{1,\ldots,n\}$.  We have already bounded by the sum when computing the expectation of $|N_H^+(p)\cap P|$ as follows:
 \[
@@ -394,10 +415,7 @@ For each $i\in\{1,\ldots,n\}$, we have
   & =\Pr(X_i=M)\cdot M + \sum_{j=\lfloor x_i/M\rfloor+1}^k \Pr(X_i=j)\cdot\frac{x_i}{j} \\
   & \le\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{x_i}{j} \\
   & \le\frac{x_i}{k} + \frac{1}{k}\cdot\sum_{j=1}^k \frac{x_i}{j} \\
-  % & = \frac{x_i}{k} + \frac{x_i}{k}(H_{k}-H_{x_i/M}) \\
-  % & \le \frac{x_i}{k}(1+H_{k}) \\
   & \le \frac{x_i(2+\ln k)}{k} \\
-  % & = O\left(\frac{x_i}{k}+\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log n}{k}\right)
   \enspace ,
@@ -408,78 +426,89 @@ Therefore,
   (\E(X_i))^2
   & = O\left(\left(\frac{x_i\log n}{k}\right)^2\right) \\
   & = O\left(\frac{x_i^2\log^2 n}{k^2}\right) \\
-  & = O\left(\frac{x_i^2\log^2 n}{\Delta^{2\lfloor\ell/2\rfloor-1}}\right) \\
-  & = O\left(\frac{x_i\log^2 n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+  & = O\left(\frac{x_i^2\log^2 n}{\Delta^{2\lfloor\ell/2\rfloor-1}\log^{2b} n}\right) \\
+  & = O\left(\frac{x_i\log^{2-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
   & \text{(since $x_i=O(\Delta^{\lfloor\ell/2\rfloor})$)} \\
-  & = O\left(x_i\log^2 n\right)
-  & \text{(for $\ell\ge 2$)}
-  % & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
-  % & = O(d^{1-2a}x_i\log^{2-2b} n) \enspace .
-  % & = O(x_i\log^2 n)
 \end{align*}
-\todo[inline]{Continue here.}
-Recall that $M=O(\Delta^{\lfloor\ell/2\rfloor}/k)=O(\Delta^{1/2})$. Therefore,
+Now,
+\begin{equation}
+  \E((X_i-\E(X_i))^2)  = \frac{1}{k}\left\lfloor\frac{x_i}{M}\right\rfloor\cdot(M-\E(X_i))^2 + \sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \label{variance}
+\end{equation}
+We bound the first term in \cref{variance} as follows:
 \begin{align*}
-  \E((X_i-\E(X_i))^2)
-  & = \frac{1}{k}\left\lfloor\frac{x_i}{M}\right\rfloor\cdot(M-\E(X_i))^2
-    + \sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2 \\
-  & \le \frac{x_i}{kM}\left(M^2 + (\E(X_i))^2\right)
-    + \sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{1}{k}\left(\frac{x_i^2}{j^2}+(\E(X_i))^2\right) \\
-  & \le \frac{M x_i}{k} + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2
-      + \frac{1}{k}\sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{x_i^2}{j^2} \\
-  & \le \frac{M x_i}{k} + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2
-      +  \frac{1}{k}\cdot\frac{M\pi^2x_i^2}{6 x_i}
-     & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$ for $a\ge 1$)} \\
-  & = \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2 \\
-  & \le \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + 2\cdot (\E(X_i))^2   & \text{(since $x_i=|\gamma^{-1}(w_i)|\le kM$)} \\
-  & \le O(\Delta x_i}\right\cdot\left(1+\frac{\pi^2}{6}\right) + 2\cdot (\E(X_i))^2   & \text{(since $x_i=|\gamma^{-1}(w_i)|\le kM$)} \\
- & = O(d^{1-2a}x_i\log^{-2b}n) + O(d^{1-2a}\log^{2-2b} n) \\
-  & = O(d^{1-2a}x_i\log^{2-2b}n) \enspace .
+  \frac{1}{k}\left\lfloor\frac{x_i}{M}\right\rfloor\cdot(M-\E(X_i))^2
+  & \le \frac{x_i}{kM}\left(M^2 + (\E(X_i))^2\right) \\
+  & = \frac{M x_i}{k} + \frac{x_i}{kM}\cdot (\E(X_i))^2 \\
+  & \le \frac{M x_i}{k} + (\E(X_i))^2
+  & \text{(since $x_i=|\tau^{-1}(2_i)|\le Mk$)}\\
+  & = O\left(\frac{\Delta^{\lfloor\ell/2\rfloor}x_i}{k^2}\right) + (\E(X_i))^2
+  & \text{(by the definition of $M$)}\\
+  & = O\left(\frac{x_i\log^{-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right) + (\E(X_i))^2
+  & \text{(by the definition of $k$)}\\
+  & = O\left(\frac{x_i\log^{2-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+  & \text{(see above, since $2-2b\ge -2b$)} \enspace .
 \end{align*}
-Recall that $\sum_{i=1}^r x_i = O(d^3\Delta)$, so
+We bound the remaining terms in \cref{variance} as follows:
+\begin{align*}
+ \sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{1}{k}\left(\frac{x_i}{j}-\E(X_i)\right)^2
+  & \le \sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{1}{k}\left(\frac{x_i^2}{j^2}+(\E(X_i))^2\right) \\
+  & \le (\E(X_i))^2+\frac{1}{k}\sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{x_i^2}{j^2} \\
+  & \le (\E(X_i))^2 +  \frac{1}{k}\cdot\frac{M\pi^2x_i^2}{6 x_i}
+  & \text{(since $\sum_{j=z}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6z}$ for $z\ge 1$)} \\
+  & = (\E(X_i))^2 + O\left(\frac{Mx_i}{k}\right) \\
+  % & = (\E(X_i))^2 + O\left(\frac{x_i\log^{-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right) & \text{(as above)} \\
+  & = O\left(\frac{x_i\log^{2-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+  & \text{(as above)} \enspace .
+\end{align*}
+Therefore
+\[
+  \E((X_i-\E(X_i))^2) = O\left(\frac{x_i\log^{2-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+\]
+for all $i\in\{1,\ldots,n\}$.  Recall that $\sum_{i=1}^n x_i = O(\Delta^{2\lfloor\ell/2\rfloor-1})$, so
 \[
   \E(X)
-  = \sum_{i=1}^r \E(X_i)
-  = \sum_{i=1}^r O\left(\frac{x_i\log n}{k}\right)
-  = O\left(\frac{d^3\Delta\log n}{k}\right)
-  = O\left(d^{3-a}\sqrt{\Delta}\log^{1-b} n\right) \enspace .
+  = \sum_{i=1}^n \E(X_i)
+  = \sum_{i=1}^n O\left(\frac{x_i\log n}{k}\right)
+  = O\left(\frac{\Delta^{2\lfloor\ell/2\rfloor-1}\log n}{k}\right)
+  = O\left(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1-b} n\right) \enspace .
 \]
 and
 \[
   \sum_{i=1}^r\E((X_i-\E(X_i))^2)
-  = \sum_{i=1}^r O(d^{1-2a}x_i\log^{2-2b} n)
-  = O(d^{4-2a}\Delta\log^{2-2b} n)  \enspace .
+  = \sum_{i=1}^r O\left(\frac{x_i\log^{2-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+  = O\left(\frac{\Delta^{2\lfloor\ell/2\rfloor-1}\log^{2-2b} n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+  = O\left(\Delta^{\lfloor\ell/2\rfloor}\log^{2-2b} n\right)
+  \enspace .
 \]
 Then \cref{bernstein} gives:
 \begin{align*}
   \Pr(X\ge \E(X)+t)
   & = \Pr(X\ge \E(X)+ck\log n) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{1}{3}Mck\log n}\right) \\
-  & = \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta\log n}\right)
-    & \text{(since $Mk=4d\Delta$)} \\
-  % & = \exp \left(-\frac{\tfrac{1}{2}(ck)^2}{O(d^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta}\right) \\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd\Delta\log n}\right)
-  & \text{(since $c\ge 1$)}\\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log n}\right)
-  & \text{(for $a\le 3/2$)}\\
-  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log^{2-2b}n}\right)
-  & \text{(for $b\le 1/2$)}\\
-  & = \exp \left(-\frac{\tfrac{1}{2}(c^2d^{2a}\Delta\log^{2+2b} n)}{O(cd^{4-2a}\Delta\log^{2-2b}n) + \tfrac{4}{3}cd^{4-2a}\Delta\log^{2-2b}n}\right) \\
-  & = \exp \left(-\Omega\left(cd^{4a-4}\log^{4b}n\right)\right) \\
-  & \le \exp \left(-\Omega\left(c\log^{4b}n\right)\right)
-  & \text{(for $a\ge 1$)}\\
-  & \le \exp \left(-\Omega\left(c\log n\right)\right)
-  & \text{(for $b\ge 1/4$)}\\
-  & = n^{-\Omega(c)} \enspace .
+  & \le \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O\left(\Delta^{\lfloor\ell/2\rfloor}\log^{2-2b} n\right) + \tfrac{1}{3}Mck\log n}\right) \\
+  & = \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O\left(\Delta^{\lfloor\ell/2\rfloor}\log^{2-2b} n +c\Delta^{\lfloor\ell/2\rfloor}\log n)\right)}\right)
+    & \text{(since $Mk=O(\Delta^{\lfloor\ell/2\rfloor})$)} \\
+  & = \exp \left(-\frac{\tfrac{1}{2}(ck\log n)^2}{O\left(c\Delta^{\lfloor\ell/2\rfloor}\log^{2-2b} n\right)}\right) & (\text{for $c\ge 1$ and $b\le 1/2$}) \\
+  & = \exp \left(-\frac{\tfrac{1}{2}c\Delta^{2\lfloor\ell/2\rfloor-1}\log^{2+2b} n}{O\left(\Delta^{\lfloor\ell/2\rfloor}\log^{2-2b} n\right)}\right) & \text{(by definition of $k$)}\\
+  & = \exp\left(-\Omega(c\Delta^{\lfloor\ell/2\rfloor-1}\log^{4b} n)\right) \\
+  % & = \exp\left(-\Omega(c\log^{4b} n)\right) & \text{since $\ell\ge 2$} \\
+  & = n^{-\Omega(c)} \enspace ,
 \end{align*}
-This calculations assumes that $1\le a\le 3/2$ and that $1/4\le b\le 1/2$.  In particular, $a:=3/2$ and $b:=1/2$ satisfy these requirements.  For any fixed $c$,
+provided that $b\ge 1/4$ or $\Delta^{\lfloor\ell/2\rfloor-1}\ge\log n$.
+In all cases, $b:=1/4$ satisfies these requirements. Then, for any fixed $c$,
 \begin{align*}
   \E(X)+t
-    & = O(d^3\Delta\log n/k + k\log n) \\
-    & = O(d^{3-a}\sqrt{\Delta}\log^{1-b} n + d^a\sqrt{\Delta}\log^{1+b} n) \\
-    & = O(d^{3/2}\sqrt{\Delta}\log^{3/2}n) \enspace .
+    & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1-b} n + k\log n) \\
+    & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}(\log^{1-b} n + \log^{1+b} n)) \\
+    & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n)
+    % & = O(d^{3-a}\sqrt{\Delta}\log^{1-b} n + d^a\sqrt{\Delta}\log^{1+b} n) \\
+    % & = O(d^{3/2}\sqrt{\Delta}\log^{3/2}n) \enspace .
   % = O(d^{3/2}\log^{1/4} n + d^{3/2}\log^{3/4} n)
   % = O(d^{3/2}\log^{3/4} n)  \enspace .
 \end{align*}
-Thus, $\Pr(X\ge cd^{3/2}\sqrt{\Delta}\log^{3/2} n) \le n^{-\Omega(c)}$, which completes the proof of \cref{degenerate_and_degree}.
+Thus, $\Pr(X\ge \Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \le n^{-\Omega(c)}$, which completes the proof of \cref{l_degenerate_and_degree} for the cases $\ell=2$ and $\ell=3$.
+
+
+
+% We finish by noting that, for $\ell\ge 4$ and $\Delta\ge\log n$, we can drop the condition $b\ge 4$ and the calculation still works because the $\Delta^{\lfloor\ell/2\rfloor-1}$ factor makes up for the $\log^{4b} n$ factor.  In particular, the proof of \cref{l_degenerate} has $\Delta
+
 \end{document}
