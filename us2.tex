@@ -31,6 +31,7 @@
 \maketitle
 
 \begin{abstract}
+  An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph of $G$ of diameter at most $\ell$ there is a uniqe vertex whose colour is maximum.  The $\ell$-vertex-ranking number, $\lrn(G)$, of $G$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking using $k$-colours.  We prove that, for any fixed $d$ and $\ell$, every $d$-degenerate $n$-vertex graph $G$ has $\lrn(G)=O(n^{1-2/(\ell+1)}\log n)$ if $\ell$ is even and $\lrn(G)=O(n^{1-2/\ell}\log n)$ if $\ell$ is odd. The case $\ell=2$ resolves (up to the $\log n$ factor) an open problem posed by \citet{karpas.neiman.ea:on}.
   % A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\phi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the \defin{unique-superior chromatic number} $\trn(G)$ is the minimum value of $k$ such that $G$ has a unique-superior colouring $\varphi:V(G)\to\{1,\ldots,k\}$.  We show that there exists a constant $c$ such that every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le cd^{4/3}(n\log n)^{1/3}$.  This almost matches the lower bound of $\Omega(n^{1/3})$ for $2$-degenerate graphs and significantly improves the previous upper bound of $O(\sqrt{dn})$ for $d$-degenerate graphs---both given by \citet{karpas.neiman.ea:on}. These results extend to the \defin{$\ell$-vertex-ranking} problem in which one considers all paths $v_0,\ldots,v_r$ of length $r\le \ell$ and requires that $\varphi(v_0)\neq\varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$.  In this setting, for any fixed $\ell$ and $d$, the bound on the $\ell$-vertex-ranking number $\lrn(G)$ for any $d$-degenerate graph $G$ is $O(n^{(\ell-3/2)/(\ell-1/2)}\log n)$.
 \end{abstract}
 
@@ -92,7 +93,7 @@ Somewhat surprisingly, the bound in \cref{l_d_degenerate_upper_bound} is the sam
 
 Like the upper bound on $\rn{2}(G)$ in \cite{karpas.neiman.ea:on}, \cref{l_d_degenerate_upper_bound} follows quickly from a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$. For such graphs, we prove:
 
-\begin{thm}\label{degenerate_and_degree}
+\begin{thm}\label{l_degenerate_and_degree}
   For all positive integers $d$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for every integer $\Delta\ge d$, every integer $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum-degree at most $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n$.  Furthermore, if $\Delta^{\lfloor\ell/2\rfloor-1}\ge\log n$ then $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n$.
   % \[
   %    \lrn(G) \le \begin{cases}
@@ -104,7 +105,7 @@ Like the upper bound on $\rn{2}(G)$ in \cite{karpas.neiman.ea:on}, \cref{l_d_deg
   % \]
 \end{thm}
 
-\Cref{l_d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  $\Delta:=n^{1/(\lfloor\ell/2\rfloor+1/2)}\log^{-x} n$ for some value $x$ to be discussed shortly.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2dn^{\texp}\log^x n$.  Since $G-S$ is $d$-degenerate and has maximum degree $\Delta$, \cref{l_degenerate_and_degree} implies that
+\Cref{l_d_degenerate_upper_bound} follows easily from \cref{l_degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  $\Delta:=n^{1/(\lfloor\ell/2\rfloor+1/2)}\log^{-x} n$ for some value $x$ to be discussed shortly.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2dn^{\texp}\log^x n$.  Since $G-S$ is $d$-degenerate and has maximum degree $\Delta$, \cref{l_degenerate_and_degree} implies that
 \begin{align*}
   \lrn(G-S) &
   \le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n \\
@@ -287,11 +288,11 @@ In order to obtain the bound in \cref{l_degenerate_and_degree} we need a special
 
 For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undirected path $\Pi:=x_0,\ldots,x_r$ in $G$ is an \defin{$\ell$-violation} of $\varphi$ if $\Pi$ has length $r\le\ell$ and $\varphi(x_0)=\varphi(x_r)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$.  Observe that $\varphi$ is an $\ell$-vertex-ranking if and only if $G$ contains no $\ell$-violations of $\varphi$.
 
-\begin{thm}\label{l_degenerate_and_degree}
-  For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1+b} n$.
-\end{thm}
+% \begin{thm}\label{l_degenerate_and_degree}
+%   For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1+b} n$.
+% \end{thm}
 
-\begin{proof}
+\begin{proof}[Proof of \cref{l_degenerate_and_degree}]
   Let $G$ be an $n$-vertex $d$-degenerate graph of maximum-degree $\Delta$.  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore
   \[
     2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i| \enspace ,
@@ -325,7 +326,7 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
   % So when $\Pi$ is problematic, we say that $y:=\gamma(\Pi)$ is \defin{problematic} and we say that $x_0$ \defin{completes} $y$.\todo{Do we use this term for vertices anymore?} Note that a vertex $y$ may be completed more than once. Indeed, for any path $\Pi$ in $\gamma^{-1}(y)$, the vertex $\tau(\Pi)$ could complete $\Pi$ and therefore complete $y$.  Note that it is also not required that $\Pi$ be an $\ell$-violation of $\varphi$.  However, for every $\ell$-violation $\Pi$ of $\varphi$, $\Pi$ is problematic, so $\gamma(\Pi)$ is defined.
 
   Let $P$ be the set of all problematic vertices.
-  % Since every $\ell$-violation $\Pi$ of $\varphi$ is a problematic path and every problematic path contains a problematic vertex $y:=\gamma(\Pi)$, every $\ell$-violation contains at least one vertex of $P$.  
+  % Since every $\ell$-violation $\Pi$ of $\varphi$ is a problematic path and every problematic path contains a problematic vertex $y:=\gamma(\Pi)$, every $\ell$-violation contains at least one vertex of $P$.
   In the second phase, we recolour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have endpoints whose colour is in $\Phi_{q+1}$.  In order to avoid this, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.  By definition, this means that any path in $\mathcal{P}_\ell(G)$ with both endpoints in $P$ has endpoints of different colours and is therefore not an $\ell$-violation.
 
   By \cref{degeneracy_of_g_l}, $G^\ell$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Let $H$ be a directed acyclic graph obtained from $G^{\ell}$ in which each vertex has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.
@@ -400,7 +401,7 @@ We will apply \cref{bernstein_theorem} to a random variable $X:=\sum_{i=1}^r X_i
           x_i/j & \text{with probability $1/k$ for each $j\in\{\lfloor x_i/M\rfloor+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=V(G)$, and let $x_i:=|\tau^{-1}(w_i)\cap\left(\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y)\right)|$.  In our setting $k=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$ for some $b\ge 1$,  $M=a\Delta^{\lfloor\ell/2\rfloor}/k$ for some constant $a$, and $t=ck\log n$ for some (sufficiently large) constant $c$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $n^{-\Omega(c)}$.
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{l_degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=V(G)$ and, for each $i\in\{1,\ldots,n\}$, let $x_i:=|\tau^{-1}(w_i)\cap\left(\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y)\right)|$.  In our setting $k=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$ for some $b\ge 0$,  $M=a\Delta^{\lfloor\ell/2\rfloor}/k$ for some constant $a$, and $t=ck\log n$ for some (sufficiently large) constant $c$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $n^{-\Omega(c)}$.
 
 Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us. For the maximum, we have $x_i\le|\tau^{-1}(w_i)|= O(\Delta^{\lfloor\ell/2\rfloor})$ for all $i\in\{1,\ldots,n\}$.  We have already bounded by the sum when computing the expectation of $|N_H^+(p)\cap P|$ as follows:
 \[
@@ -494,18 +495,14 @@ Then \cref{bernstein} gives:
   & = n^{-\Omega(c)} \enspace ,
 \end{align*}
 provided that $b\ge 1/4$ or $\Delta^{\lfloor\ell/2\rfloor-1}\ge\log n$.
-In all cases, $b:=1/4$ satisfies these requirements. Then, for any fixed $c$,
+For any fixed $c$, taking $b=1/4$ gives
 \begin{align*}
   \E(X)+t
     & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1-b} n + k\log n) \\
     & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}(\log^{1-b} n + \log^{1+b} n)) \\
     & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n)
-    % & = O(d^{3-a}\sqrt{\Delta}\log^{1-b} n + d^a\sqrt{\Delta}\log^{1+b} n) \\
-    % & = O(d^{3/2}\sqrt{\Delta}\log^{3/2}n) \enspace .
-  % = O(d^{3/2}\log^{1/4} n + d^{3/2}\log^{3/4} n)
-  % = O(d^{3/2}\log^{3/4} n)  \enspace .
 \end{align*}
-Thus, $\Pr(X\ge \Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \le n^{-\Omega(c)}$, which completes the proof of \cref{l_degenerate_and_degree} for the cases $\ell=2$ and $\ell=3$.
+Thus, $\Pr(X\ge \Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \le n^{-\Omega(c)}$, which completes the first part of the proof of \cref{l_degenerate_and_degree} for the cases $\ell=2$ and $\ell=3$.  To complete the ``furthermore'' clause of the proof we take $b=0$ and deduce that $\E(X)+t=O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log n)$.
 
 
 
