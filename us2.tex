@@ -408,12 +408,17 @@ Therefore,
   (\E(X_i))^2
   & = O\left(\left(\frac{x_i\log n}{k}\right)^2\right) \\
   & = O\left(\frac{x_i^2\log^2 n}{k^2}\right) \\
-  % & = O\left(\frac{x_i^2\log^2 n}{d^{2a}\Delta\log^{2b}\Delta}\right) \\
+  & = O\left(\frac{x_i^2\log^2 n}{\Delta^{2\lfloor\ell/2\rfloor-1}}\right) \\
+  & = O\left(\frac{x_i\log^2 n}{\Delta^{\lfloor\ell/2\rfloor-1}}\right)
+  & \text{(since $x_i=O(\Delta^{\lfloor\ell/2\rfloor})$)} \\
+  & = O\left(x_i\log^2 n\right)
+  & \text{(for $\ell\ge 2$)}
   % & = O\left(\frac{x_i^2\log^{2-2?} \Delta}{d\Delta}\right) \\
   % & = O(d^{1-2a}x_i\log^{2-2b} n) \enspace .
+  % & = O(x_i\log^2 n)
 \end{align*}
 \todo[inline]{Continue here.}
-Recall that $M:=4d\Delta/k=4d^{1-a}\sqrt{\Delta}\log^{-b}n$. Therefore,
+Recall that $M=O(\Delta^{\lfloor\ell/2\rfloor}/k)=O(\Delta^{1/2})$. Therefore,
 \begin{align*}
   \E((X_i-\E(X_i))^2)
   & = \frac{1}{k}\left\lfloor\frac{x_i}{M}\right\rfloor\cdot(M-\E(X_i))^2
@@ -426,7 +431,8 @@ Recall that $M:=4d\Delta/k=4d^{1-a}\sqrt{\Delta}\log^{-b}n$. Therefore,
       +  \frac{1}{k}\cdot\frac{M\pi^2x_i^2}{6 x_i}
      & \text{(since $\sum_{j=a}^{\infty} \tfrac{1}{j^2} \le \tfrac{\pi^2}{6a}$ for $a\ge 1$)} \\
   & = \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + \left(\frac{x_i}{kM}+1\right)\cdot (\E(X_i))^2 \\
-  & \le \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + 2\cdot (\E(X_i))^2   & \text{(since $x_i\le 4d\Delta=kM$)} \\
+  & \le \frac{M x_i}{k}\cdot\left(1+\frac{\pi^2}{6}\right) + 2\cdot (\E(X_i))^2   & \text{(since $x_i=|\gamma^{-1}(w_i)|\le kM$)} \\
+  & \le O(\Delta x_i}\right\cdot\left(1+\frac{\pi^2}{6}\right) + 2\cdot (\E(X_i))^2   & \text{(since $x_i=|\gamma^{-1}(w_i)|\le kM$)} \\
  & = O(d^{1-2a}x_i\log^{-2b}n) + O(d^{1-2a}\log^{2-2b} n) \\
   & = O(d^{1-2a}x_i\log^{2-2b}n) \enspace .
 \end{align*}
