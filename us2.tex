@@ -1,4 +1,6 @@
 \documentclass{patmorin}
+% \usepackage[OT1]{fontenc}
+% \usepackage[utf8]{inputenc}
 \listfiles
 
 
@@ -9,7 +11,7 @@
 
 \DeclareMathOperator{\comp}{comp}
 
-\title{\MakeUppercase{A Unique Superior is Still One Too Many}}
+\title{\MakeUppercase{Vertex Ranking of Degenerate Graphs} \newline or \MakeUppercase{Vertex Ranking for Degenerates}}
 \author{Bra\v{c} 2023 Gang}
 
 
@@ -31,51 +33,60 @@
 \maketitle
 
 \begin{abstract}
-  An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ having diameter at most $\ell$ there is a uniqe vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The $\ell$-vertex-ranking number, $\lrn(G)$, of $G$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking using $k$ colours.  We prove that, for any fixed $d$ and $\ell$, every $d$-degenerate $n$-vertex graph $G$ has $\lrn(G)\in O(n^{1-2/(\ell+1)}\log n)$ if $\ell$ is even and $\lrn(G)\in O(n^{1-2/\ell}\log n)$ if $\ell$ is odd. The case $\ell=2$ resolves (up to the $\log n$ factor) an open problem posed by \citet{karpas.neiman.ea:on} and the cases $\ell\in\{2,3\}$ are asymptotically optimal (up to the $\log n$ factor).
+  An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ having diameter at most $\ell$ there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The $\ell$-vertex-ranking number, $\lrn(G)$, of $G$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking using $k$ colours.  We prove that, for any fixed $d$ and $\ell$, every $d$-degenerate $n$-vertex graph $G$ has $\lrn(G)\in O(n^{1-2/(\ell+1)}\log n)$ if $\ell$ is even and $\lrn(G)\in O(n^{1-2/\ell}\log n)$ if $\ell$ is odd. The case $\ell=2$ resolves (up to the $\log n$ factor) an open problem posed by \citet{karpas.neiman.ea:on} and the cases $\ell\in\{2,3\}$ are asymptotically optimal (up to the $\log n$ factor).
 \end{abstract}
-
-
-% \tableofcontents
-%
-% \newpage
-% \pagenumbering{arabic}
-
 
 
 \section{Introduction}
 
-% A \defin{unique-superior colouring} (also known as a \defin{$2$-vertex-ranking} or \defin{restricted star colouring}) is a mapping $\varphi:V(G)\to\N$ of the vertices of a graph $G$ to integer colours so that for any edge $uv$, $\varphi(u)\neq \varphi(v)$ and for any $3$-vertex path $uvw$, $\varphi(u)\neq\varphi(w)$ or $\varphi(v)>\varphi(u)$.  For a graph $G$, the unique-superior chromatic number $\trn(G)$ is the minimum value of $k$ such that $G$ has a unique-superior colouring $\varphi:V(G)\to\{1,\ldots,k\}$.
-%
-% \citet{karpas.neiman.ea:on}  showed that for every $d$-degenerate\footnote{A graph $G$ is \defin{$d$-degenerate} if every non-empty subgraph of $G$ has a vertex of degree at most $d$.  Equivalently, $G$ is $d$-degenerate if it has a vertex ordering in which each vertex precedes at most $d$ of its neighbours in the ordering.} $n$-vertex graph $G$, $\trn(G)\in O(\sqrt{dn})$ and that there exists $2$-degenerate $n$-vertex graphs with $\trn(G)\in\Omega(n^{1/3})$.\footnote{In \cite[Theorem~6.2]{karpas.neiman.ea:on} the authors prove the bound $O(d\sqrt{n})$, but an easy optimization of their argument (separately colouring all vertices of degree greater than $\sqrt{n/d}$ with distinct large colours) improves this to $O(\sqrt{dn})$.}  They leave the question of closing the gap between these bounds as an open problem and this question is stated again by \citet{bose.dujmovic.ea:asymptotically}.
-% In the current paper we give a colouring procedure that essentially matches their lower bound to within a polylogarithmic factor.  In particular, for fixed $d$, $\trn(G)\in O((n\log n)^{1/3})$.
-%
-% \begin{thm}\label{d_degenerate_upper_bound}
-%   There exists a constant $c>0$ such that for any integer $d\ge 1$, every $n$-vertex $d$-degenerate graph $G$ has $\trn(G) \le c d^{4/3}(n\log n)^{1/3}$.
-% \end{thm}
-%
-% Like the upper bound in \cite{karpas.neiman.ea:on}, \cref{d_degenerate_upper_bound} follows quickly from a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$. For such graphs, we prove:
-%
-% \begin{thm}\label{degenerate_and_degree}
-%   There exists a constant $c>0$ such that
-%   for all integers $\Delta\ge d \ge 1$, and $n> \Delta$, every $d$-degenerate $n$-vertex graph $G$ of maximum degree at most $\Delta$ has
-%   $\trn(G)\leq cd^{3/2}\sqrt{\Delta}\log^{3/2} n$.
-% \end{thm}
-%
-% \Cref{d_degenerate_upper_bound} follows easily from \cref{degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  Let $\Delta:=d^{-1/3}n^{2/3}\log^{-1/3} n$.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2d^{4/3}n^{1/3}\log^{1/3} n$.  Since $G-S$ has maximum degree $\Delta$, $G-S$ has a unique-superior colouring $\varphi$ using at most
-% \[
-%   cd^{3/2}\sqrt{\Delta}\log^{1/2} n
-%   % = c\cdot \sqrt{\frac{n^{2/3}}{d^{1/3}\log^{1/2} n}}\cdot \log^{3/4} n
-%   = c d^{\tfrac{3}{2}-\tfrac{1}{6}}n^{\tfrac{1}{3}}\log^{\tfrac{1}{2}-\tfrac{1}{6}} n
-%   = c d^{\tfrac{4}{3}}(n\log n)^{\tfrac{1}{3}}
-% \]
-% colours, by \cref{degenerate_and_degree}. We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than every colour used in the colouring of $G-S$.  Thus, $\trn(G)\le |S|+\trn(G-S)\le (2+c)d^{4/3}(n\log n)^{1/3}$, which establishes \cref{d_degenerate_upper_bound}.
+An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ having diameter at most $\ell$ there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The \defin{$\ell$-vertex-ranking} number $\lrn(G)$ is the minimum integer $k$ such that $G$ has a $\ell$-vertex-ranking $\varphi:V(G)\to\{1,\ldots,k\}$. The \defin{$\ell$-vertex-ranking} number of a graph class $\mathcal{G}$ is $\lrn(\mathcal{G}):=\sup\{\lrn(G):G\in\mathcal{G}\}$.
 
-A vertex colouring $\varphi$ of a graph $G$ is an \defin{$\ell$-vertex-ranking} of $G$ if, for each path $v_0,\ldots,v_r$ in $G$ with at most $\ell$ edges, $\varphi(v_0)\neq \varphi(v_r)$ or $\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}>\varphi(v_0)$.  The \defin{$\ell$-vertex-ranking} number $\lrn(G)$ is the minimum integer $k$ such that $G$ has a $\ell$-vertex-ranking $\varphi:V(G)\to\{1,\ldots,k\}$.  It is straightforward to verify that $\varphi$ is an $\ell$-vertex-ranking of $G$ if and only if, for every connected subgraph $H$ of $G$ of diameter at most $\ell$ contains a vertex $v$ whose colour is larger than that of every other vertex in $H$.
 
-\todo[inline]{Add discussion about previous works, including the upper and lower bounds for $d$-degenerate graphs in \cite{karpas.neiman.ea:on}.  Most of this is covered in the introduction to \cite{bose.dujmovic.ea:asymptotically}.}
+
+When $\ell=1$, a colouring is a $1$-vertex-ranking if and only if it is a proper colouring of $G$, so $\chi(G)=\rn{1}(G)$ and, for any $\ell\ge 1$, $\chi(G)\le \lrn(G)$.  Besides the case $\ell=1$, two special cases have received extra attention.  When $\ell=\infty$, $\rn{\infty}(G)$ is equal to the \defin{vertex ranking number}, the \defin{centered chromatic number}, and the \defin{treedepth} of $G$
+\cite{nesetril.ossona:tree-depth},
+which plays a central role in the theory of sparsity \cite{nesetril.ossona:sparsity}.
+At the other extreme, when $\ell=2$, a $2$-vertex-ranking of $G$ is also known as a \defin{restricted star colouring} \cite{shalu.antony:complexity} or a \defin{unique superior colouring} of $G$ \cite{karpas.neiman.ea:on}.  Previous results for $\ell=2$ and fixed $\ell\ge 2$ are summarized in \cref{previous_works}.
+
+\begin{table}
+    \centering{
+        \begin{tabular}{|l|c|c|l|} \hline
+          \multicolumn{4}{|c|}{$\rn{2}$} \\\hline
+            Graph class & Upper Bound & Lower Bound & Ref. \\ \hline
+            Trees & $O(\log n/\log\log n)$ & $\Omega(\log n/\log\log n)$ & \cite{karpas.neiman.ea:on} \\
+            Planar graphs & $O(\log n/\log^{(3)} n)$ & $O(\log n/\log^{(3)} n)$ & \cite{bose.dujmovic.ea:asymptotically} \\
+            Proper minor closed & $O(\log n)$ & $\Omega(\log n/\log\log n)$ & \cite{karpas.neiman.ea:on} \\
+            $d$-cubes & $d+1$ & $d+1$ & \cite{almeter.demircan.ea:graph} \\
+            Max-degree 3 & $7$ & & \cite{almeter.demircan.ea:graph} \\
+            Max-degree $\Delta$ & $O(\min\{\Delta^2,\Delta\sqrt{n}\})$ & $\Omega(\Delta^2/\log \Delta)$ & \cite{karpas.neiman.ea:on,almeter.demircan.ea:graph} \\
+            $d$-degenerate & $O(d\sqrt{n})$ & $\Omega(n^{1/3} + d^2/\log d)$ & \cite{karpas.neiman.ea:on,almeter.demircan.ea:graph} \\
+            \hline \multicolumn{4}{c}{} \\
+            \hline
+            \multicolumn{4}{|c|}{$\rn{\ell}$, for fixed $\ell\ge 2$} \\\hline
+            Simple treewidth $\le t$ & $O(\log n/\log^{(t)} n)$ & $\Omega(\log n/\log^{(t)} n)$ & \cite{bose.dujmovic.ea:asymptotically} \\
+            Treewidth $\le t$ & $O(\log n/\log^{(t+1)} n)$ & $\Omega(\log n/\log^{(t+1)} n)$ & \cite{bose.dujmovic.ea:asymptotically} \\
+            Planar graphs & $O(\log n/\log^{(3)} n)$ & $\Omega(\log n/\log^{(3)} n)$ & \cite{bose.dujmovic.ea:asymptotically} \\
+            Outerplanar graphs & $O(\log n/\log^{(2)} n)$ & $\Omega(\log n/\log^{(2)} n)$ &  \cite{bose.dujmovic.ea:asymptotically,karpas.neiman.ea:on} \\
+            Genus-$g$ graphs & $O(g\log n/\log^{(3)} n)$ & $\Omega(\log n/\log^{(3)} n)$ & \cite{bose.dujmovic.ea:asymptotically} \\
+            % $A$-minor-free (apex $A$) & $O(\log n/\log^{(c(A))} n)$ & $\Uparrow$ & \cref{meta} \\
+            % $(g,k)$-planar & $O(\log n/\log^{(c(g,k))} n)$ & $\Uparrow$  & \cref{meta} \\
+            \hline
+        \end{tabular}
+    } % centering
+    \caption{Summary of previous results on $\rn{2}$ and $\lrn$ for fixed $\ell\ge 2$. Here, $\log^{(c)} n:=\underbrace{\log\log\cdots\log}_c n$.
+    }
+\label{previous_works}
+\end{table}
+
+The current work is motivated by the gap between the upper and lower bounds for $\rn{2}(G)$ for $d$-degenerate graphs $G$. For fixed $d$, the upper bound is $O(\sqrt{n})$, while the lower bound is $\Omega(n^{1/3})$ and closing this gap is stated explicitly as an open problem by \citet{karpas.neiman.ea:on} and \citet{bose.dujmovic.ea:asymptotically}. Our first contribution solves
+this problem, up to a logarithmic factor.
+
+\begin{thm}\label{unique_superior}
+  For any positive integers $d$ there exists a constant $c:=c(d)$ such that, for every integer $n\ge d$, every $n$-vertex $d$-degenerate graph $G$ has $\rn{2}(G)\le cn^{1/3}\log n$.
+\end{thm}
 
 % Note that $\varphi$ is a $2$-vertex ranking of $G$ if and only if it is a unique-superior colouring of $G$, so $\trn(G)=\rn{2}(G)$ for every graph $G$.
-We establish the following upper bound for the $\ell$-vertex-ranking number of $d$-degenerate graphs:
+\Cref{unique_superior} is an immediate consequence of the following more general upper bound for the $\ell$-vertex-ranking number of $d$-degenerate graphs.
 
 \begin{thm}\label{l_d_degenerate_upper_bound}
   For any positive integers $d$ and $\ell$ there exists a constant $c:=c(d,\ell)$ such that, for every integer $n\ge d$, every $n$-vertex $d$-degenerate graph $G$ has
@@ -87,13 +98,21 @@ We establish the following upper bound for the $\ell$-vertex-ranking number of $
       \end{cases}
   \]
 \end{thm}
-Somewhat surprisingly, the bound in \cref{l_d_degenerate_upper_bound} is the same for $\ell=2k$ and $\ell=2k+1$, for any positive integer $k$.  One might think that this is just an artifact of the proof technique and that the bound for even values of $\ell$ is not tight.  However, \citet{karpas.neiman.ea:on} proved the existence of $2$-degenerate $n$-vertex graphs with $\rn{2}(G)\in\Omega(n^{1/3})$ and \cref{l_d_degenerate_upper_bound} (with $\ell=2$) matches this lower bound to within a logarithmic factor.  Since $\rn{3}(G)\ge\rn{2}(G)$ for any graph $G$, it also matches this bound when $\ell=3$.  Thus, \cref{l_d_degenerate_upper_bound} is tight (up to a $\log n$ factor) for $\ell=2$ and $\ell=3$, leading us to suspect that it is tight for any fixed $\ell$.
+This result exhibits a parity phenomenon one encounters when counting the number of paths of length $\ell$ in a $d$-degenerate graph of maximum-degree $\Delta$. Because of this, the bound in \cref{l_d_degenerate_upper_bound} is the same for $\ell=2k$ and $\ell=2k+1$, for any positive integer $k$.  One might think that this is just an artifact of the proof technique and that the bound for even values of $\ell$ is not tight.  However, \citet{karpas.neiman.ea:on} proved the existence of $2$-degenerate $n$-vertex graphs with $\rn{2}(G)\in\Omega(n^{1/3})$ and \cref{l_d_degenerate_upper_bound} (with $\ell=2$) matches this lower bound to within a logarithmic factor.  Since $\rn{3}(G)\ge\rn{2}(G)$ for any graph $G$, it also matches this bound when $\ell=3$.  Thus, \cref{l_d_degenerate_upper_bound} is tight (up to a $\log n$ factor) for $\ell=2$ and $\ell=3$, leading us to suspect that it is tight for any fixed $\ell$.
 
 
 Like the upper bound on $\rn{2}(G)$ in \cite{karpas.neiman.ea:on}, \cref{l_d_degenerate_upper_bound} follows quickly from a theorem about graphs that are both $d$-degenerate and have maximum-degree $\Delta$. For such graphs, we prove:
 
 \begin{thm}\label{l_degenerate_and_degree}
-  For all positive integers $d$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for every integer $\Delta\ge d$, every integer $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum-degree at most $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n$.  Furthermore, if $\Delta^{\lfloor\ell/2\rfloor-1}\ge\log n$ then $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n$.
+  For all positive integers $d$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for every integer $\Delta\ge d$, every integer $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum-degree at most $\Delta$ has
+  \[
+    \lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n
+    =\begin{cases}
+    c\Delta^{\ell/2-1}\log^{5/4} n & \text{if $\ell$ is odd.} \\
+    c\Delta^{\ell/2-1/2}\log^{5/4} n & \text{if $\ell$ is even.}
+    \end{cases}
+  \]
+  Furthermore, if $\Delta^{\lfloor\ell/2\rfloor-1}\ge\log n$ then $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log n$.
   % \[
   %    \lrn(G) \le \begin{cases}
   %                   c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n
@@ -104,18 +123,11 @@ Like the upper bound on $\rn{2}(G)$ in \cite{karpas.neiman.ea:on}, \cref{l_d_deg
   % \]
 \end{thm}
 
-\Cref{l_d_degenerate_upper_bound} follows easily from \cref{l_degenerate_and_degree}, by the following argument:  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  Let $\Delta:=n^{1/(\lfloor\ell/2\rfloor+1/2)}\log^{-x} n$ for some value $x$ to be discussed shortly.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2dn^{\texp}\log^x n$.  Since $G-S$ is $d$-degenerate and has maximum degree $\Delta$, \cref{l_degenerate_and_degree} implies that
-\begin{align*}
-  \lrn(G-S) &
-  \le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n \\
-  % cd^{3/2}\sqrt{\Delta}\log^{1/2} n
-  % = c\cdot \sqrt{\frac{n^{2/3}}{d^{1/3}\log^{1/2} n}}\cdot \log^{3/4} n
-  & = cn^{\frac{\lfloor\ell/2\rfloor-1/2}{\lfloor\ell/2\rfloor+1/2}}\log^{5/4-x(\lfloor\ell/2\rfloor-1/2)} n \\
-  & = cn^{\dexp}\log^{5/4-x(\lfloor\ell/2\rfloor-1/2)} n \\
-  & \le cn^{\dexp}\log^{5/4-x/2} n \\
-  % & = O\left(n^{\dexp}\right)
-\end{align*}
-where the last inequality follows from the fact that $\lfloor\ell/2\rfloor-1/2\ge 1/2$ for all $\ell\ge 2$.  Taking $x:=5/6$, we get $|S|=O(n^{\texp}\log^{5/6} n)=O(n^{\texp}\log n)$ and  $\lrn(G-S)= O(n^{\texp}\log^{5/4-5/12} n)$.  We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than every colour used in the colouring of $G-S$.  Thus, $\trn(G)\le |S|+\lrn(G-S) \le O(n^{\texp}\log^{5/6} n)$, which establishes \cref{l_d_degenerate_upper_bound}.  (Note that this argument actually proves a slightly better bound than \cref{l_d_degenerate_upper_bound}.  For $\ell\ge 4$, further improvements to the logarithmic factor in \cref{l_d_degenerate_upper_bound} can be obtained using the ``Furthermore'' clause of \cref{l_degenerate_and_degree}.)
+\Cref{l_d_degenerate_upper_bound} follows easily from \cref{l_degenerate_and_degree}, by an easy argument:  Let $S$ be the set of vertices in $G$ having degree at least $\Delta$, for some carefully chosen value of $\Delta$.  Since $G$ is $d$-degenerate, it has at most $dn$ edges, so the total degree of all vertices in $G$ is at most $2dn$, so $|S|\le 2dn/\Delta$.  Now apply \cref{l_degenerate_and_degree} to the graph $G-S$ which is $d$-degenerate and has maximum-degree $\Delta$ to obtain a colouring $\varphi:V(G-S)\to\{1,\ldots,k\}$.  Finally, colour every vertex in $S$ with a distinct colour larger than $k$.  In this way, the total number of colours used is $k + |S|\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n + 2dn/\Delta$. Choosing $\Delta$ to balance these two quantities yields \cref{l_degenerate_and_degree}.  This argument is presented in a little more detail at the end of \cref{the_proof}.
+
+
+
+
 
 
 % The case $\ell=2$ resolves an open problem of \citet{karpas.neiman.ea:on}.
@@ -136,66 +148,12 @@ where the last inequality follows from the fact that $\lfloor\ell/2\rfloor-1/2\g
 
 For any standard graph-theoretic terminology and notation not defined here, we use the same conventions used in the textbook by \citet{diestel:graph}.  A graph $G$ has vertex set $V(G)$ and edge set $E(G)$.  For any $S\subseteq V(G)$, $G[S]$ denote the subgraph of $G$ induced by the vertices in $S$.  For any vertex $v$ of $G$, $N_G(v):=\{w:vw\in E(G)\}$ and $\deg_G(v):=|N_G(v)|$.  For an integer $\ell$, $G^\ell$ denotes the graph with vertex set $V(G)$ that contains an edge $vw$ if and only if some path in $G$ with at most $\ell$ edges contains $v$ and $w$.
 
-For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed edge with source $v$ and target $w$.  For a vertex $v$ in a directed graph $G$, $N^+_{G}(v):=\{w\in V(G):\overrightarrow{vw}\in E(G)\}$ denotes the set of out-neighbours of $v$ and $N^-_G(v):=\{u\in V(G):\overrightarrow{uv}\in E(G)\}$ denotes the set of in-neighbours of $v$, $\deg^+_{G}(v):=|N^+_G(v)|$ is the out-degree of $v$, and $\deg^-_{G}(v):=|N^-_G(v)|$ is the in-degree of $v$. We also define $N^+_{G}[v]:=\{v\}\cup N^+_{G}(v)$ and $N^-_{G}[v]:=\{v\}\cup N^-_{G}(v)$ to be the closed out- and in-neighbourhoods of $v$, respectively.
+The following alternative definition of $\ell$-vertex-ranking turns out to be more convenient for proofs and is what we will use from this point on.
+\begin{obs}\label{alternate_def}
+  A vertex colouring $\varphi:V(G)\to\{1,\ldots,k\}$ of a graph $G$ is an $\ell$-vertex ranking of $G$ if and only if, for each path $v_0,\ldots,v_r$ in $G$ with at most $\ell$ edges, $\varphi(v_0)\neq \varphi(v_r)$ or $\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}>\varphi(v_0)$.
+\end{obs}
 
-% \begin{proof}[Proof of \cref{degenerate_and_degree}]
-%   Let $G$ be an $n$-vertex $d$-degenerate graph of maximum-degree $\Delta$.  Let $S_0:=V(G)$ and, for each integer $i\ge 1$, let $S_i:=\{v\in S_{i-1}:\deg_{G[S_{i-1}]}(v)\ge 4d\}$.  Since $G$ is $d$-degenerate $G[S_{i-1}]$ has at most $d|S_{i-1}|$ edges.  Therefore $2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i|$, so $|S_i|\le |S_{i-1}|/2\le n/2^i$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  Since $1\le |S_q|\le n/2^q$, $q\le \log_2 n$.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
-%
-%   Let $a:=3/2$ and $b:=1/2$.  We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k:=2d^{a}\sqrt{\Delta}\log^{b}n$, such that for each $1\le i < j\le k$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)= O(k\log n)$.
-%
-%   We say that a vertex $y$ of $G$ is \defin{problematic} if $y$ has a neighbour in $G$ that receives the same colour as $y$ in the first phase or if $G$ contains a path $vyw$ such that $y\in L_i$, $u,w\in L_j$, $i \le j$ and $u$ and $w$ receive the same colour in the first phase. Note that any violation of the unique-superior colouring conditions is either an edge $yw$ with $\varphi(y)=\varphi(w)$ or a path $uyw$ with $\varphi(u)=\varphi(w)>\varphi(y)$.  In either case, the vertex $y$ is problematic and this violation could be fixed by recolouring $y$ with a sufficiently large colour, which is what the second phase of the algorithm does.
-%
-%   For each $i\in\{0,\ldots,q\}$, fix an arbitrary total order $<_i$ on the vertices of $L_i$. Define the total order $<$ on $V(G)$ in which $v <w$ if $v\in L_i$, $w\in L_j$, and $i<j$ or if $v,w\in L_i$ and $v<_iw$. Let $H$ be the directed acyclic graph obtained from $G^2$ by directing each edge $vw$ as $\overrightarrow{vw}$ so that $v<w$.  In the discussion that follows, we will use the directed graph notations $N^+_G(v)$ and $\deg^+_G(v)$.  When we do so, we are referring to the directed acyclic graph obtained by orienting each edge $vw$ of $G$ as $\overrightarrow{vw}$ so that $v<w$.
-%
-%   First we observe that $\deg^+_G(v)< 4d$ for any vertex $v$ of $G$. Indeed, a vertex $v$ is contained in $L_i$ precisely because $\deg_{G[S_i]}(v)<4d$.  The bound on $\deg^+_G(v)$ then follows from the fact that $N^+_{G}(v)\subseteq N_{G[S_i]}(v)$.  Next we claim that for each vertex $v$ of $G$, $\deg^+_{H}(v)\le (4d-1)(2\Delta+1)$.  To see this, suppose $v\in L_i$ and consider some edge $\overrightarrow{vw}$ of $H$.  Then  $\overrightarrow{vw}$ is of one of the following types:
-%   \begin{compactenum}[(T1)]
-%     \item $vw\in E(G)$ and $v<w$. Edges of this type contribute at most $\deg^+_{G}(v)\le 4d-1$ to $\deg^+_{H}(v)$.
-%     \item $G$ contains a path $vyw$ with $y < v < w$ or $v < y < w$.  Since $\deg_G(v)\le\Delta$, there are at most $\Delta$ choices for $y$.  For each such $y$, $w\in N^+_G(y)$ (since $y<w$), so there are at most $4d-1$ choices for $w$.  Therefore, edges of this type contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
-%     \item $G$ contains a path $vyw$ with $v < w < y$.  Since $v<y$, $y\in N_G^+(v)$, so there are at most $4d-1$ choices for $y$ and for each such $y$, $\deg_G(y)\le\Delta$, so there are at most $\Delta$ choices for $w$.  Therefore, edges of this type contribute at most $(4d-1)\Delta$ to the out-degree of $v$.
-%   \end{compactenum}
-%   In the first phase of colouring, we colour the vertices of $G$ in the order given by $<$.  Immediately before colouring some vertex $w\in L_i$ we count, for each colour $\alpha\in \Phi_i$, the number $N_\alpha(w)$ of neighbours $y\in N^-_G(w)$ such that $y$ has colour $\alpha$ or $y$ already has a neighbour $u$ of colour $\alpha$. Observe that $\sum_{\alpha\in \Phi_i} N_\alpha(w)\le 4d|N^-_G(w)|< 4d\Delta$ since there are at most $|N^-_G(w)|\le\Delta$ choices for $y$ and for each $y$ there are at most $4d-1$ choices for $u$.  (Since any $u$ coloured with $\alpha\in\Phi_i$ must be in $S_i$, the number of such $u$ is at most $|N_G(y)\cap S_i|\le 4d$, since $y < w$ and $w\in S_i$.)
-%
-%   We choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains exactly half the colours in $\Phi_i$.  Specifically we choose from a palette $\Phi_w\subset \Phi_i$ that contains the $k$ colours $\alpha$ in $\Phi_i$ with the smallest $N_\alpha(w)$ values, so that  $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le\min\{N_\alpha(w):\alpha\in\Phi_i\setminus\Phi_w\}$.  Let $M:=4d\Delta/k$.  Then
-%   \[
-%     Mk = 4d\Delta \ge 4d|N^-_G(w)| \ge \sum_{\alpha\in \Phi_i} N_\alpha(w) \ge \sum_{\alpha\in\Phi_i\setminus\Phi_w}N_\alpha(w) \ge k\max\{N_\alpha(w):\alpha\in \Phi_w\} \enspace ,
-%   \]
-%   so that $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le M$.  This completes the description of the first-phase colouring $\varphi$ of $G$.
-%
-%   At this point, we can offer some justification for the definition of the colour set $\Phi_w$ that we choose from when colouring $w$. For each problematic vertex $y$, there exists a minimum vertex $w$ (with respect to $<$) such that $y$ becomes problematic precisely when $w$ is coloured.  When this happens, we say that $w$ \defin{completes} $y$. By definition, if $w$ chooses the colour $\alpha\in\Phi_w$, then it completes at most $N_{\alpha}(w)+1\le M$ vertices.  (The additional ${}+1$ here comes from the fact that $w$ can complete itself, which occurs when $w$ chooses the same colour as one of its neighbours.) Thus, $M$ is an upper bound on the number of problematic vertices that can be created by colouring any single vertex $w$.
-%
-%   Let $P$ be the set of all problematic vertices in $G$.  In the second phase, we re-colour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since we are recolouring vertices in $P$ with large colours in $\Phi_{q+1}$, any violations of the unique-superior colouring conditions after the second phase must be caused by paths (with two or three vertices) whose endpoints are in $P$ and that receive the same colour.  In order to avoid these we will properly colour $G^2[P]$.  To show that this is possible, we will prove that, with positive probability, after the first phase, the maximum out-degree of any vertex in $H[P]$ is at most $ck\log n$.  Therefore there is some assignment of colours in phase one in which the maximum out-degree of $H[P]$ is at most $ck\log n$.  Therefore $H[P]$ is an acyclic orientation of $G^2[P]$ with maximum out-degree $ck\log n$, so $G^2[P]$ is $(ck\log n)$-degenerate.  Therefore, the $ck\log n + 1$ colours in $\Phi_{q+1}$ are sufficient to properly colour $G^2[P]$.
-%
-%   We now focus on an arbitrary vertex $p$ in $G$ and show that after the first phase, $|N^+_{H}(p)\cap P|\le ck\log n$ with probability $1-n^{-\Omega(c)}$.  The union bound then implies that, with probability $1-n^{-\Omega(c)}$, $|N^+_{H}[p]\cap P|\le ck\log n$ for every $p\in V(G)$.  Since $P\subseteq V(G)$, this implies that, with probability $1-n^{-\Omega(c)}$, the maximum out-degree in $H[P]$ is at most $ck\log n$.
-%   % In particular, it implies that there exists a colouring of $G$ using the $O(k\log n)$ colours in $\Phi_0,\ldots,\Phi_q$ with this property.
-%
-%   Fix an arbitrary vertex $p$ of $G$ and suppose $p\in L_i$. We are interested in the number of problematic vertices in $N_H^+(p)$.  Let $C_p:=\bigcup_{y\in N^+_H(p)} N^+_G[y]$, which is the set of all vertices $w$ that could complete some vertex $y\in N^+_H(p)$. For each $w\in C_p$, let
-%   $C_{p,w}:=N_H^+(p)\cap N_G^-[w]$, which is the set of vertices in $N^+_{H}(p)$ that $w$ could potentially complete. For each $w\in C_p$, let $\comp(p,w):=\{y\in C_{p,w}:\text{$w$ completes $y$}\}$.  For each $\alpha\in\Phi_w$, let $\comp'_\alpha(p,w)$ contain exactly those vertices $y\in C_{p,w}$ that have colour $\alpha$ or have a neighbour of colour $\alpha$ immediately before choosing the colour of $w$.  Observe that $\comp'_\alpha(p,w)$ contains every $y\in C_{p,w}$ that would be completed by $w$ if we were to set the colour of $w$ to $\alpha$ (as well as some additional vertices that may have already been completed by vertices in $C_p$ that were coloured before $w$).
-%
-%   Recall that $N_\alpha(w)$ counts the number of neighbours $y$ of $w$ such that $y < w$ and $y$ has colour $\alpha$ or has a neighbour of colour $\alpha$ immediately before we choose the colour of $w$.  Therefore,  $|\comp'_\alpha(p,w)|\le N_\alpha(w)+1\le M$ for each $\alpha\in\Phi_w$.  Now let $\alpha\in\Phi_w$ be the colour that is actually chosen for $w$ and let $\comp'(p,w):=\comp'_\alpha(p,w)$.  We want to study the random variable $X'_{p,w}:=|\comp'(p,w)|\ge |\comp(p,w)|$.  Since $\alpha$ is chosen from $\Phi_w$, $X'_{p,w} \le M$.
-%
-%   Let $\alpha_1,\ldots,\alpha_t$ be the colours in $\Phi_w$ ordered so that,
-%   \[
-%     |\comp'_{\alpha_1}(p,w)|\ge|\comp'_{\alpha_2}(p,w)|\ge\cdots\ge |\comp'_{\alpha_t}(p,w)| \enspace .
-%   \]
-%   Immediately before colouring $w\in L_i$, each $y\in C_{p,w}$ is assigned a colour (possibly in $\Phi_i$) and has at most $4d-2$ neighbours that have already received a colour in $\Phi_i$.  Therefore, $y$ appears in
-%   $\comp'_{\alpha}(p,w)$ for at most $4d-1$ values of $\alpha$, so
-%   \[
-%     \sum_{\alpha\in\Phi_w} |\comp'_{\alpha}(p,w)| \le 4d| C_{p,w}| \enspace .
-%   \]
-%   Therefore $i|\comp'_{\alpha_i}(p,w)|\le\sum_{j=1}^i|\comp'_{\alpha_j}(p,w)|\le 4d|C_{p,w}|$, so
-%   \[
-%     |\comp'_{\alpha_i}(p,w)|\le \frac{4d|C_{p,w}|}{i} \enspace .
-%   \]
-%   Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{4d|C_{p,w}|/j,M\}$ where $j$ is chosen uniformly in $\{1,\ldots,k\}$.
-%
-%   Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w\in C_p} X_{p,w}$ of independent random variables.  We would like to apply a concentration result to the random variable $X$.  For this, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$, $w\in C_p$.  Thus far, we know that $0\le X_{p,w}\le M$ for each $w\in C_p$. In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply a Bernstein Inequality to prove that $\Pr(X\ge ck\log n)\le n^{-\Omega(c)}$.  Thus, the number of additional colours in $\Phi_{q+1}$ needed to recolour $P$ in the second phase is $O(k\log n)$.  Thus, In this way, the total number of colours used is $O(k\log n)$, so
-%   \[
-%     \trn(G) \le O(k \log n) = O(d^a\sqrt{\Delta}\log^{1+b} n) = O(d^{3/2}\sqrt{\Delta}\log^{3/2} n) \enspace . \qedhere
-%   \]
-% \end{proof}
-%
-%
-% \section{Generalization to \boldmath$\ell$-Vertex-Ranking}
+For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed edge with source $v$ and target $w$.  For a vertex $v$ in a directed graph $G$, $N^+_{G}(v):=\{w\in V(G):\overrightarrow{vw}\in E(G)\}$ denotes the set of out-neighbours of $v$ and $N^-_G(v):=\{u\in V(G):\overrightarrow{uv}\in E(G)\}$ denotes the set of in-neighbours of $v$, $\deg^+_{G}(v):=|N^+_G(v)|$ is the out-degree of $v$, and $\deg^-_{G}(v):=|N^-_G(v)|$ is the in-degree of $v$. We also define $N^+_{G}[v]:=\{v\}\cup N^+_{G}(v)$ and $N^-_{G}[v]:=\{v\}\cup N^-_{G}(v)$ to be the closed out- and in-neighbourhoods of $v$, respectively.
 
 We repeatedly make use of the following foklore result:
 
@@ -207,38 +165,9 @@ We repeatedly make use of the following foklore result:
   For any $S\subseteq V(G)$, using the same orientation shows that the induced subgraph $G[S]$ has an orientation in which each vertex is the source of at most $d$ edges.  This implies that $G[S]$ contains at most $d|S|$ edges and therefore the total degree of all vertices in $G[S]$ is at most $2d|S|$.  Therefore, for any $S\subseteq V(G)$, the induced graph $G[S]$ has a vertex of degree at most $2d$.
 \end{proof}
 
-% \subsection{Cheap Tricks}
-%
-% \begin{lem}\label{cairns_trick}
-%   For any integers $\ell\ge 1$, $d\ge 1$, $\Delta\ge d$, and any $d$-degenerate graph $G$ of maximum degree at most $\Delta$, the graph $G^{\ell}$ is $2^{\ell+2} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$-degenerate.
-% \end{lem}
-%
-% \begin{proof}
-%   Let $<$ be a $d$-degenerate ordering of $V(G)$, so that each vertex has at most $d$ neighbours that precede it in the order.  For each edge $vw$ of $G^{\ell}$, select some path $\Pi_{vw}:=x_0,\ldots,x_r$ in $G$ with endpoints $x_0:=v$ and $x_r:=w$ and having $r\le\ell$ edges.  Say that an edge $x_ix_{i+1}$ of $\Pi_{vw}$ is a \defin{downstream} edge of $\Pi_{vw}$ if $x_i < x_{i+1}$, otherwise it is an \defin{upstream} edge.  Consider the following orientation of $G^\ell$.  For each edge $vw$ of $G^\ell$, if at least half the edges of $\Pi_{vw}$ are downstream edges of $\Pi_{vw}$ then orient the edge $vw$ as $\overrightarrow{vw}$, otherwise orient it as $\overleftarrow{vw}$.
-%
-%   We claim that the resulting orientation of $G^{\ell}$ has maximum out-degree at most $2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.  To see this, consider a vertex $v$ and some edge $\overrightarrow{vw}$ that contributes to the out-degree of $v$.  Suppose that $\Pi_{vw}:=x_0,\ldots,x_r$ has length $r\in\{1,\ldots,\ell\}$. Given $v$, we can uniquely identify $\Pi_{vw}$ (and hence $w$) from the following description: We first specify a sequence of $r$ bits that describes which edges of $\Pi_{vw}$ are upstream and which are downstream.  Next, we specify $x_1,\ldots,x_r$.  We know that $x_0=v$. Given $x_i$ for some $i\in\{0,\ldots,r-1\}$, if $x_ix_{i+1}$ is a downstream edge then there are at most $d$ options for $x_{i+1}$.  If $x_ix_{i+1}$ is an upstream edge then there are at most $\Delta$ options for $x_{i+1}$.  For a given $r$, the number of such paths is therefore at most $2^rd^{\lceil r/2\rceil}\Delta^{\lfloor r/2\rfloor}$, since at least half the edges of $\Pi_{vw}$ are downstream edges.  Summing over $r$ from $1$ to $\ell$ establishes the claim.  Therefore $G^{\ell}$ has an orientation in which each vertex has maximum out-degree $2^{\ell+1} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$.  By \cref{orientation_to_degeneracy}, $G^\ell$ is $2^{\ell+2} d^{\lceil\ell/2\rceil}\Delta^{\lfloor\ell/2\rfloor}$-degenerate.
-% \end{proof}
-%
-% \begin{thm}\label{l_degenerate}
-%   For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ has $\lrn(G)\le cn^{\ell/(\ell+2)}$.
-% \end{thm}
-%
-% \begin{proof}
-%   (Note that we may treat $d$ and $\ell$ as fixed, so that $n$ is only value that tends to infinity.)
-%   Let $\Delta:=n^{1/\lfloor 3\ell/2\rfloor}$ and let $S:=\{v\in V(G):\deg_G(v)\ge\Delta\}$.  Then $G-S$ is $d$-degenerate and has maximum-degree $\Delta$ so, by \cref{cairns_trick}, $(G-S)^{\ell}$ is $O(\Delta^{\lfloor\ell/2\rfloor})$-degenerate and therefore has a proper colouring using $O(\Delta^{\lfloor\ell/2\rfloor})=O(n^{\lfloor\ell/2\rfloor/\lfloor 3\ell/2\rfloor)})=O(n^{1-1/\lfloor 3\ell/2\rfloor})$ colours.  This extends to an $\ell$-vertex-ranking of $G$ by giving each vertex in $S$ a distinct colour that is larger than all vertices of $G-S$.  This requires an additional $|S|=O(n/\Delta)=n^{1-1/\lfloor 3\ell/2\rfloor})$ colours.
-%
-%   To see that the resulting colouring is an $\ell$-vertex-ranking, consider some path $\Pi=x_0,\ldots,x_r$ in $G$ of length $r\le\ell$.  If $\Pi$ includes a vertex in $S$ then $\max\{\varphi(x):x\in S\cap \{x_0,\ldots,x_r\}\}$ is the largest colour is the unique maximum colour that appears in $\Pi$.  Otherwise, $\Pi$ is a path in $(G-S)^{\ell}$, in which case $\varphi(x_0)\neq\varphi(x_r)$.
-% \end{proof}
+An \defin{undirected path} $\Pi$ in a graph $G$ is a tree with exactly two leaves whose edges are all edges of $G$. The leaves of $\Pi$ are called the \defin{endpoints} of $\Pi$. The \defin{length} of $\Pi$ is the number of edges in $\Pi$, which is exactly one less than the number of vertices.  With a slight abuse of notation, we will write $x_0,\ldots,x_r$ to denote a length-$r$ undirected path $\Pi$ where $x_0$ and $x_r$ are the enpoints of $\Pi$ and $\Pi$ contains the edge $x_{i-1}x_i$ for each $i\in\{1,\ldots,r\}$.
 
-% \subsection{Generalizing \cref{degenerate_and_degree}}
-
-An \defin{undirected path} $\Pi$ in a graph $G$ is a connected subgraph of $G$ with exactly two vertices of degree $1$ and all other vertices of degree $2$.  The \defin{length} of $\Pi$ is the number of edges in $\Pi$, which is exactly one less than the number of vertices.  With a slight abuse of notation, we will write $x_0,\ldots,x_r$ to denote a length-$r$ undirected path $\Pi$ where $x_0$ and $x_r$ are the degree-$1$ vertices of $\Pi$ and $\Pi$ contains the edge $x_{i-1}x_i$ for each $i\in\{1,\ldots,r\}$. We call $x_0$ and $x_r$ the \defin{endpoints} of $\Pi$.
-
-For a graph $G$, let $\mathcal{P}_\ell(G)$ denote the set of all undirected paths of length at most $\ell$ in $G$.  The set $\mathcal{P}_\ell(G)$ is critical for us, since this is precisely the set of paths that need to be considered to determine if a vertex-colouring $\varphi$ of $G$ is an $\ell$-vertex-ranking.  The following lemma shows that the paths in $\mathcal{P}_\ell(G)$ can be mapped onto their endpoints in such a way that no endpoint receives too many paths.  Its proof uses a technique introduced by Cairns \cite{?} to upper bound the number of length-$\ell$ paths in planar graphs (see also \cite[Lemma~5]{devroye.dujmovic.ea:notes}).
-
-\todo[inline]{When I learned this trick from Bruce (Rio, 2017) he attributed it to Cairns. Do we have a reference?}
-
-
+For a graph $G$, let $\mathcal{P}_\ell(G)$ denote the set of all undirected paths of length at most $\ell$ in $G$.  The set $\mathcal{P}_\ell(G)$ is critical for us since, by \cref{alternate_def}, this is precisely the set of paths that need to be considered to determine if a vertex-colouring $\varphi$ of $G$ is an $\ell$-vertex-ranking.  The following lemma shows that the paths in $\mathcal{P}_\ell(G)$ can be mapped onto their endpoints in such a way that no endpoint receives too many paths.  Its proof uses a technique introduced by Cairns to upper bound the number of length-$\ell$ paths in planar graphs (see also \cite[Lemma~5]{devroye.dujmovic.ea:notes}).
 
 \begin{lem}\label{advanced_cairns}
   For any integers $d\ge 2$, $\ell\ge 2$, $\Delta\ge d$ and any
@@ -283,10 +212,11 @@ In order to obtain the bound in \cref{l_degenerate_and_degree} we need a special
 
 
 \section{The Proof}
+\label{the_proof}
 
 For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undirected path $\Pi:=x_0,\ldots,x_r$ in $G$ is an \defin{$\ell$-violation} of $\varphi$ if $\Pi$ has length $r\le\ell$ and $\varphi(x_0)=\varphi(x_r)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$.  Observe that $\varphi$ is an $\ell$-vertex-ranking if and only if $G$ contains no $\ell$-violations of $\varphi$.
 
-Before proving \cref{l_degenerate_and_degree}, it is worth noting that \cref{degeneracy_of_g_l} already implies that for a graph $G$ on which \cref{l_degenerate_and_degree} applies, $G^\ell$ is $O(\Delta^{\lfloor\ell/2\rfloor})$-degenerate, so $\lrn(G)\le \chi(G^{\ell})\in O(\Delta^{\lfloor \ell/2\rfloor})$.  For $\Delta\ge \log^{5/2} n$,  \cref{l_degenerate_and_degree} reduces this bound by a factor of $\Delta^{1/2}\log^{-5/4} n$.
+% Before proving \cref{l_degenerate_and_degree}, it is worth noting that \cref{degeneracy_of_g_l} already implies that for a graph $G$ on which \cref{l_degenerate_and_degree} applies, $G^\ell$ is $O(\Delta^{\lfloor\ell/2\rfloor})$-degenerate, so $\lrn(G)\le \chi(G^{\ell})\in O(\Delta^{\lfloor \ell/2\rfloor})$.  For $\Delta\ge \log^{5/2} n$,  \cref{l_degenerate_and_degree} reduces this bound by a factor of $\Delta^{1/2}\log^{-5/4} n$.
 
 % \begin{thm}\label{l_degenerate_and_degree}
 %   For any integers $d\ge 2$ and $\ell\ge 2$ there exists a constant $c:=c(d,\ell)$ such that, for all integers $\Delta\ge d$ and $n\ge \Delta$, every $n$-vertex $d$-degenerate graph $G$ of maximum degree $\Delta$ has $\lrn(G)\le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{1+b} n$.
@@ -297,27 +227,27 @@ Before proving \cref{l_degenerate_and_degree}, it is worth noting that \cref{deg
   \[
     2d|S_{i-1}|\ge \sum_{v\in S_{i-1}} \deg_{G[S_{i-1}]}(v)\ge 4d|S_i| \enspace ,
   \]
-  so $|S_i|\le |S_{i-1}|/2\le n/2^i$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_i$ is non-empty.  Since $1\le |S_q|\le n/2^q$, $q\le \log_2 n$.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
+  so $|S_i|\le |S_{i-1}|/2\le n/2^i$ for each $i\ge 1$.  Let $q$ be the maximum integer such that $S_q$ is non-empty.  Since $1\le |S_q|\le n/2^q$, $q\le \log_2 n$.  For each $i\in\{0,\ldots,q\}$, let $L_i:=S_i\setminus S_{i+1}$.  (These notations are mnemonics: $S_i$ are the \defin{survivors} of round $i-1$ and $L_i$ is \defin{layer} $i$.)
 
-  Let $b=1/4$ and let $k:=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$, so that our goal is to find an $\ell$-vertex-ranking of $G$ using $O(k\log n)$ colours. We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint color palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k$, such that for each $1\le i < j\le q$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)= O(k\log n)$.  The first phase colouring $\varphi:V(G)\to\Phi_0\cup\cdots\cup\Phi_q$ will have some $\ell$-violations which will be eliminated by re-colouring some vertices in the second phase using an additional palette $\Phi_{q+1}$ of size $O(k\log n)$.
+  Let $b=1/4$ and let $k:=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$, so that our goal is to find an $\ell$-vertex-ranking of $G$ using $O(k\log n)$ colours. We compute our colouring using a two phase algorithm. In the first phase we use a sequence of pairwise-disjoint colour palettes $\Phi_0,\ldots,\Phi_{q}$, each of size $2k$, such that for each $1\le i < j\le q$, every colour in $\Phi_i$ is less than every colour in $\Phi_j$.  We will use the colours in $\Phi_i$ to colour the vertices in $L_i$, for each $i\in\{0,\ldots,q\}$.  The total number of colours used in this phase is $2k(q+1)\le 2k(1+\log n)= O(k\log n)$.  The first phase colouring $\varphi:V(G)\to\Phi_0\cup\cdots\cup\Phi_q$ will have some $\ell$-violations which will be eliminated by re-colouring some vertices in the second phase using an additional palette $\Phi_{q+1}$ of size $O(k\log n)$.
 
   Let $\mathcal{P}$ contain all the undirected paths $x_0,\ldots,x_r$ in $\mathcal{P}_{\ell}(G)$ such that $x_0$ and $x_r$ are in the same layer $L_j$ and $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Since $G$ is $d$-degenerate, it has an orientation of maximum out-degree $d$.  Let $\rho:\mathcal{P}\to V(G)$ be the mapping given by \cref{advanced_cairns}, applied to $G$, restricted to the paths in $\mathcal{P}$. (The purpose of the restriction is so that $\rho^{-1}(v)$ denotes a subset of $\mathcal{P}$.)  We will say that a path $\Pi:=x_0,\ldots,x_r$ in $\mathcal{P}$ is \defin{problematic} if $x_0$ and $x_r$ are assigned the same colour in the first phase of the algorithm.
 
   Although we have not yet completed the description of the first phase colouring procedure, we already know enough to establish the following claim:  Any $\ell$-violation $\Pi$ of the first phase colouring $\varphi$ is a problematic path in $\mathcal{P}$.  Indeed, if $\Pi=x_0,\ldots,x_r$ is an $\ell$-violation, then $\varphi(x_0)=\varphi(x_r)\in \Phi_j$ for some $j\in\{0,\ldots,q\}$.  Thus $x_0,x_r\in L_j$ for some $j\in\{0,\ldots,q\}$.  Furthermore, since $\Pi$ is an $\ell$-violation $\varphi(x_0)=\max\{\varphi(x_0),\ldots,\varphi(x_r)\}$, so no colour in $\Phi_{j+1},\ldots,\Phi_q$ appears at any vertex in $x_1,\ldots,x_{r-1}$.  Therefore, $\{x_1,\ldots,x_{r-1}\}\subseteq \bigcup_{i=0}^j L_i$.  Therefore $\Pi\in\mathcal{P}$.  Since $\varphi(x_0)=\varphi(x_r)$, $\Pi$ is problematic.
 
-  We now describe the first phase colouring algorithm.  Consider the multigraph $G^*$ that, for each $vw\in V(G)$ contains as many copies of the edge $vw$ as there are undirected paths in $\mathcal{P}$ with endpoints $v$ and $w$.  The existence of $\rho$ implies that $G^*$ has an orientation in which each edge has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.  By \cref{orientation_to_degeneracy}, $G^*$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Label the vertices of $G$ as $v_1,\ldots,v_n$ so that $v_i$ has degree $O(\Delta^{\lfloor\ell /2})$ in $G^*[\{v_1,\ldots,v_{i}\}]$. In other words, for each $a\in\{1,\ldots,n\}$ the number of paths in $\mathcal{P}$ with one endpoint at $v_a$ and the other endpoint in $\{v_1,\ldots,v_{a-1}\}$ is $O(\Delta^{\lfloor\ell /2})$.  In the first phase, we will colour the vertices one by one in the order $v_1,\ldots,v_n$.
+  We now describe the first phase colouring algorithm.  Consider the multigraph $G^*$ that, for each $vw\in V(G)$ contains as many copies of the edge $vw$ as there are undirected paths in $\mathcal{P}$ with endpoints $v$ and $w$.  The existence of $\rho$ implies that $G^*$ has an orientation in which each edge has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$.  By \cref{orientation_to_degeneracy}, $G^*$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Label the vertices of $G$ as $v_1,\ldots,v_n$ so that $v_i$ has degree $O(\Delta^{\lfloor\ell /2\rfloor})$ in $G^*[\{v_1,\ldots,v_{i}\}]$. In other words, for each $a\in\{1,\ldots,n\}$ the number of paths in $\mathcal{P}$ with one endpoint at $v_a$ and the other endpoint in $\{v_1,\ldots,v_{a-1}\}$ is $O(\Delta^{\lfloor\ell /2\rfloor})$.  In the first phase, we will colour the vertices one by one in the order $v_1,\ldots,v_n$.
 
-  Let $\tau:\mathcal{P}\to V(G)$ be the mapping that maps $\Pi\in\mathcal{P}$ to $v_b$ if and only if the endpoints of $\Pi$ are $v_a$ and $v_b$ and $a < b$.\footnote{The two mappings $\tau$ and $\rho$ are similar. The difference is that $\rho$ corresponds to some orientation of $G^*$ and $\tau$ corresponds to an acyclic orientation of $G^*$.}  Consider some vertex $w\in L_j$.  For each $\alpha \in \Phi_j$, let $N_{\alpha}(w)$ be the number of paths in $\tau^{-1}(w)$ whose other endpoint (not $w$) is assigned the colour $\alpha$. If $w=v_b$ then $N_{\alpha}(w)$ is completely determined by the colours of $v_1,\ldots,v_{b-1}$, so the value of $N_\alpha(v_b)$ is determined after $v_{b-1}$ is coloured but before $v_b$ is coloured.  Observe that assigning the colour $\alpha$ to $w$ creates exactly $N_{\alpha}(w)$ problematic paths, and these are all in $\tau^{-1}(w)$.  Therefore, $\sum_{\alpha\in\Phi_i} N_\alpha(w)=|\tau^{-1}(w)|\in O(\Delta^{\lfloor\ell /2\rfloor})$.
+  Let $\tau:\mathcal{P}\to V(G)$ be the mapping that maps $\Pi\in\mathcal{P}$ to $v_b$ if and only if the endpoints of $\Pi$ are $v_a$ and $v_b$ and $a < b$.\footnote{The two mappings $\tau$ and $\rho$ are similar. The difference is that $\rho$ corresponds to some orientation of $G^*$ and $\tau$ corresponds to an acyclic orientation of $G^*$.}  Consider some vertex $w\in L_j$.  For each $\alpha \in \Phi_j$, let $N_{\alpha}(w)$ be the number of paths in $\tau^{-1}(w)$ whose other endpoint (not $w$) is assigned the colour $\alpha$. If $w=v_b$ then $N_{\alpha}(w)$ is completely determined by the colours of $v_1,\ldots,v_{b-1}$, so the value of $N_\alpha(v_b)$ is determined after $v_{b-1}$ is coloured but before $v_b$ is coloured.  Observe that assigning the colour $\alpha$ to $w$ creates exactly $N_{\alpha}(w)$ problematic paths, and these are all in $\tau^{-1}(w)$.  Therefore, $\sum_{\alpha\in\Phi_j} N_\alpha(w)=|\tau^{-1}(w)|\in O(\Delta^{\lfloor\ell /2\rfloor})$.
 
-  For each vertex $w$, we choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains exactly half of the $2k$ colours in $\Phi_i$.  Specifically, we choose the colour of $w$ from a palette $\Phi_w\subset \Phi_i$ that contains $k$ colours $\alpha$ in $\Phi_i$ with the smallest $N_\alpha(w)$ values, so that  $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le\min\{N_\alpha(w):\alpha\in\Phi_i\setminus\Phi_w\}$.  Let $M:=c\Delta^{\lfloor\ell/2\rfloor}/k$ with $c$ sufficiently large so that $Mk\ge \tau^{-1}(w)$.
+  For each vertex $w$, we choose the colour of $w$ uniformly at random from a subpalette of $\Phi_i$ that contains exactly half of the $2k$ colours in $\Phi_i$.  Specifically, we choose the colour of $w$ from a palette $\Phi(w)\subset \Phi_i$ that contains $k$ colours $\alpha$ in $\Phi_i$ with the smallest $N_\alpha(w)$ values, so that  $\max\{N_\alpha(w):\alpha\in \Phi(w)\}\le\min\{N_\alpha(w):\alpha\in\Phi_i\setminus\Phi(w)\}$.  Let $M:=c\Delta^{\lfloor\ell/2\rfloor}/k$ with $c$ sufficiently large so that $Mk\ge \tau^{-1}(w)$.
   Then
   \[
-    Mk \ge |\tau^{-1}(w)|= \sum_{\alpha\in \Phi_i} N_\alpha(w) \ge \sum_{\alpha\in\Phi_i\setminus\Phi_w}N_\alpha(w) \ge k\max\{N_\alpha(w):\alpha\in \Phi_w\} \enspace .
+    Mk \ge |\tau^{-1}(w)|= \sum_{\alpha\in \Phi_i} N_\alpha(w) \ge \sum_{\alpha\in\Phi_i\setminus\Phi(w)}N_\alpha(w) \ge k\max\{N_\alpha(w):\alpha\in \Phi(w)\} \enspace .
   \]
-  Therefore, $\max\{N_\alpha(w):\alpha\in \Phi_w\}\le M$ is the maximum number of problematic paths in $\mathcal{P}$ that can be created by colouring any single vertex.  This completes the description of the first-phase colouring $\varphi$ of $G$.
+  Therefore, $\max\{N_\alpha(w):\alpha\in \Phi(w)\}\le M$ is the maximum number of problematic paths in $\mathcal{P}$ that can be created by colouring any single vertex $w$.  This completes the description of the first-phase colouring $\varphi$ of $G$.
 
 
-  The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the problematic paths in $\mathcal{P}$, each of which is a potential $\ell$-violation of $\varphi$.  For each problemat $\Pi\in\mathcal{P}$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round, in order to eliminate this potential $\ell$-violation of $\varphi$.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  (Note that if $v$ and $w$ are in the same layer $L_j$ then both edges $\overrightarrow{vw}$ and $\overleftarrow{vw}$ are present in $G'$.)  Then $G'$ has maximum out-degree $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)
+  The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the problematic paths in $\mathcal{P}$, each of which is a potential $\ell$-violation of $\varphi$.  For each problematic $\Pi\in\mathcal{P}$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round, in order to eliminate this potential $\ell$-violation of $\varphi$.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  (Note that if $v$ and $w$ are in the same layer $L_j$ then both edges $\overrightarrow{vw}$ and $\overleftarrow{vw}$ are present in $G'$.)  Then $G'$ has maximum out-degree $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)
 
   Consider a problematic path $\Pi:=x_0,\ldots,x_r$ and suppose, without loss of generality that $\tau(\Pi)=x_0$.  Then $x_r$ was coloured before $x_0$ and $\Pi$ became problematic precisely when $x_0$ was coloured.  By the time the colouring is complete, a problematic path $\Pi$ may be an $\ell$-violation.  In order to eliminate this potential $\ell$-violation we declare the vertex $\gamma(\Pi)$ to be \defin{problematic}.
 
@@ -339,9 +269,9 @@ Before proving \cref{l_degenerate_and_degree}, it is worth noting that \cref{deg
     & \le \frac{1}{k}\cdot O(\Delta^{2\lfloor\ell /2\rfloor-1}) \\
     & = O(\Delta^{\lfloor\ell /2\rfloor-1/2}\log^{-b} n) = O(k\log^{-2b} n) \enspace .
   \end{align*}
-  This is a good sign. If the event set $\{\text{``$\Pi$ is problematic''}:\Pi\in\mathcal{P}\}$ were mutually independent then it would be a simple matter of applying a Chernoff bound.  Unfortunately this is not the case since, for each vertex $w$, the events $\{\text{``$\Pi$ is problematic''}:\Pi\in\tau^{-1}(w)\}$ are all affected by the choice of colour for $w$.
+  This is a good sign. If the event set $\{\text{``$\Pi$ is problematic''}:\Pi\in\mathcal{P}\}$ were mutually independent then it would be a simple matter of applying a Chernoff bound.  Unfortunately this is not the case since, for each vertex $w$, all of the events in $\{\text{``$\Pi$ is problematic''}:\Pi\in\tau^{-1}(w)\}$ are all affected by the choice of colour for $w$.
 
-  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the appendix. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $X'_p\ge |N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ \defin{stochastically dominates} a random variable $Y$ if $\Pr(Y\ge x) \le \Pr(X\ge x)$ for all $x\in\R$.}
+  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the appendix. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $X'_p\ge |N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ \defin{stochastically dominates} a random variable $Y$ if $\Pr(X\ge x) \ge \Pr(Y\ge x)$ for all $x\in\R$.}
 
   For each vertex $w$ of $G$, let $\mathcal{P}_{p,w}:=\tau^{-1}(w)\cap (\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y))$ and define
   \[
@@ -350,9 +280,9 @@ Before proving \cref{l_degenerate_and_degree}, it is worth noting that \cref{deg
   \]
   Since each problematic path $\Pi$ counted by the right-hand-side of \cref{path_upper_bound} becomes problematic when $w:=\tau(\Pi)$ is coloured, $X'_p=\sum_{w\in V(G)} X'_{p,w}$.
 
-  Suppose $w\in L_j$ for some $j\in\{0,\ldots,q\}$.  For each $\alpha\in\Phi_j$, let $N_\alpha(p,w)$ be the number of paths in $\mathcal{P}_{p,w}$ that would have become problematic if we had set the colour of $w$ to $\alpha$. Then $\sum_{\alpha\in\Phi_w} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(w) = |\tau^{-1}(w)|$.
+  Suppose $w\in L_j$ for some $j\in\{0,\ldots,q\}$.  For each $\alpha\in\Phi_j$, let $N_\alpha(p,w)$ be the number of paths in $\mathcal{P}_{p,w}$ that would have become problematic if we had set the colour of $w$ to $\alpha$. Then $\sum_{\alpha\in\Phi(w)} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(w) = |\tau^{-1}(w)|$.
 
-  Let $\alpha_1,\ldots,\alpha_k$ be the colours in $\Phi_w$ ordered so that,
+  Let $\alpha_1,\ldots,\alpha_k$ be the colours in $\Phi(w)$ ordered so that,
   \[
     N_{\alpha_1}(p,w) \ge N_{\alpha_2}(p,w) \ge\cdots\ge N_{\alpha_k}(p,w) \enspace .
   \]
@@ -362,21 +292,46 @@ Before proving \cref{l_degenerate_and_degree}, it is worth noting that \cref{deg
   \]
   Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{O(\Delta^{\lfloor\ell/2\rfloor})/i,M\}$ where $i$ is chosen uniformly in $\{1,\ldots,k\}$.
 
-  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of mutually independent random variables.  In order to apply a concentration result to the random variable $X_p$, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  Thus far, we know that $0\le X_{p,w}\le M$ for all $w$, which is a good starting point, but not enough.  In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply Bernstein's Inequality to prove that $\Pr(X_p\ge ck\log n)\le n^{-\Omega(c)}$.  Then union bound then implies that $\Pr(\max\{X_p:p\in V(H)\} \ge ck\log n)\le n^{-\Omega(c)}$.  Thus, with high probability, the number of additional colours in $\Phi_{q+1}$ needed to recolour the vertices of $P$ in the second phase is $O(k\log n)$.  Since the total number of colours used in the first phase is $O(k\log n)$, we have
+  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of mutually independent random variables.  In order to apply a concentration result to the random variable $X_p$, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  Thus far, we know that $0\le X_{p,w}\le M$ for all $w$, which is a good starting point, but not enough.  In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply Bernstein's Inequality to prove that $\Pr(X_p\ge ck\log n)\le n^{-\Omega(c)}$.  Then the union bound implies that $\Pr(\max\{X_p:p\in V(H)\} \ge ck\log n)\le n^{-\Omega(c)}$.  Thus, with high probability, the number of additional colours in $\Phi_{q+1}$ needed to recolour the vertices of $P$ in the second phase is $O(k\log n)$.  Since the total number of colours used in the first phase is $O(k\log n)$, we have
   \[
     \lrn(G) = O(k \log n) = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \enspace . \qedhere
   \]
 \end{proof}
+
+With the proof of \cref{l_degenerate_and_degree} out of the way, we now show how it implies \cref{l_d_degenerate_upper_bound}.
+
+\begin{proof}[Proof of \cref{l_d_degenerate_upper_bound}]
+  Since $G$ is $d$-degenerate, it has at most $dn$ edges and the sum of its vertex degrees is at most $2dn$.  Let $\Delta:=n^{1/(\lfloor\ell/2\rfloor+1/2)}\log^{-x} n$ for some value $x$ to be discussed shortly.  Then the set $S:=\{v\in V(G):\deg_G(v)\ge \Delta\}$ has size at most $2dn/\Delta=2dn^{\texp}\log^x n$.  Since $G-S$ is $d$-degenerate and has maximum degree $\Delta$, \cref{l_degenerate_and_degree} implies that
+  \begin{align*}
+    \lrn(G-S) &
+    \le c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n \\
+    % cd^{3/2}\sqrt{\Delta}\log^{1/2} n
+    % = c\cdot \sqrt{\frac{n^{2/3}}{d^{1/3}\log^{1/2} n}}\cdot \log^{3/4} n
+    & = cn^{\frac{\lfloor\ell/2\rfloor-1/2}{\lfloor\ell/2\rfloor+1/2}}\log^{5/4-x(\lfloor\ell/2\rfloor-1/2)} n \\
+    & = cn^{\dexp}\log^{5/4-x(\lfloor\ell/2\rfloor-1/2)} n \\
+    & \le cn^{\dexp}\log^{5/4-x/2} n \\
+    % & = O\left(n^{\dexp}\right)
+  \end{align*}
+  where the last inequality follows from the fact that $\lfloor\ell/2\rfloor-1/2\ge 1/2$ for all $\ell\ge 2$.  Taking $x:=5/6$, we get $|S|=O(n^{\texp}\log^{5/6} n)=O(n^{\texp}\log n)$ and  $\lrn(G-S)= O(n^{\texp}\log^{5/4-5/12} n)=O(n^{\texp}\log^{5/6} n)$.  We can extend $\varphi$ to a colouring of $G$ by assigning each vertex in $S$ a distinct colour that is larger than every colour used in the colouring of $G-S$.  Thus, $\trn(G)\le |S|+\lrn(G-S) \le O(n^{\texp}\log^{5/6} n)$, which establishes \cref{l_d_degenerate_upper_bound}.  (Note that this argument actually proves a slightly better bound than \cref{l_d_degenerate_upper_bound}.  For $\ell\ge 4$, further improvements to the logarithmic factor in \cref{l_d_degenerate_upper_bound} can be obtained using the ``Furthermore'' clause of \cref{l_degenerate_and_degree}.)
+\end{proof}
+
 %
 
 
 
 \section{A Matching Lower Bound?}
 
-Let $\ell\ge 2$ be an even integer.  Let $n:=k^{\ell+1}$ and consider the bipartite graph $G$ with parts $A$ of size $100n$ and $B$ of size $k^{\ell-1}$.  Each vertex in $A$ chooses two random neighbours in $B$.  This graph is $2$-degenerate and has $O(n)$ vertices.  The degree of every vertex in $A$ is $2$ and the expected degree of each vertex in $B$ is $200n/k^{\ell-1}=200k^{2}$.  We claim that any $\ell$-ranking of $G$ must use at least $|B|=k^{\ell-1}=n^{(\ell-1)/(\ell+1)}=n^{1-2/(\ell+1)}$ colours.  Otherwise, two vertices $v$ and $w$ in $B$ have the same colour $\alpha$.  Consider the $\ell/2$ neighbourhoods $N_v:=N^{\ell/2}_G(v)$ and $N_w:=N^{\ell/2}_G(w)$.
+Here's a non-trivial lower-bound, for $\ell=4$.  Start with a complete bipartite graph $K_{k,2k}$ with parts $A$ and $B$ and subdivide each edge once.  Call this graph $G$.  Then $G$ has $n=2k+4k^2$ vertices.  I claim that any $4$-vertex-ranking of this graph requires $k=\Omega(\sqrt{n})$ colours.  If we use less than $k$ colours on $A$ then two vertices $v,w\in A$ receive the same colour $c$.  There are $2k$ paths $P_1,\ldots,P_{2k}$ of length $4$ from $v$ to $w$ in $G$ that are pairwise vertex-disjoint except for their common endpoints.  Since $v$ and $w$ have the same colour, the maximum colour in each $P_i$ must be larger than $c$.  Classify each $P_i$ as a $v$-path or a $w$-path if the maximum colour that appears on $P_i$ is within distance $2$ of $v$ or $w$, respectively (a path can be both if its middle vertex has the highest colour).  Without loss of generality, at least $k$ of the paths are $v$-paths.  But then the maximum colours on each of these paths must be distinct since, otherwise, there is a path through $v$ with two endpoints whose colours are the same and larger than any other colour on the path.
 
-If $\ell/2$ is odd, then each of $N_v$ and $N_w$ is essentially a random sample of $A$ of size $(ck^2)^{\lceil\ell/4\rceil}=(ck^2)^{\ell/4+1/2}=\Theta(k^{\ell/2+1})$.
-Then $|N_w\times N_v|=\Theta(k^{\ell+2})$.  For a particular pair $(x,y)\in N_w\times N_v$, the probability that $x=y$ is $\Theta(n^{-1})=\Theta(k^{-\ell-1})$.  Therefore, the expected number of vertices of $A$ that are in $N_w$ and in $N_v$ is $\Theta(k)$.  Damn. Not good enough.  It only leads to a lower bound of $k=n^{1/(\ell+1)}$.
+This gives a lower bound of $\Omega(n^{1/2})$ for $\ell=4$ and our upper bound in this case is $O(n^{3/5}\log n)$.....
+
+% Let $\ell\ge 2$ be an even integer.  Let $n:=k^{\ell+1}$ and consider the bipartite graph $G$ with parts $A$ of size $100n$ and $B$ of size $k^{\ell-1}$.  Each vertex in $A$ chooses two random neighbours in $B$.  This graph is $2$-degenerate and has $O(n)$ vertices.  The degree of every vertex in $A$ is $2$ and the expected degree of each vertex in $B$ is $200n/k^{\ell-1}=200k^{2}$.  We claim that any $\ell$-ranking of $G$ must use at least $|B|=k^{\ell-1}=n^{(\ell-1)/(\ell+1)}=n^{1-2/(\ell+1)}$ colours.  Otherwise, two vertices $v$ and $w$ in $B$ have the same colour $\alpha$.  Consider the $\ell/2$ neighbourhoods $N_v:=N^{\ell/2}_G(v)$ and $N_w:=N^{\ell/2}_G(w)$.
+%
+% If $\ell/2$ is odd, then each of $N_v$ and $N_w$ is essentially a random sample of $A$ of size $(ck^2)^{\lceil\ell/4\rceil}=(ck^2)^{\ell/4+1/2}=\Theta(k^{\ell/2+1})$.
+% Then $|N_w\times N_v|=\Theta(k^{\ell+2})$.  For a particular pair $(x,y)\in N_w\times N_v$, the probability that $x=y$ is $\Theta(n^{-1})=\Theta(k^{-\ell-1})$.  Therefore, the expected number of vertices of $A$ that are in $N_w$ and in $N_v$ is $\Theta(k)$.  Damn. Not good enough.  It only leads to a lower bound of $k=n^{1/(\ell+1)}$.
+
+
+
 
 
 
