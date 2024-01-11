@@ -274,7 +274,7 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
   \end{align*}
   This is a good sign. If the event set $\{\text{``$\Pi$ is problematic''}:\Pi\in\mathcal{P}\}$ were mutually independent then it would be a simple matter of applying a Chernoff bound.  Unfortunately this is not the case since, for each vertex $w$, all of the events in $\{\text{``$\Pi$ is problematic''}:\Pi\in\tau^{-1}(w)\}$ are all affected by the choice of colour for $w$.
 
-  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the appendix. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $X'_p\ge |N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ \defin{stochastically dominates} a random variable $Y$ if $\Pr(X\ge x) \ge \Pr(Y\ge x)$ for all $x\in\R$.}
+  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the next section. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $X'_p\ge |N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ \defin{stochastically dominates} a random variable $Y$ if $\Pr(X\ge x) \ge \Pr(Y\ge x)$ for all $x\in\R$.}
 
   For each vertex $w$ of $G$, let $\mathcal{P}_{p,w}:=\tau^{-1}(w)\cap (\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y))$ and define
   \[
@@ -295,7 +295,7 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
   \]
   Therefore, regardless of any random choices made before choosing the colour of $w$ and any random choices made after choosing the colour of $w$, the random variable $X'_{p,w}$ is dominated by a random variable $X_{p,w}:=\min\{O(\Delta^{\lfloor\ell/2\rfloor})/i,M\}$ where $i$ is chosen uniformly in $\{1,\ldots,k\}$.
 
-  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of mutually independent random variables.  In order to apply a concentration result to the random variable $X_p$, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  In the appendix, we bound the expectation and variance of each $X_{p,w}$ so that we can apply Bernstein's Inequality to prove that $\Pr(X_p\ge ck\log n)\le n^{-\Omega(c)}$.  Then the union bound implies that $\Pr(\max\{X_p:p\in V(H)\} \ge ck\log n)\le n^{-\Omega(c)}$.  Thus, with high probability, the number of additional colours in $\Phi_{q+1}$ needed to recolour the vertices of $P$ in the second phase is $O(k\log n)$.  Since the total number of colours used in the first phase is $O(k\log n)$, we have
+  Therefore, $|N_H^+(p)\cap P|$ is dominated by a sum $X_p:=\sum_{w} X_{p,w}$ of mutually independent random variables.  In order to apply a concentration result to the random variable $X_p$, we need to  establish sufficiently strong properties on the individual terms $X_{p,w}$.  In the next section, we bound the expectation and variance of each $X_{p,w}$ so that we can apply Bernstein's Inequality to prove that $\Pr(X_p\ge ck\log n)\le n^{-\Omega(c)}$.  Then the union bound implies that $\Pr(\max\{X_p:p\in V(H)\} \ge ck\log n)\le n^{-\Omega(c)}$.  Thus, with high probability, the number of additional colours in $\Phi_{q+1}$ needed to recolour the vertices of $P$ in the second phase is $O(k\log n)$.  Since the total number of colours used in the first phase is $O(k\log n)$, we have
   \[
     \lrn(G) = O(k \log n) = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \enspace . \qedhere
   \]
@@ -322,100 +322,97 @@ With the proof of \cref{l_degenerate_and_degree} out of the way, we now show how
 
 
 
-\section{A Matching Lower Bound?}
-
+% \section{A Matching Lower Bound?}
+%
+% % \begin{thm}
+% %   There exists a constant $c$ such that, for every even integer $\ell$ and every integer $n\ge 1$, there exists a $2$-degenerate graph $G$ with $O(n\log n)$ vertices having $\lrn(G)\ge n^{1-2/\ell}$.
+% % \end{thm}
+% %
+% % \begin{proof}
+% %   The case $\ell=2$ is trivial.  For $\ell\ge 4$, let $G_0$ be a random graph having $n_0$ vertices in which each vertex chooses $n_0^{2/(\ell-2)}\log n_0$ neighbours uniformly at random.  Then $G_0$ has $O(n_0^{\ell/(\ell-2)}\log n_0)$ edges and
+% %   \begin{compactenum}[(a)]
+% %     \item with high probability the treewidth of $G_0$ is $\Omega(n_0)$;
+% %     \item with high probability the diameter of $G_0$ is at most $(\ell-2)/2$.
+% %   \end{compactenum}
+% %   Let $G$ be the graph obtained by subdividing each edge of $G_0$.  Then $G_0$
+% %   \begin{compactenum}
+% %     \item the treewidth of $G_0$
+% %   \end{compactenum}
+% % \end{proof}
+%
+%
+%
+%
+% Here's a non-trivial lower-bound, for $\ell=4$.  Start with a complete bipartite graph $K_{k,2k}$ with parts $A$ and $B$ and subdivide each edge once.  Call this graph $G$.  Then $G$ has $n=2k+4k^2$ vertices.  I claim that any $4$-vertex-ranking of this graph requires $k=\Omega(\sqrt{n})$ colours.  If we use less than $k$ colours on $A$ then two vertices $v,w\in A$ receive the same colour $c$.  There are $2k$ paths $P_1,\ldots,P_{2k}$ of length $4$ from $v$ to $w$ in $G$ that are pairwise vertex-disjoint except for their common endpoints.  Since $v$ and $w$ have the same colour, the maximum colour in each $P_i$ must be larger than $c$.  Classify each $P_i$ as a $v$-path or a $w$-path if the maximum colour that appears on $P_i$ is within distance $2$ of $v$ or $w$, respectively (a path can be both if its middle vertex has the highest colour).  Without loss of generality, at least $k$ of the paths are $v$-paths.  But then the maximum colours on each of these paths must be distinct since, otherwise, there is a path through $v$ with two endpoints whose colours are the same and larger than any other colour on the path.
+%
+% This gives a lower bound of $\Omega(n^{1/2})$ for $\ell=4$ and our upper bound in this case is $O(n^{3/5}\log n)$.  I don't see how to get any further with constructions like this. The problem is that in order to prove a lower bound of $k$, this construction requires a set $A$ of $k$ vertices such that, for any two vertices in $A$, there are $k$ interior-disjoint paths between them.  This requires that each vertex in $A$ has degree at least $k$, for a total degree of $k^2$.  But if the graph is $d$-degenerate, then it has total degree $dn \ge k^2$, so $k\le \sqrt{dn}$.  In other words, we can never prove a bound greater than $\sqrt{dn}$ this way, no matter how big we make $\ell$.  Another way to think of it is that any construction we make should not have vertices of degree greater than $2dn/k$, since there are at most $k$ such vertices so we could remove them beforehand and give them all distinct large colours later.  If we're shooting for the optimal bound $k=n^{3/5}$ for $\ell=4$ or $\ell=5$ then we shouldn't have any vertices of degree greater than $n^{2/5}=k^{2/3}$.
+%
+% Here is something even more non-trivial, but still not optimal.
+%
 % \begin{thm}
-%   There exists a constant $c$ such that, for every even integer $\ell$ and every integer $n\ge 1$, there exists a $2$-degenerate graph $G$ with $O(n\log n)$ vertices having $\lrn(G)\ge n^{1-2/\ell}$.
+%   There exists a $2$-degenerate $n$-vertex graph $G$ with $\rn{4}(G)\ge \Omega(n^{5/9})$.
 % \end{thm}
 %
-% \begin{proof}
-%   The case $\ell=2$ is trivial.  For $\ell\ge 4$, let $G_0$ be a random graph having $n_0$ vertices in which each vertex chooses $n_0^{2/(\ell-2)}\log n_0$ neighbours uniformly at random.  Then $G_0$ has $O(n_0^{\ell/(\ell-2)}\log n_0)$ edges and
+% \begin{proof}[Proof Sketch]
+%   Let $n_0:=n^{5/9}$, let $\delta:=n^{4/9}$, and let $p:=\delta/n_0$. Construct a directed graph $G_0$ of size $2n_0$ as follows:  For each pair $\{v,w\}\in \binom{V(G_0)}{2}$ add the directed edge $\overrightarrow{vw}$ with probability $p$ and add the directed edge $\overleftarrow{vw}$ with probability $p$, with all choices independent.  With high probability, the number of edges of $G_0$ is $O(\delta n_0)=O(n)$.  The graph $G$ we consider is obtained by subdividing each edges of $G_0$ and ignoring directions. Then $G$ is $2$-degenerate and, with high probability, $|V(G)|=O(n)$. Note that any vertex-colouring $\varphi:V(G)\to\{1,\ldots,k\}$ of $G$ corresponds to a total colouring $\varphi:V(G_0)\cup E(G_0)\to\{1,\ldots,k\}$.  We will therefore focus on total colourings of $G_0$ and more-or-less forget about $G$.
+%
+%   Fix a colouring $\varphi:V(G_0)\to\{1,\ldots,k\}$ that is independent of the random choices made when constructing $G_0$.  (Later we will use the union bound on all $k^{n_0}$ such colourings.)  By doubling the number of colours and eliminating infrequent colours, we can assume that all colour classes have size in the range $[n_0/2k,n_0/k]$; in the following sketch, we'll assume that they all have size $n_0/k$.  Let $A:=\{v\in V(G):\varphi(v)\le k/2\}$ and let $B:=\{w\in V(G):\varphi(w)> k/2\}$.  By our assumptions, $A$ and $B$ each have size $n_0$ and from now on we will focus entirely on the subgraph of $G_0$ containing only the edges with one endpoint in each of $A$ and $B$.
+%
+%   For each $\alpha\in\{k/2+1,\ldots,k\}$ and each $v\in A$ we say that $v$ is \defin{$\alpha$-bad} if there are two edges $\overrightarrow{uv}$ and $\overrightarrow{vw}$ with $\varphi(u)=\varphi(w)=\alpha$.  (In our terminology, $uvw$ is a $2$-violation of $\varphi$.)  It is easy to check that
+%   \[
+%     \Pr(\text{$v$ is $\alpha$-bad}) \ge \Omega((n_0/k)^2p^2) = \Omega(\delta^2/k^2)
+%   \]
+%   (The number of edges from $v$ into colour class $\alpha$ is a binomial$(n_0/k,p)$ random variable and $v$ is $\alpha$-bad if this variable takes on the value $2$.)  For each $\alpha$-bad vertex $v\in A$, let $B_{v,\alpha}$ be some pair of edges $\overrightarrow{vu}$ and $\overrightarrow{vw}$ with $\varphi(u)=\varphi(w)=\alpha$.  Now note that the size of the set $Z:=\{(v,\alpha)\in A\times\{k/2+1,\ldots,k\}: \text{$v$ is $\alpha$-bad}\}$ is dominated by a binomial$(n_0 k/2,\Omega(\delta^2/k^2))$ random variable and with high probability $|Z|=\Omega(n_0\delta^2/k)$.
+%
+%   If the colouring $\varphi$ can be extended to a $4$-vertex-ranking of $G$ then, for each $(v,\alpha)\in Z$, at least one of the two edges $vw$ or $vu$ in $B_{\alpha,v}$ must receive a colour larger than $\alpha$ since, otherwise $uvw$ corresponds to a $4$-violation in $G$. That is, $\varphi(vw)\ge \alpha=\varphi(w)> k/2\ge \varphi(v)$.  For each $(v,\alpha)\in Z$, choose one edge $e_{v,\alpha}\in B_{v,\alpha}$ and let $X:=\{e_{v,\alpha}:(v,\alpha)\in Z\}$ be the set of all edges chosen this way. Note that there only $2^{|Z|}=2^{|X|}$ choices for $X$ and that the definition of $X$ depends only on the choice of directed edges from $A$ into $B$.  It does not depend on the choice of edges from $B$ into $A$. To extend $\varphi$ to a $4$-vertex-ranking of $G$ there must be some way to choose such an $X$ and then assign, for each $(v,\alpha)\in Z$ a colour $\varphi(e_{v,\alpha})>\alpha$.
+%
+%   Now, fix a colouring $\varphi:X\to\{1,\ldots,k\}$.  Note that there is no hope of extending this colouring if two edges of $X$ incident to the same vertex $v\in V(G)$ receive the same colour, so we may assume that $\varphi$ is a proper edge-colouring of $G_0[X]$.  We say that a pair of distinct edges $\{\overrightarrow{vw},\overrightarrow{xy}\}\in X$ is \defin{dangerous} if $\varphi(vw)=\varphi(xy)$.  If the edge  $\overleftarrow{vy}$ or the edge $\overleftarrow{xw}$ is present in $G_0$ then we say that these edges are \defin{dangerous} edges of $G_0$.  Note that, if $\overleftarrow{vy}$ is dangerous and we want to extend $\varphi$ to a $4$-vertex-ranking of $G$ then we must have $\varphi(vy)>\varphi(vw)\ge\varphi(w)>\varphi(v)$ since, otherwise, some path $xyvw$ has $\varphi(xy)=\varphi(vw)\ge \varphi(yv)\ge\varphi(y)>\varphi(v)$, which corresponds to a $4$-violation in $G$.  In particular, all of the dangerous edges incident to a particular vertex $z\in A\cup B$ must receive distinct colours, otherwise $G$ contains a $2$-violation at $z$.  All that remains is to show that the set $D$ of dangerous edges is too large for this to happen.
+%
+%   To do this, we will argue that there is a one-to-one function $f:\binom{X}{2}\to A\times B$ such that, if $f(\{e_1,e_2\})=(v,w)$ then $(v,y)$ has the potential to be a dangerous edge $\overleftarrow{vy}$ of $G_0$.  In this way, the size of $D$ is lower-bounded by a binomial$(m,p)$ random variable where $m$ is the number of dangerous pairs in $X$. We are able to do this because $\varphi$ is a proper edge-colouring of $G[X]$, so the number of $v\in A$ such that $v$ is $\alpha$-bad is equal to the number of $w\in B$ such that $w$ is incident to an edge of $X$ whose colour is $\alpha$.  adjacent to $\alpha$-bad vertex $v\in A$.  all the edges of $G$ incident to a vertex $v$ [Finish this with an augmenting path argument.]
+%
+%   The colouring of $X$ partitions the edges in $X$ into at most $k$ colour classes $X_1,\ldots,X_k$.  Each colour class $X_k$ determines $2\binom{|X_k|}{2}$ pairs of vertices that potentially form dangerous edges. Therefore, the number of dangerous pairs of edges in $X$ is at least
+%   \[
+%     \sum_{i=1}^k 2\binom{|X_k|}{2} \ge k\cdot\Omega((|Z|/k)^2) =   k\cdot\Omega\left(\left(\frac{n_0\delta^2}{k^2}\right)^2\right)
+%     = \Omega\left(\frac{n_0^2\delta^4}{k^3}\right) \enspace .
+%   \]
+%   There $|D|$ dominates a binomial$(n_0^2\delta^4/k^3,p)$ random variable, so with high probability,
+%   \[
+%      |D| \ge p\cdot \Omega\left(\frac{n_0^2\delta^4}{k^3}\right)
+%      = \Omega\left(\frac{n_0\delta^5}{k^3}\right) \enspace .
+%   \]
+%   % Unfortunately, $|D|$ is not a binomial random variable.
+%   But this means that some vertex is adjacent to $|D|/n_0=\Omega(\delta^5/k^3)$ edges in $D$, and these edges must all receive distinct colours.  Therefore,
+%   \[
+%     k\ge \Omega\left(\frac{\delta^5}{k^3}\right)
+%     \quad\Leftrightarrow\quad
+%     k \ge \Omega(\delta^{5/4})=\Omega(n^{5/9}) \enspace .
+%   \]
+%   Thus, if $\varphi:V(G)\to\{1,\ldots,k\}$ is a $4$-vertex-ranking of $G$ then there exists a certificate that consists of three parts:
 %   \begin{compactenum}[(a)]
-%     \item with high probability the treewidth of $G_0$ is $\Omega(n_0)$;
-%     \item with high probability the diameter of $G_0$ is at most $(\ell-2)/2$.
+%     \item a colouring $\varphi:V(G_0)\to\{1,\ldots,k\}$. The number of these is
+%     \[ k^{n_0} = \exp(n_0\log k) = \exp(n^{5/9}\log n) \enspace . \]
+%     \item a choice of the set $X$. The number of choices for $X$ is
+%     \[  2^{\Theta(n_0\delta^2/k)}=\exp(\Theta(\delta^2))=\exp(\Theta(n^{8/9})) \enspace . \]
+%     \item a colouring $\varphi:X\to\{1,\ldots,k\}$. The number of such colourings is
+%     \[  k^{\Theta(n_0\delta^2/k)}=\exp(\Theta(\delta^2\log k))=\exp(\Theta(n^{8/9}\log n)) \]
 %   \end{compactenum}
-%   Let $G$ be the graph obtained by subdividing each edge of $G_0$.  Then $G_0$
-%   \begin{compactenum}
-%     \item the treewidth of $G_0$
-%   \end{compactenum}
+%   Our random graph fails for part (a) of the certificate if the set $Z$ is to small.  Since $|Z|$ is a binomial random variable, this happens with probability at most $\exp(-\E(|Z|))$.  Therefore, the vast majority of choices for $G_0$ will pass for any choice of part (a) of the certificate, where ``pass'' means that $|Z|\ge cn_0\delta^2/k$ since, for $k \le n_0/2$,
+%   \[
+%      \exp\left(-\E(Z)\right)\le \exp(-\Omega(\delta^2 n_0/k)) =  \exp(-\Omega(\delta^2)) = \exp(-\Omega(n^{8/9}))
+%   \]
+%   Our random graph fails for part (b) and (c) of the certificate if the set $D$ of dangerous edges is too small.  Again, since $|D|$ is a binomial random variable this happens with probability
+%   \[
+%       \exp(-\E(|D|))=\exp\left(-\frac{n_0\delta^5}{k^3}\right)
+%       = \exp\left(-\frac{n^{25/9}}{k^3}\right) \le \exp\left(-n^{10/9}\right)
+%   \]
+%   Therefore, the vast majority of graphs $G_0$ pass for all every part (a) certificate and the vast majority of graphs $G_0$ pass for every part (b) and (c) certificate.  Therefore, the vast majority of graphs $G_0$ pass for all certificates.
 % \end{proof}
+%
 
 
-
-
-Here's a non-trivial lower-bound, for $\ell=4$.  Start with a complete bipartite graph $K_{k,2k}$ with parts $A$ and $B$ and subdivide each edge once.  Call this graph $G$.  Then $G$ has $n=2k+4k^2$ vertices.  I claim that any $4$-vertex-ranking of this graph requires $k=\Omega(\sqrt{n})$ colours.  If we use less than $k$ colours on $A$ then two vertices $v,w\in A$ receive the same colour $c$.  There are $2k$ paths $P_1,\ldots,P_{2k}$ of length $4$ from $v$ to $w$ in $G$ that are pairwise vertex-disjoint except for their common endpoints.  Since $v$ and $w$ have the same colour, the maximum colour in each $P_i$ must be larger than $c$.  Classify each $P_i$ as a $v$-path or a $w$-path if the maximum colour that appears on $P_i$ is within distance $2$ of $v$ or $w$, respectively (a path can be both if its middle vertex has the highest colour).  Without loss of generality, at least $k$ of the paths are $v$-paths.  But then the maximum colours on each of these paths must be distinct since, otherwise, there is a path through $v$ with two endpoints whose colours are the same and larger than any other colour on the path.
-
-This gives a lower bound of $\Omega(n^{1/2})$ for $\ell=4$ and our upper bound in this case is $O(n^{3/5}\log n)$.  I don't see how to get any further with constructions like this. The problem is that in order to prove a lower bound of $k$, this construction requires a set $A$ of $k$ vertices such that, for any two vertices in $A$, there are $k$ interior-disjoint paths between them.  This requires that each vertex in $A$ has degree at least $k$, for a total degree of $k^2$.  But if the graph is $d$-degenerate, then it has total degree $dn \ge k^2$, so $k\le \sqrt{dn}$.  In other words, we can never prove a bound greater than $\sqrt{dn}$ this way, no matter how big we make $\ell$.  Another way to think of it is that any construction we make should not have vertices of degree greater than $2dn/k$, since there are at most $k$ such vertices so we could remove them beforehand and give them all distinct large colours later.  If we're shooting for the optimal bound $k=n^{3/5}$ for $\ell=4$ or $\ell=5$ then we shouldn't have any vertices of degree greater than $n^{2/5}=k^{2/3}$.
-
-Here is something even more non-trivial, but still not optimal.
-
-\begin{thm}
-  There exists a $2$-degenerate $n$-vertex graph $G$ with $\rn{4}(G)\ge \Omega(n^{5/9})$.
-\end{thm}
-
-\begin{proof}[Proof Sketch]
-  Let $n_0:=n^{5/9}$, let $\delta:=n^{4/9}$, and let $p:=\delta/n_0$. Construct a directed graph $G_0$ of size $2n_0$ as follows:  For each pair $\{v,w\}\in \binom{V(G_0)}{2}$ add the directed edge $\overrightarrow{vw}$ with probability $p$ and add the directed edge $\overleftarrow{vw}$ with probability $p$, with all choices independent.  With high probability, the number of edges of $G_0$ is $O(\delta n_0)=O(n)$.  The graph $G$ we consider is obtained by subdividing each edges of $G_0$ and ignoring directions. Then $G$ is $2$-degenerate and, with high probability, $|V(G)|=O(n)$. Note that any vertex-colouring $\varphi:V(G)\to\{1,\ldots,k\}$ of $G$ corresponds to a total colouring $\varphi:V(G_0)\cup E(G_0)\to\{1,\ldots,k\}$.  We will therefore focus on total colourings of $G_0$ and more-or-less forget about $G$.
-
-  Fix a colouring $\varphi:V(G_0)\to\{1,\ldots,k\}$ that is independent of the random choices made when constructing $G_0$.  (Later we will use the union bound on all $k^{n_0}$ such colourings.)  By doubling the number of colours and eliminating infrequent colours, we can assume that all colour classes have size in the range $[n_0/2k,n_0/k]$; in the following sketch, we'll assume that they all have size $n_0/k$.  Let $A:=\{v\in V(G):\varphi(v)\le k/2\}$ and let $B:=\{w\in V(G):\varphi(w)> k/2\}$.  By our assumptions, $A$ and $B$ each have size $n_0$ and from now on we will focus entirely on the subgraph of $G_0$ containing only the edges with one endpoint in each of $A$ and $B$.
-
-  For each $\alpha\in\{k/2+1,\ldots,k\}$ and each $v\in A$ we say that $v$ is \defin{$\alpha$-bad} if there are two edges $\overrightarrow{uv}$ and $\overrightarrow{vw}$ with $\varphi(u)=\varphi(w)=\alpha$.  (In our terminology, $uvw$ is a $2$-violation of $\varphi$.)  It is easy to check that
-  \[
-    \Pr(\text{$v$ is $\alpha$-bad}) \ge \Omega((n_0/k)^2p^2) = \Omega(\delta^2/k^2)
-  \]
-  (The number of edges from $v$ into colour class $\alpha$ is a binomial$(n_0/k,p)$ random variable and $v$ is $\alpha$-bad if this variable takes on the value $2$.)  For each $\alpha$-bad vertex $v\in A$, let $B_{v,\alpha}$ be some pair of edges $\overrightarrow{vu}$ and $\overrightarrow{vw}$ with $\varphi(u)=\varphi(w)=\alpha$.  Now note that the size of the set $Z:=\{(v,\alpha)\in A\times\{k/2+1,\ldots,k\}: \text{$v$ is $\alpha$-bad}\}$ is dominated by a binomial$(n_0 k/2,\Omega(\delta^2/k^2))$ random variable and with high probability $|Z|=\Omega(n_0\delta^2/k)$.
-
-  If the colouring $\varphi$ can be extended to a $4$-vertex-ranking of $G$ then, for each $(v,\alpha)\in Z$, at least one of the two edges $vw$ or $vu$ in $B_{\alpha,v}$ must receive a colour larger than $\alpha$ since, otherwise $uvw$ corresponds to a $4$-violation in $G$. That is, $\varphi(vw)\ge \alpha=\varphi(w)> k/2\ge \varphi(v)$.  For each $(v,\alpha)\in Z$, choose one edge $e_{v,\alpha}\in B_{v,\alpha}$ and let $X:=\{e_{v,\alpha}:(v,\alpha)\in Z\}$ be the set of all edges chosen this way. Note that there only $2^{|Z|}=2^{|X|}$ choices for $X$ and that the definition of $X$ depends only on the choice of directed edges from $A$ into $B$.  It does not depend on the choice of edges from $B$ into $A$. To extend $\varphi$ to a $4$-vertex-ranking of $G$ there must be some way to choose such an $X$ and then assign, for each $(v,\alpha)\in Z$ a colour $\varphi(e_{v,\alpha})>\alpha$.
-
-  Now, fix a colouring $\varphi:X\to\{1,\ldots,k\}$.  Note that there is no hope of extending this colouring if two edges of $X$ incident to the same vertex $v\in V(G)$ receive the same colour, so we may assume that $\varphi$ is a proper edge-colouring of $G_0[X]$.  We say that a pair of distinct edges $\{\overrightarrow{vw},\overrightarrow{xy}\}\in X$ is \defin{dangerous} if $\varphi(vw)=\varphi(xy)$.  If the edge  $\overleftarrow{vy}$ or the edge $\overleftarrow{xw}$ is present in $G_0$ then we say that these edges are \defin{dangerous} edges of $G_0$.  Note that, if $\overleftarrow{vy}$ is dangerous and we want to extend $\varphi$ to a $4$-vertex-ranking of $G$ then we must have $\varphi(vy)>\varphi(vw)\ge\varphi(w)>\varphi(v)$ since, otherwise, some path $xyvw$ has $\varphi(xy)=\varphi(vw)\ge \varphi(yv)\ge\varphi(y)>\varphi(v)$, which corresponds to a $4$-violation in $G$.  In particular, all of the dangerous edges incident to a particular vertex $z\in A\cup B$ must receive distinct colours, otherwise $G$ contains a $2$-violation at $z$.  All that remains is to show that the set $D$ of dangerous edges is too large for this to happen.
-
-  To do this, we will argue that there is a one-to-one function $f:\binom{X}{2}\to A\times B$ such that, if $f(\{e_1,e_2\})=(v,w)$ then $(v,y)$ has the potential to be a dangerous edge $\overleftarrow{vy}$ of $G_0$.  In this way, the size of $D$ is lower-bounded by a binomial$(m,p)$ random variable where $m$ is the number of dangerous pairs in $X$. We are able to do this because $\varphi$ is a proper edge-colouring of $G[X]$, so the number of $v\in A$ such that $v$ is $\alpha$-bad is equal to the number of $w\in B$ such that $w$ is incident to an edge of $X$ whose colour is $\alpha$.  adjacent to $\alpha$-bad vertex $v\in A$.  all the edges of $G$ incident to a vertex $v$ [Finish this with an augmenting path argument.]
-
-  The colouring of $X$ partitions the edges in $X$ into at most $k$ colour classes $X_1,\ldots,X_k$.  Each colour class $X_k$ determines $2\binom{|X_k|}{2}$ pairs of vertices that potentially form dangerous edges. Therefore, the number of dangerous pairs of edges in $X$ is at least
-  \[
-    \sum_{i=1}^k 2\binom{|X_k|}{2} \ge k\cdot\Omega((|Z|/k)^2) =   k\cdot\Omega\left(\left(\frac{n_0\delta^2}{k^2}\right)^2\right)
-    = \Omega\left(\frac{n_0^2\delta^4}{k^3}\right) \enspace .
-  \]
-  There $|D|$ dominates a binomial$(n_0^2\delta^4/k^3,p)$ random variable, so with high probability,
-  \[
-     |D| \ge p\cdot \Omega\left(\frac{n_0^2\delta^4}{k^3}\right)
-     = \Omega\left(\frac{n_0\delta^5}{k^3}\right) \enspace .
-  \]
-  % Unfortunately, $|D|$ is not a binomial random variable.
-  But this means that some vertex is adjacent to $|D|/n_0=\Omega(\delta^5/k^3)$ edges in $D$, and these edges must all receive distinct colours.  Therefore,
-  \[
-    k\ge \Omega\left(\frac{\delta^5}{k^3}\right)
-    \quad\Leftrightarrow\quad
-    k \ge \Omega(\delta^{5/4})=\Omega(n^{5/9}) \enspace .
-  \]
-  Thus, if $\varphi:V(G)\to\{1,\ldots,k\}$ is a $4$-vertex-ranking of $G$ then there exists a certificate that consists of three parts:
-  \begin{compactenum}[(a)]
-    \item a colouring $\varphi:V(G_0)\to\{1,\ldots,k\}$. The number of these is
-    \[ k^{n_0} = \exp(n_0\log k) = \exp(n^{5/9}\log n) \enspace . \]
-    \item a choice of the set $X$. The number of choices for $X$ is
-    \[  2^{\Theta(n_0\delta^2/k)}=\exp(\Theta(\delta^2))=\exp(\Theta(n^{8/9})) \enspace . \]
-    \item a colouring $\varphi:X\to\{1,\ldots,k\}$. The number of such colourings is
-    \[  k^{\Theta(n_0\delta^2/k)}=\exp(\Theta(\delta^2\log k))=\exp(\Theta(n^{8/9}\log n)) \]
-  \end{compactenum}
-  Our random graph fails for part (a) of the certificate if the set $Z$ is to small.  Since $|Z|$ is a binomial random variable, this happens with probability at most $\exp(-\E(|Z|))$.  Therefore, the vast majority of choices for $G_0$ will pass for any choice of part (a) of the certificate, where ``pass'' means that $|Z|\ge cn_0\delta^2/k$ since, for $k \le n_0/2$,
-  \[
-     \exp\left(-\E(Z)\right)\le \exp(-\Omega(\delta^2 n_0/k)) =  \exp(-\Omega(\delta^2)) = \exp(-\Omega(n^{8/9}))
-  \]
-  Our random graph fails for part (b) and (c) of the certificate if the set $D$ of dangerous edges is too small.  Again, since $|D|$ is a binomial random variable this happens with probability
-  \[
-      \exp(-\E(|D|))=\exp\left(-\frac{n_0\delta^5}{k^3}\right)
-      = \exp\left(-\frac{n^{25/9}}{k^3}\right) \le \exp\left(-n^{10/9}\right)
-  \]
-  Therefore, the vast majority of graphs $G_0$ pass for all every part (a) certificate and the vast majority of graphs $G_0$ pass for every part (b) and (c) certificate.  Therefore, the vast majority of graphs $G_0$ pass for all certificates.
-\end{proof}
-
-
-
-\bibliographystyle{plainnat}
-\bibliography{us2}
-
-\appendix
 
 \section{Bounding the Tail of \boldmath $X_p$}
+\label{probability}
 
 We make use of the following inequality of Bernstein \cite[Corollary~2.11]{boucheron.lugosi.ea:concentration}:
 
@@ -536,6 +533,8 @@ For any fixed $c$, taking $b=1/4$ gives
 \end{align*}
 Thus, $\Pr(X\ge \Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \le n^{-\Omega(c)}$, which completes the first part of the proof of \cref{l_degenerate_and_degree} for the cases $\ell=2$ and $\ell=3$.  To complete the ``furthermore'' clause of the proof we take $b=0$ and deduce that $\E(X)+t=O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log n)$.
 
+\bibliographystyle{plainnat}
+\bibliography{us2}
 
 
 % We finish by noting that, for $\ell\ge 4$ and $\Delta\ge\log n$, we can drop the condition $b\ge 4$ and the calculation still works because the $\Delta^{\lfloor\ell/2\rfloor-1}$ factor makes up for the $\log^{4b} n$ factor.  In particular, the proof of \cref{l_degenerate} has $\Delta
