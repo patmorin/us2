@@ -11,7 +11,8 @@
 
 \DeclareMathOperator{\comp}{comp}
 
-\title{\MakeUppercase{Vertex Ranking of Degenerate Graphs} \newline or \MakeUppercase{Vertex Ranking for Degenerates}}
+\title{\MakeUppercase{Vertex Ranking of Degenerate Graphs}}
+ % \newline or \MakeUppercase{Vertex Ranking for Degenerates}}
 \author{Bra\v{c} 2023 Gang}
 
 
@@ -47,7 +48,7 @@ An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ wi
 
 When $\ell=1$, a colouring is a $1$-vertex-ranking if and only if it is a proper colouring of $G$, so $\chi(G)=\rn{1}(G)$ and, for any $\ell\ge 1$, $\chi(G)\le \lrn(G)$.  Besides the case $\ell=1$, two special cases have received extra attention.  When $\ell=\infty$, $\rn{\infty}(G)$ is equal to the \defin{vertex ranking number}, the \defin{centered chromatic number}, and the \defin{treedepth} of $G$
 \cite{nesetril.ossona:tree-depth},
-which plays a central role in the theory of sparsity \cite{nesetril.ossona:sparsity}.
+which plays a central role in the theory of sparsity  \cite{nesetril.ossona:sparsity}.
 At the other extreme, when $\ell=2$, a $2$-vertex-ranking of $G$ is also known as a \defin{restricted star colouring} \cite{shalu.antony:complexity} or a \defin{unique superior colouring} of $G$ \cite{karpas.neiman.ea:on}.  Previous results for $\ell=2$ and fixed $\ell\ge 2$ are summarized in \cref{previous_works}.
 
 \begin{table}
@@ -251,9 +252,9 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
   Therefore, $\max\{N_\alpha(w):\alpha\in \Phi(w)\}\le M$ is the maximum number of problematic paths in $\mathcal{P}$ that can be created by colouring $w$, and $M$ is the maximum number of problematic paths that can be created by colouring any single vertex.  This completes the description of the first-phase colouring $\varphi$ of $G$.
 
 
-  The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the problematic paths in $\mathcal{P}$, each of which is a potential $\ell$-violation of $\varphi$.  For each problematic $\Pi\in\mathcal{P}$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round, in order to eliminate this potential $\ell$-violation of $\varphi$.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  (Note that if $v$ and $w$ are in the same layer $L_j$ then both edges $\overrightarrow{vw}$ and $\overleftarrow{vw}$ are present in $G'$.)  Then $G'$ has maximum out-degree $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)  For each problematic path $\Pi\in P$, we call the vertex $\gamma(\Pi)$ \defin{problematic}.  We will recolour $\gamma(\Pi)$ in order to avoid the potential $\ell$-violation at $\Pi$.
+  The first phase colouring $\varphi$ is not yet an $\ell$-vertex-ranking.  Our goal now is to study the problematic paths in $\mathcal{P}$, each of which is a potential $\ell$-violation of $\varphi$.  For each problematic $\Pi\in\mathcal{P}$, we will choose a vertex $y$ of $\Pi$ to recolour in the second round to eliminate the possibility that $\Pi$ is an $\ell$-violation. of $\varphi$.  Consider the directed graph $G'$ obtained from $G$ by adding each edge $\overrightarrow{vw}$ if $vw\in E(G)$, $v\in L_i$, $w\in L_j$ and $i\le j$.  (Note that if $v$ and $w$ are in the same layer $L_j$ then both edges $\overrightarrow{vw}$ and $\overleftarrow{vw}$ are present in $G'$.)  Then $G'$ has maximum out-degree at most $4d$ and $\widehat{\mathcal{P}}_\ell(G')$ contains $\mathcal{P}$. Let $\gamma:\mathcal{P}\to V(G)$ be the result of applying \cref{advanced_cairns2} to $G'$ (and then restricting it to the paths in $\mathcal{P}$.)  For each problematic path $\Pi\in \mathcal{P}$, we call the vertex $\gamma(\Pi)$ \defin{problematic}.  We will recolour $\gamma(\Pi)$ in order to avoid the potential $\ell$-violation at $\Pi$.
 
-  Let $P$ be the set of all problematic vertices.  In the second phase, we recolour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all the existing $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have both endpoints whose colour is in $\Phi_{q+1}$.  In order to avoid this, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.  By definition, this means that any path in $\mathcal{P}_\ell(G)$ with both endpoints in $P$ has endpoints of different colours and is therefore not an $\ell$-violation.
+  Let $P$ be the set of all problematic vertices.  In the second phase, we recolour every vertex in $P$ with a colour in a palette $\Phi_{q+1}$ of size $ck\log n + 1$ whose colours are all larger than all colours in $\Phi_0,\ldots,\Phi_q$.  Since each $\ell$-violation of $\varphi$ contains a vertex in $P$, this recolouring eliminates all the existing $\ell$-violations in $\varphi$.  More precisely, after this recolouring any remaining $\ell$-violation must have both endpoints whose colour is in $\Phi_{q+1}$.  So that this never happens, we will ensure that our recolouring is a proper colouring of $G^\ell[P]$.  By definition, this means that any path in $\mathcal{P}_\ell(G)$ with both endpoints in $P$ has endpoints of different colours and is therefore not an $\ell$-violation.
 
   By \cref{degeneracy_of_g_l}, $G^\ell$ is $O(\Delta^{\lfloor\ell /2\rfloor})$-degenerate.  Let $H$ be a directed acyclic graph obtained from $G^{\ell}$ in which each vertex has out-degree $O(\Delta^{\lfloor\ell /2\rfloor})$. We want to show that $G^\ell[P]$ has chromatic number at most $ck\log n+1$.
   % \pat{If this is not tight, then it's because we insist on a proper colouring of $G^\ell[P]$, but all we really need is that, any length-$\le\ell$ path $v_0,\ldots,v_r$ in $G$ with $v_0,v_r\in P$ has $\varphi(v_0)\neq \varphi(v_r)$ or $\varphi(w)>\varphi(v_0)$ for some $w\in\{v_1,\ldots,v_{r-1}\}$.}
@@ -264,7 +265,7 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
     |N^+_H(p)\cap P| \le \sum_{y\in N^+_H(p)} \left|\left\{\Pi\in\gamma^{-1}(y): \text{$\Pi$ is problematic}\right\}\right| =: X'_{p} \enspace .
     \label{path_upper_bound}
   \end{equation}
-  Each path $\Pi\in\mathcal{P}$ is problematic with probability at most $1/k$ since this occurs precisely when we choose the same colour for $w:=\tau(\Pi)$ that was already chosen for the other endpoint of $\Pi$.  Therefore,
+  Each path $\Pi\in\mathcal{P}$ is problematic with probability at most $1/k$ since $\Pi$ becomes problematic precisely when we choose the same colour for $w:=\tau(\Pi)$ that was already chosen for the other endpoint of $\Pi$.  Therefore,
   \begin{align*}
     \E\left(|N^+_H(p)\cap P|\right)
     & \le \frac{1}{k}\sum_{y\in N^+_H(p)}|\gamma^{-1}(y)| \\
@@ -274,7 +275,7 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
   \end{align*}
   This is a good sign. If the event set $\{\text{``$\Pi$ is problematic''}:\Pi\in\mathcal{P}\}$ were mutually independent then it would be a simple matter of applying a Chernoff bound.  Unfortunately this is not the case since, for each vertex $w$, all of the events in $\{\text{``$\Pi$ is problematic''}:\Pi\in\tau^{-1}(w)\}$ are all affected by the choice of colour for $w$.
 
-  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernsten's Inequality and the calculations needed to apply it in this context are deferred to the next section. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $X'_p\ge |N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ \defin{stochastically dominates} a random variable $Y$ if $\Pr(X\ge x) \ge \Pr(Y\ge x)$ for all $x\in\R$.}
+  The remainder of the proof is more probability than graph theory.  We will use a tail estimate for sums of independent random variables due to Bernstein that is applicable when these random variables have sufficiently small variance.  The statement of Bernstein's Inequality and the calculations needed to apply it in this context are deferred to the next section. We use the rest of our time here to describe a random variable $X_p$ that stochastically dominates $X'_p\ge |N^+_H(p)\cap P|$ and is a sum of independent random variables.\footnote{A random variable $X$ \defin{stochastically dominates} a random variable $Y$ if $\Pr(X\ge x) \ge \Pr(Y\ge x)$ for all $x\in\R$.}
 
   For each vertex $w$ of $G$, let $\mathcal{P}_{p,w}:=\tau^{-1}(w)\cap (\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y))$ and define
   \[
@@ -285,7 +286,7 @@ For a vertex colouring $\varphi:V(G)\to\N$ of a graph $G$, we say that an undire
 
   Suppose $w\in L_j$ for some $j\in\{0,\ldots,q\}$.  For each $\alpha\in\Phi_j$, let $N_\alpha(p,w)$ be the number of paths in $\mathcal{P}_{p,w}$ that would have become problematic if we had set the colour of $w$ to $\alpha$. Then $\sum_{\alpha\in\Phi(w)} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(p,w) \le \sum_{\alpha\in\Phi_j} N_\alpha(w) = |\tau^{-1}(w)|$.
 
-  Let $\alpha_1,\ldots,\alpha_k$ be the colours in $\Phi(w)$ ordered so that,
+  Let $\alpha_1,\ldots,\alpha_k$ be the colours in $\Phi(w)$ ordered so that
   \[
     N_{\alpha_1}(p,w) \ge N_{\alpha_2}(p,w) \ge\cdots\ge N_{\alpha_k}(p,w) \enspace .
   \]
@@ -426,11 +427,11 @@ We make use of the following inequality of Bernstein \cite[Corollary~2.11]{bouch
 We will apply \cref{bernstein_theorem} to a random variable $X:=\sum_{i=1}^r X_i$ in which each $X_i$ has the following distribution (for some $0\le x_i\le kM$):
 \[
   X_i = \begin{cases}
-          M & \text{with probability $(1/k)\lfloor x_1/M\rfloor$} \\
+          M & \text{with probability $(1/k)\lfloor x_i/M\rfloor$} \\
           x_i/j & \text{with probability $1/k$ for each $j\in\{\lfloor x_i/M\rfloor+1,\ldots,k\}$}
         \end{cases}
 \]
-This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{l_degenerate_and_degree}, let $\{w_1,\ldots,w_n\}:=V(G)$ and, for each $i\in\{1,\ldots,n\}$, let $x_i:=|\tau^{-1}(w_i)\cap\left(\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y)\right)|$.  In our setting $k=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$ for some $b\ge 0$,  $M=a\Delta^{\lfloor\ell/2\rfloor}/k$ for some constant $a$, and $t=ck\log n$ for some (sufficiently large) constant $c$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $n^{-\Omega(c)}$.
+This is the distribution we get when we choose a uniform $j\in\{1,\ldots,k\}$ and set $X_i:=\min\{M,x_i/j)$.  To see how this applies in the proof of \cref{l_degenerate_and_degree}, let $r:=n$, let $\{w_1,\ldots,w_n\}:=V(G)$ and, for each $i\in\{1,\ldots,n\}$, let $x_i:=|\tau^{-1}(w_i)\cap\left(\bigcup_{y\in N^+_H(p)}\gamma^{-1}(y)\right)|$.  In our setting $k=\Delta^{\lfloor\ell/2\rfloor-1/2}\log^b n$ for some $b\ge 0$,  $M=a\Delta^{\lfloor\ell/2\rfloor}/k$ for some constant $a$, and $t=ck\log n$ for some (sufficiently large) constant $c$.  The rest of this appendix is devoted to bounding the various quantities that appear in \cref{bernstein} so that we can show that the right-hand side of \cref{bernstein} is $n^{-\Omega(c)}$.
 
 Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us. For the maximum, we have $x_i\le|\tau^{-1}(w_i)|= O(\Delta^{\lfloor\ell/2\rfloor})$ for all $i\in\{1,\ldots,n\}$.  We have already bounded the sum when computing the expectation of $|N_H^+(p)\cap P|$ as follows:
 \[
@@ -442,10 +443,10 @@ Both the maximum value and the sum of $x_1,\ldots,x_n$ are important for us. For
 For each $i\in\{1,\ldots,n\}$, we have
 \begin{align*}
   \E(X_i)
-  & =\Pr(X_i=M)\cdot M + \sum_{j=\lfloor x_i/M\rfloor+1}^k \Pr(X_i=j)\cdot\frac{x_i}{j} \\
+  & =\Pr(X_i=M)\cdot M + \sum_{j=\lfloor x_i/M\rfloor+1}^k \Pr(X_i=x_i/j)\cdot\frac{x_i}{j} \\
   & \le\frac{x_i}{kM}\cdot M + \frac{1}{k}\cdot\sum_{j=\lfloor x_i/M\rfloor+1}^k \frac{x_i}{j} \\
   & \le\frac{x_i}{k} + \frac{1}{k}\cdot\sum_{j=1}^k \frac{x_i}{j} \\
-  & \le \frac{x_i(2+\ln k)}{k} \\
+  & \le \frac{x_i(2+\ln k)}{k} & \text{(since $\sum_{j=1}^k 1/k\le 1+\ln k$)} \\
   & = O\left(\frac{x_i\log k}{k}\right) \\
   & = O\left(\frac{x_i\log n}{k}\right)
   \enspace ,
@@ -531,7 +532,7 @@ For any fixed $c$, taking $b=1/4$ gives
     & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}(\log^{1-b} n + \log^{1+b} n)) \\
     & = O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n)
 \end{align*}
-Thus, $\Pr(X\ge \Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \le n^{-\Omega(c)}$, which completes the first part of the proof of \cref{l_degenerate_and_degree} for the cases $\ell=2$ and $\ell=3$.  To complete the ``furthermore'' clause of the proof we take $b=0$ and deduce that $\E(X)+t=O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log n)$.
+Thus, $\Pr(X\ge c\Delta^{\lfloor\ell/2\rfloor-1/2}\log^{5/4} n) \le n^{-\Omega(c)}$, which completes the first part of the proof of \cref{l_degenerate_and_degree} for the cases $\ell=2$ and $\ell=3$.  To complete the ``furthermore'' clause of the proof we take $b=0$ and deduce that $\E(X)+t=O(\Delta^{\lfloor\ell/2\rfloor-1/2}\log n)$.
 
 \bibliographystyle{plainnat}
 \bibliography{us2}
