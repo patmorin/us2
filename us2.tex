@@ -15,16 +15,17 @@
  % \newline or \MakeUppercase{Vertex Ranking for Degenerates}}
 \author{%
   John Iacono%
-    \thanks{Université libre de Bruxelles,
-      Department of Computer Science, Algorithms Research Group} \and
+    \thanks{Université libre de Bruxelles, Belgium.
+Supported by the Fonds de la Recherche Scientifique-FNRS.} \and
   Piotr Micek%
-    \thanks{Jagiellonian University,
-      Faculty of Mathematics and Computer Science,
-      Theoretical Computer Science Department} \and
+    \thanks{Theoretical Computer Science Department, Jagiellonian University, Poland. \email{piotr.micek@uj.edu.pl}.
+    Supported by the National Science Center of Poland
+under grant UMO-2023/05/Y/ST6/00079 within the OPUS 25 program
+      } \and
   Pat Morin%
-    \thanks{Carleton University, School of Computer Science}\and
+    \thanks{School of Computer Science, Carleton University, Canada. \email{morin@scs.carleton.ca}. Supported by NSERC.}\and
   Bruce Reed%
-    \thanks{Academia Sinica, Institute of Mathematics}}
+    \thanks{Mathematical Institute, Academia Sinica, Taiwan. \email{bruce.al.reed@gmail.com}.  Supported by  NSTC Grant 112-2115-M-001 -013 -MY3}}
 
 
 \newcommand{\rn}[1]{\chi_{\operatorname{#1-vr}}}
@@ -47,15 +48,13 @@
 \maketitle
 
 \begin{abstract}
-  An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ having diameter at most $\ell$ there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The $\ell$-vertex-ranking number, $\lrn(G)$, of $G$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking using $k$ colours.  We prove that, for any fixed $d$ and $\ell$, every $d$-degenerate $n$-vertex graph $G$ satisfies $\lrn(G)= O(n^{1-2/(\ell+1)}\log n)$ if $\ell$ is even and $\lrn(G)= O(n^{1-2/\ell}\log n)$ if $\ell$ is odd. The case $\ell=2$ resolves (up to the $\log n$ factor) an open problem posed by \citet{karpas.neiman.ea:on} and the cases $\ell\in\{2,3\}$ are asymptotically optimal (up to the $\log n$ factor).
+  An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ with diameter at most $\ell$, there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The $\ell$-vertex-ranking number, $\lrn(G)$, of $G$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking using $k$ colours.  We prove that, for any fixed $d$ and $\ell$, every $d$-degenerate $n$-vertex graph $G$ satisfies $\lrn(G)= O(n^{1-2/(\ell+1)}\log n)$ if $\ell$ is even and $\lrn(G)= O(n^{1-2/\ell}\log n)$ if $\ell$ is odd. The case $\ell=2$ resolves (up to the $\log n$ factor) an open problem posed by \citet{karpas.neiman.ea:on} and the cases $\ell\in\{2,3\}$ are asymptotically optimal (up to the $\log n$ factor).
 \end{abstract}
 
 
 \section{Introduction}
 
-An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ having diameter at most $\ell$ there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The \defin{$\ell$-vertex-ranking} number $\lrn(G)$ is the minimum integer $k$ such that $G$ has a $\ell$-vertex-ranking $\varphi:V(G)\to\{1,\ldots,k\}$. The \defin{$\ell$-vertex-ranking} number of a graph class $\mathcal{G}$ is $\lrn(\mathcal{G}):=\sup\{\lrn(G):G\in\mathcal{G}\}$.
-
-
+An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ with diameter at most $\ell$, there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The \defin{$\ell$-vertex-ranking} number $\lrn(G)$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking $\varphi:V(G)\to\{1,\ldots,k\}$. The \defin{$\ell$-vertex-ranking} number of a graph class $\mathcal{G}$ is $\lrn(\mathcal{G}):=\sup\{\lrn(G):G\in\mathcal{G}\}$.
 
 When $\ell=1$, a colouring is a $1$-vertex-ranking if and only if it is a proper colouring of $G$, so $\chi(G)=\rn{1}(G)$ and, for any $\ell\ge 1$, $\chi(G)\le \lrn(G)$.  Besides the case $\ell=1$, two special cases have received extra attention.  When $\ell=\infty$, $\rn{\infty}(G)$ is equal to the \defin{vertex ranking number}, the \defin{centered chromatic number}, and the \defin{treedepth} of $G$
 \cite{nesetril.ossona:tree-depth},
