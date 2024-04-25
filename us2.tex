@@ -3,13 +3,34 @@
 % \usepackage[utf8]{inputenc}
 \listfiles
 
-
 \definecolor{brightmaroon}{rgb}{0.76, 0.13, 0.28}
 \definecolor{linkblue}{rgb}{0, 0.337, 0.227}
 \newcommand{\defin}[1]{\emph{\color{brightmaroon}#1}}
 \setlength{\parskip}{1ex}
 
-\DeclareMathOperator{\comp}{comp}
+\usepackage[mathlines]{lineno}
+\setlength{\linenumbersep}{2em}
+% \linenumbers
+% \rightlinenumbers
+\linenumbers
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+ \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+ \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+ \renewenvironment{#1}%
+    {\linenomath\csname old#1\endcsname}%
+    {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+ \patchAmsMathEnvironmentForLineno{#1}%
+ \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
 
 \title{\MakeUppercase{Vertex Ranking of Degenerate Graphs}}
  % \newline or \MakeUppercase{Vertex Ranking for Degenerates}}
