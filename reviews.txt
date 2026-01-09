@@ -1,0 +1,115 @@
+-----------------------------------------------------
+Reviewer E:
+
+An l-vertex ranking of a graph G is a coloring of the vertices of G with integer colors so that in any connected subgraph H of G with diameter at most l there is a vertex in H whose color is larger than any other vertex in H. The authors study l-vertex rankings of degenerate graphs using the minimum possible number of colors. Given a graph G let chi-l(G) denote the minimum number of colors required for a coloring of G that is an l-vertex ranking.
+
+The main result of this paper is the following. Assuming that d and l are constants, for every n-vertex d-degenerate graph G, we have chi-l(G) in O(n^(1 - 1 / (ceiling(l/2) - 1/2) ) * log n ). In particular chi-2(G) and chi-3(G) are in O(n^(1/3) * log n). It is known that this value is also in Omega(n^(1/3)). Therefore, the result gives a bound tight up to a logarithmic factor for l = 2 and l = 3. Previously best-known upper bound for l = 2 was O(n^(1/2)). The authors do not specify if anything non-trivial was known for the other values of l (thus probably not). Note that 2-vertex rankings are equivalent to restricted star colorings.
+
+The first step of the proof is a reduction of the problem to the bounded degree case where we want to prove an upper bound on chi-l(G) of the form Delta^(f(l)) * polylog n. This is achieved by a simple trick of dividing the vertices into low-degree and high-degree vertices and noting that the high-degree part has to be small by the degeneracy assumption. Now, assuming a result for bounded degree we can apply it to the low-degree part and put unique high colors on the vertices of the high-degree part.
+
+Next, the authors construct a coloring of G that is an l-vertex ranking by a two-step procedure. In the first step, the graph is layered (again by looking at the degrees) and the vertices are colored layer-by-layer (with some simple randomness involved). The obtained coloring is not necessarily an l-vertex ranking (even not whp). Thus, in the next step, the authors identify potential problems (problematic paths and vertices). Then, problematic vertices are recolored using higher colors than ones already used. It turns out that this is possible if and only if chromatic number of a certain auxiliary graph is bounded. And so, the rest of the proof is devoted to proving this statement. In fact, the authors prove that this auxiliary graph is degenerate.
+
+In the last part of the proof, some value must be bounded that is in fact a random variable. The authors find another random variable, which behaves similarly and is simpler to study (using Bernstein concentration inequality). Studying this variable takes place in Section 4.
+
+The paper is ok-written (see below). The proofs seem to be correct, however, sometimes more explanation is needed in my opinion (see below). The result is new and solves (almost [up to a log factor], which in this setting does not seem to be very important) an open problem stated in at least two published papers (the case of l=2). Additionally, the result is generalized to any l, which is also interesting and raises new questions about lower bounds. I recommend the paper for publishing after improving the writing.
+
+
+Other comments:
+- Degeneracy is never defined in the paper even though it occurs in the main theorem.
+- I think that one should add proof of Observation 4. The observation is fundamental to the reasonings and easier statements are proved in the paper.
+- I know that preliminaries contain a reference to Diestel's handbook, but the treatment of "types" (simple, multi, oriented, directed) of graphs is quite chaotic in this paper and I believe that such stuff should be organized in the paper without referencing other sources. E.g. Observation 5 should be stated for multigraphs. If by graph we mean directed multigraphs this should be stated somewhere.
+- An observation inverse to Observation 5 is also used repeatedly, maybe it is worth stating it?
+- I don't understand the definition of an "undirected path". Isn't a path usually a subgraph (thus undirected)? Maybe this again requires a PhD in Diestel's notation but I consider this a bad thing. :)
+- First, we say that we write x_0,...,x_r to denote an undirected path (line 96) and then later we have a statement as in line 113. This is strange. It seems that the authors tried to organize this stuff but in my opinion, there is still room for improvement.
+- line 114: remove one "from"
+- I think that the definitions at the beginning of the Lemma 6 should be moved outside of the proof.
+
+- Corollary 7: we have d >= 2 in Lemma 6
+- Corollary 7: l is not quantified
+- line 140: (and a few more places) I don't like "of length r \leq \ell" and "r \leq \ell" looks like a statement at first glance. How about "of length at most \ell"?
+- line 152: what if r = 1?
+- line 154: v_{r-1} instead of v_r?
+- line 157: v instead of x
+- line 162: finishes?
+- line 163: {1,...,\ell}?
+- line 165: is N with 0 or not?
+- line 171: this sentence reads strangely with i not quantified (i-1 is surprising at first)
+- line 177: k is not necessarily an integer!! This is assumed in almost the whole paper...
+- I would consider moving the proof of Theorem 2 before the proof of Theorem 3 for the reader to get some more insights on the values in the statement of Theorem 3.
+- line 177: b = 1/4 is strange. b is not used much in Section 3 so maybe it could be just 1/4?
+- line 180: 0 \leq i ... instead?
+- lines 193-200: This is quite trivial (surely more than Observation 4). I'm not saying that this proof should be removed (it can be) but I just motivate proving Observation 4.
+- Maybe at the beginning of the proof of Theorem 3 one could fix d and l and repeat that they are constant and Delta is not because the usage of the big O notation (as in line 204) comes as a surprise.
+- line 203/204: Why don't we apply Corollary 7 with l = 1. \rho is never really used.
+- line 217: w \in L_i?
+- line 221: |...| missing
+- footnote 1: I don't understand it.
+- line 229: The symbol used for a vertex of \Pi is non-standard. I don't say that it has to be changed but while reading at first, it looked like a typo to me.
+- line 230: extra "."
+- line 252: with high probability?
+- In preliminaries, E is reserved for E(G) (I'm not sure if ever used). This conflicts with E-expectation. Maybe \mathbb{E}? Or drop E notation for edges. Or add a footnote with a comment on this conflict.
+- line 261: Maybe insert E(X_p') as an intermediete step?
+- line 267: Maybe add more detail on the independent case? To show how the values work out. For me, it is not obvious and this could be helpful to understand the real proof.
+- line 275: The expression "stochastically dominating" is never used again (maybe it should be).
+- lines 279-280: A more natural explanation is that tau^(-1)(w) partition V(G).
+- line 281: Isn't N_alpha(p,w) just N_alpha(w) \cap P_{p,w}?
+
+- The last part of the proof of Theorem 3 and the beginning of Section 4 require rewriting in my opinion:
+-- add a prove that one variable really <stochastically> dominates the other
+-- notation big O in the definition of X_{p,w} is super confusing (if I can choose a constant then I can make X_{p,w} = M always)
+-- What is Omega(c) in line 296?
+-- I would like to have a formal statement of what is really proved in Section 4 and a formal proof that it implies Theorem 3.
+-- In particular, I would like to know what properties of the values from Section 3 are used in Section 4.
+-- Is what we prove in Section 4 in any sense an abstract property of random variables or a purely artificial statement useful (presumably) only in this situation? (I'm not sure, I'm inclined to believe the latter but maybe there should be a small comment on this.)
+
+- line 319: typo
+- line 328: missing minus
+- line 331: missing comma and period
+- line 333: } instead of )
+- line 334: aren't v_1,...,v_n already fixed as vertices of G?
+- line 335: b is redefined, a was previously c (How dependent are we on the previous section? This is not clear to me by now.)
+- line 336: technically this is not an appendix
+- line 337: "various quantities" sounds strange here, don't we just bound the variance?
+- Equalities with big O notation are not reflexive. This is slightly unintuitive (as equalities usually are reflexive). Maybe a comment somewhere?
+- line 351: What does d do here?
+- line 358: This could use one more step (as in line 344). Also, a period is missing.
+- line 362: This restriction on a was not mentioned at the beginning of the section. Also, x_i \leq ...
+- line 384: How do we know c >= 1? Can't we say what is c exactly (instead of sufficiently large)?
+- line 393: Period missing.
+- line 395: Why only in these cases?
+- Maybe abstract some properties to avoid "(as above)" comments?
+- In some references, doi seems redundant as it is contained in the URL.
+- [2] What is CoRR? Why is there only an arxiv link? Is this published?
+- [9] A full name instead of M.?
+- Some names of journals are shortened and some are not.
+
+
+
+
+
+Recommendation: Accept with minor revisions
+
+------------------------------------------------------
+
+
+
+------------------------------------------------------
+Reviewer F:
+
+This paper presents improved bounds for the \ell-vertex ranking number of graphs with bounded degeneracy. An \ell-vertex ranking of a graph is a colouring of the vertices with integer labels such that, for any connected subgraph H with diameter at most \ell, there is a vertex in H whose label is larger than that of every other vertex in H.  The \ell-vertex ranking number of a graph is the minimum number of labels required to achieve such a ranking.
+
+The main results of this paper establishes that, for any fixed d and \ell, every d-degenerate n-vertex graph G satisfies \chi_{\ell-vr}(G)=O(n^{1-2/(\ell+1)}(log n)). This result resolves an open problem posed by Karpas, Neiman, and Smorodinsky (2015) in the case \ell=2. Furthermore, the bounds provided for \ell\in \{2,3\} is asymptotically optimal (up to a log n factor). For \ell>3, the asymptotic optimality of these bounds remains an open question.
+
+So far, only a handful of papers have studied the \ell-vertex ranking number of graphs. While the results in the paper are technically strong, I find the broader significance of \ell vertex ranking numbers somewhat unclear. It would be helpful if the authors could provide additional motivation for the study of these parameters.
+
+I’ll now move on to describe their colouring procedure used to prove their main result. Start with a graph G with bounded degeneracy. Since there aren’t “too many” vertices of high degree, a distinct label can be given to each of them thereby reducing the problem to the bounded degree setting. For the remainder of the vertices, a two-phase colouring procedure is applied. The remaining vertices are first partition into a bounded number of sets that are ordered by increasing density. This is used to give a total ordering from which the vertices may be coloured one-by-one.  For each vertex, a special colour palette is determined which reduces the number of conflicts with the already-coloured vertices. A colour is then assigned to the vertex uniformly at random from the palette. As there may be some conflicts that occur, a second phase is used to recolour the problematic vertices. The argument here is more probabilistic using Bernstein’s Inequality to prove with high probability that each problematic vertex has a bounded number of conflicts charged to it. This allows the problematic vertices to be recoloured so that two problematic vertices that receive the same colour are far apart.
+
+Overall, the paper is well-written, and the flow of the argument is very good. I had no problem in assessing the proof for correctness.
+
+In summary, while the significance of \ell-vertex ranking number isn’t too clear to me, I think this paper is of EJC standard since it has a nice result which solves an open problem from the literature. As such, I recommend it for acceptance.
+
+Minor Comments
+
+Line 230: \ell-violation. of \psi. -> \ell-violation of \psi.
+Line 319: \chi_{us} is not defined (I assume this refers to the unique superior chromatic number)
+Recommendation: Accept submission in current form
