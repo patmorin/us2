@@ -77,9 +77,9 @@ under grant UMO-2023/05/Y/ST6/00079 within the OPUS 25 program
 
 An $\ell$-vertex-ranking of a graph $G$ is a colouring of the vertices of $G$ with integer colours so that in any connected subgraph $H$ of $G$ with diameter at most $\ell$, there is a vertex in $H$ whose colour is larger than that of every other vertex in $H$.  The \defin{$\ell$-vertex-ranking} number $\lrn(G)$ is the minimum integer $k$ such that $G$ has an $\ell$-vertex-ranking $\varphi:V(G)\to\{1,\ldots,k\}$. The \defin{$\ell$-vertex-ranking} number of a graph class $\mathcal{G}$ is $\lrn(\mathcal{G}):=\sup\{\lrn(G):G\in\mathcal{G}\}$.
 
-When $\ell=1$, a colouring is a $1$-vertex-ranking if and only if it is a proper colouring of $G$, so $\chi(G)=\rn{1}(G)$ and, for any $\ell\ge 1$, $\chi(G)\le \lrn(G)$.  Besides the case $\ell=1$, two special cases have received extra attention.  When $\ell=\infty$, $\rn{\infty}(G)$ is equal to the \defin{vertex ranking number}, the \defin{centered chromatic number}, and the \defin{treedepth} of $G$, 
+When $\ell=1$, a colouring is a $1$-vertex-ranking if and only if it is a proper colouring of $G$, so $\chi(G)=\rn{1}(G)$ and, for any $\ell\ge 1$, $\chi(G)\le \lrn(G)$.  Besides the case $\ell=1$, two special cases have received extra attention.  When $\ell=\infty$, $\rn{\infty}(G)$ is equal to the \defin{vertex ranking number}, the \defin{centered chromatic number}, and the \defin{treedepth} of $G$,
 which plays a central role in the theory of sparsity  \cite{nesetril.ossona:tree-depth,nesetril.ossona:sparsity}.
-At the other extreme, when $\ell=2$, a $2$-vertex-ranking of $G$ is also known as a \defin{restricted star colouring} \cite{shalu.antony:complexity} or a \defin{unique superior colouring} of $G$, 
+At the other extreme, when $\ell=2$, a $2$-vertex-ranking of $G$ is also known as a \defin{restricted star colouring} \cite{shalu.antony:complexity} or a \defin{unique superior colouring} of $G$,
 see \cite{karpas.neiman.ea:on}.  Previous results for $\ell=2$ and fixed $\ell\ge 2$ are summarized in \cref{previous_works}.
 
 \begin{table}
@@ -112,7 +112,7 @@ see \cite{karpas.neiman.ea:on}.  Previous results for $\ell=2$ and fixed $\ell\g
 \label{previous_works}
 \end{table}
 
-The current work is motivated by the gap between the upper and lower bounds for $\rn{2}(G)$ for $d$-degenerate graphs $G$.  A graph $G$ is \defin{$d$-degenerate} if every subgraph of $G$ contains a vertex of degree at most $d$. For fixed $d\ge 2$, the upper bound is $O(\sqrt{n})$, while the lower bound is $\Omega(n^{1/3})$. Closing this gap is stated explicitly as an open problem by \citet{karpas.neiman.ea:on} and \citet{bose.dujmovic.ea:asymptotically}. Our first contribution solves
+The current work is motivated by the gap between the upper and lower bounds for $\rn{2}(G)$ for $d$-degenerate graphs $G$.  A graph $G$ is \defin{$d$-degenerate} if its vertices have an ordering $v_1,\ldots,v_n$ such that the degree in $v_i$ in the induced subgraph $G[\{v_1,\ldots,v_i\}]$ is at most $d$, for each $i\in\{1,\ldots,n\}$. For fixed $d\ge 2$, the upper bound is $O(\sqrt{n})$, while the lower bound is $\Omega(n^{1/3})$. Closing this gap is stated explicitly as an open problem by \citet{karpas.neiman.ea:on} and \citet{bose.dujmovic.ea:asymptotically}. Our first contribution solves
 this problem, up to a logarithmic factor.
 
 \begin{thm}\label{unique_superior}
@@ -184,20 +184,29 @@ For any standard graph-theoretic terminology and notation not defined here, we u
 
 The following alternative definition of $\ell$-vertex-ranking turns out to be more convenient for proofs and is what we will use from this point on.
 \begin{obs}\label{alternate_def}
-  A vertex colouring $\varphi:V(G)\to\{1,\ldots,k\}$ of a graph $G$ is an $\ell$-vertex ranking of $G$ if and only if, for each path $v_0,\ldots,v_r$ in $G$ with at most $\ell$ edges, $\varphi(v_0)\neq \varphi(v_r)$ or $\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}>\varphi(v_0)$.
+  For any $\ell\ge 2$, a vertex colouring $\varphi:V(G)\to\{1,\ldots,k\}$ of a graph $G$ is an $\ell$-vertex ranking of $G$ if and only if, for each path $v_0,\ldots,v_r$ in $G$ with at most $\ell$ edges, $\varphi(v_0)\neq \varphi(v_r)$ or $\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}>\varphi(v_0)$.
 \end{obs}
 
+\begin{proof}
+  First, suppose $\varphi$ is an $\ell$-vertex ranking of $G$.  Let $v_0,\ldots,v_r$ be an arbitrary path in $G$ of length $1\le r\le \ell$.  We must show that $\varphi(v_0)\neq \varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi_{r-1}\}$.  Since $P=v_0,\ldots,v_r$ is a connected subgraph of $G$ whose diameter is $r\le\ell$,  there is exactly one $i\in\{0,\ldots,r\}$ such that $\varphi(v_0)=\max\{\varphi(v_0),\ldots,\varphi(v_r)\}$. If $i\in\{0,r\}$ then $\varphi(v_0)\neq\varphi(v_r)$, otherwise $\varphi(v_0)<\varphi(v_i)=\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})$.
+
+  Next, suppose $\varphi$ is a colouring of $G$ with the property that, for every path $v_0,\ldots,v_r$ in $G$ of length $r\le\ell$, $\varphi(v_0)\neq\varphi(v_r)$ or $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})$.  Let $H$ be an arbitrary connected subgraph of $G$ of diameter at most $\ell$.  We must show that there is exactly one $v\in V(H)$ such that $\varphi(v)=\max\{\varphi(w):w\in V(H)\}$.  Suppose, for the sake of contradiction, that there are actually two such vertex $v$ and $w$.  Let $v_0,\ldots,v_r$ be a shortest path, in $H$, with endpoints $v=v_0$ and $w=v_r$.  Since $H$ has diameter at most $\ell$, $r\le \ell$.  But then $\varphi(v_0)=\varphi(v_r)\ge\max\{\varphi(v_1),\ldots,\varhpi(v_{r-1})\}$, which contradicts the definition of $\varphi$.
+\end{proof}
+
 For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed edge with source $v$ and target $w$.  For a vertex $v$ in a directed graph $G$, $N^+_{G}(v):=\{w\in V(G):\overrightarrow{vw}\in E(G)\}$ denotes the set of out-neighbours of $v$ and $N^-_G(v):=\{u\in V(G):\overrightarrow{uv}\in E(G)\}$ denotes the set of in-neighbours of $v$, $\deg^+_{G}(v):=|N^+_G(v)|$ is the out-degree of $v$, and $\deg^-_{G}(v):=|N^-_G(v)|$ is the in-degree of $v$. We also define $N^+_{G}[v]:=\{v\}\cup N^+_{G}(v)$ and $N^-_{G}[v]:=\{v\}\cup N^-_{G}(v)$ to be the closed out- and in-neighbourhoods of $v$, respectively.
+An \defin{orientation} of an undirected (multi)graph $G$ is a directed graph that can be obtained from $G$ by choosing a direction for each edge of $G$.
 
 We repeatedly make use of the following foklore result:
 
 \begin{obs}\label{orientation_to_degeneracy}
-  If an undirected graph $G$ has an orientation in which each vertex has out-degree at most $d$, then $G$ is $2d$-degenerate.
+  If an undirected multigraph $G$ has an orientation in which each vertex has out-degree at most $d$, then $G$ is $2d$-degenerate.
 \end{obs}
 
 \begin{proof}
   For any $S\subseteq V(G)$, the orientation shows that the induced subgraph $G[S]$ contains at most $d|S|$ edges and therefore the total degree of all vertices in $G[S]$ is at most $2d|S|$.  Therefore, for any $S\subseteq V(G)$, the induced graph $G[S]$ has a vertex of degree at most $2d$.
 \end{proof}
+
+In most works, including the current paper, a \defin{path} in a graph $G$ is defined as a sequence of distinct vertices $v_0,\ldots,v_r$ such that $v_{i-1}v_i\in E(G)$ for each $i\in\{1,\ldots,r\}$. A path $v_0,\ldots,v_r$ is often treated as a subgraph $P$ of $G$ with vertex set $V(P):=\{v_0,\ldots,v_r\}$ and $E(P):=\{v_{i-1}v_i:i\in\{1,\ldots,r\}\}$.  In the following, we count subgraphs of $G$ (like $P$) that correspond to paths. To distinguish between these two types of objects (sequences of vertices versus subgraphs of $G$) we introduce the following definition.
 
 An \defin{undirected path} $\Pi$ in a graph $G$ is a tree with exactly two leaves whose edges are all edges of $G$. The leaves of $\Pi$ are called the \defin{endpoints} of $\Pi$. The \defin{length} of $\Pi$ is the number of edges in $\Pi$, which is exactly one less than the number of vertices.  With a slight abuse of notation, we write $x_0,\ldots,x_r$ to denote a length-$r$ undirected path $\Pi$ where $x_0$ and $x_r$ are the endpoints of $\Pi$ and $\Pi$ contains the edge $x_{i-1}x_i$ for each $i\in\{1,\ldots,r\}$.  Note that each undirected path $\Pi:=x_0,\ldots,x_r$ in $G$ corresponds to exactly two paths $x_0,x_1,\ldots,x_r$ and $x_r,x_{r-1},\ldots,x_0$ in $G$.
 

@@ -16,11 +16,31 @@ The paper is ok-written (see below). The proofs seem to be correct, however, som
 
 Other comments:
 - Degeneracy is never defined in the paper even though it occurs in the main theorem.
+
+Response: Done. We have added a definition of degeneracy the first time it is discussed.
+
 - I think that one should add proof of Observation 4. The observation is fundamental to the reasonings and easier statements are proved in the paper.
+
+Response: Done. We have added a short proof.
+
 - I know that preliminaries contain a reference to Diestel's handbook, but the treatment of "types" (simple, multi, oriented, directed) of graphs is quite chaotic in this paper and I believe that such stuff should be organized in the paper without referencing other sources. E.g. Observation 5 should be stated for multigraphs. If by graph we mean directed multigraphs this should be stated somewhere.
+
+Response: We have added a definition of orientation of an undirected graph G (a directed graph that can be obtained by choosing a direction for each edge of $G$).
+
 - An observation inverse to Observation 5 is also used repeatedly, maybe it is worth stating it?
+
+Response: In response to a previous comment we have defined d-degeneracy in terms of a vertex ordering. This vertex ordering (or its reserse) is what we use in several places. (This was the definition of d-degeneracy we had in mind.)
+
 - I don't understand the definition of an "undirected path". Isn't a path usually a subgraph (thus undirected)? Maybe this again requires a PhD in Diestel's notation but I consider this a bad thing. :)
+
+Response: We added a few sentences explaining why we introduce the definition of "undirected path" versus "path".  Essentially, its because we count undirected paths and there are twice as many paths as there are undirected paths.  This sounds trivial (and it is), but the proof that the number of undirected paths is upper bounded proceeds by a choosing a representative path for each undirected path.
+
+TODO: Could we find a better term than "undirected path". Much of the confusion probably comes from the overloaded adjected "undirected" that, in this case, has nothing to do with directed graphs.
+
 - First, we say that we write x_0,...,x_r to denote an undirected path (line 96) and then later we have a statement as in line 113. This is strange. It seems that the authors tried to organize this stuff but in my opinion, there is still room for improvement.
+
+Response: TODO: Should we have a new notation for the subgraph of $G$ with vertex set $\{v_0,\ldots,v_r\}$ and edge set $v_{i-1}v_i$ for each $i\in\{1,\ldots,r\}$?  $G[\{v_0,\ldots,v_r\}]$ doesn't work because it includes edges that we don't want.  $G[(v_0,\ldots,v_r)]$ or $G[\langle v_0,\ldots,v_r\rangle]$.  I'm not a fan of either because they both seem to emphasize the sequence $v_0,\ldots,v_r$ which is exactly what we don't care about.
+
 - line 114: remove one "from"
 - I think that the definitions at the beginning of the Lemma 6 should be moved outside of the proof.
 
