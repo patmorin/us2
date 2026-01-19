@@ -3,6 +3,8 @@
 % \usepackage[utf8]{inputenc}
 \listfiles
 
+\usepackage{amssymb,amsmath,amsthm,mathtools}
+
 \definecolor{brightmaroon}{rgb}{0.76, 0.13, 0.28}
 \definecolor{linkblue}{rgb}{0, 0.337, 0.227}
 \newcommand{\defin}[1]{\emph{\color{brightmaroon}#1}}
@@ -30,6 +32,13 @@
 \patchBothAmsMathEnvironmentsForLineno{gather}%
 \patchBothAmsMathEnvironmentsForLineno{multline}%
 }
+
+% Two sided operators
+\DeclarePairedDelimiter\set{\{}{\}}
+
+
+\newcommand{\jedrzej}[1]{\textcolor{ProcessBlue}{Jędrzej: #1}}
+\newcommand{\piotr}[1]{\textcolor{orange}{Piotr: #1}}
 
 
 \title{\MakeUppercase{Vertex Ranking of Degenerate Graphs}}
@@ -107,8 +116,7 @@ see \cite{karpas.neiman.ea:on}.  Previous results for $\ell=2$ and fixed $\ell\g
             \hline
         \end{tabular}
     } % centering
-    \caption{Summary of previous results on $\rn{2}$ and $\lrn$ for fixed $\ell\ge 2$. Here, $\log^{(c)} n:=\underbrace{\log\log\cdots\log}_c n$.
-    }
+    \caption{Summary of previous results on $\rn{2}$ and $\lrn$ for fixed $\ell\ge 2$. Here, $\log^{(c)} n:=\underbrace{\log\log\cdots\log}_c n$.}
 \label{previous_works}
 \end{table}
 
@@ -190,7 +198,7 @@ The following alternative definition of $\ell$-vertex-ranking turns out to be mo
 \begin{proof}
   First, suppose $\varphi$ is an $\ell$-vertex ranking of $G$.  Let $v_0,\ldots,v_r$ be an arbitrary path in $G$ of length $1\le r\le \ell$.  We must show that $\varphi(v_0)\neq \varphi(v_r)$ or that $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi_{r-1}\}$.  Since $P=v_0,\ldots,v_r$ is a connected subgraph of $G$ whose diameter is $r\le\ell$,  there is exactly one $i\in\{0,\ldots,r\}$ such that $\varphi(v_0)=\max\{\varphi(v_0),\ldots,\varphi(v_r)\}$. If $i\in\{0,r\}$ then $\varphi(v_0)\neq\varphi(v_r)$, otherwise $\varphi(v_0)<\varphi(v_i)=\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})$.
 
-  Next, suppose $\varphi$ is a colouring of $G$ with the property that, for every path $v_0,\ldots,v_r$ in $G$ of length $r\le\ell$, $\varphi(v_0)\neq\varphi(v_r)$ or $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})$.  Let $H$ be an arbitrary connected subgraph of $G$ of diameter at most $\ell$.  We must show that there is exactly one $v\in V(H)$ such that $\varphi(v)=\max\{\varphi(w):w\in V(H)\}$.  Suppose, for the sake of contradiction, that there are actually two such vertex $v$ and $w$.  Let $v_0,\ldots,v_r$ be a shortest path, in $H$, with endpoints $v=v_0$ and $w=v_r$.  Since $H$ has diameter at most $\ell$, $r\le \ell$.  But then $\varphi(v_0)=\varphi(v_r)\ge\max\{\varphi(v_1),\ldots,\varhpi(v_{r-1})\}$, which contradicts the definition of $\varphi$.
+  Next, suppose $\varphi$ is a colouring of $G$ with the property that, for every path $v_0,\ldots,v_r$ in $G$ of length $r\le\ell$, $\varphi(v_0)\neq\varphi(v_r)$ or $\varphi(v_0)<\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})$.  Let $H$ be an arbitrary connected subgraph of $G$ of diameter at most $\ell$.  We must show that there is exactly one $v\in V(H)$ such that $\varphi(v)=\max\{\varphi(w):w\in V(H)\}$.  Suppose, for the sake of contradiction, that there are actually two such vertex $v$ and $w$.  Let $v_0,\ldots,v_r$ be a shortest path, in $H$, with endpoints $v=v_0$ and $w=v_r$.  Since $H$ has diameter at most $\ell$, $r\le \ell$.  But then $\varphi(v_0)=\varphi(v_r)\ge\max\{\varphi(v_1),\ldots,\varphi(v_{r-1})\}$, which contradicts the definition of $\varphi$.
 \end{proof}
 
 For a directed graph $G$, we write $\overrightarrow{vw}$ to denote the directed edge with source $v$ and target $w$.  For a vertex $v$ in a directed graph $G$, $N^+_{G}(v):=\{w\in V(G):\overrightarrow{vw}\in E(G)\}$ denotes the set of out-neighbours of $v$ and $N^-_G(v):=\{u\in V(G):\overrightarrow{uv}\in E(G)\}$ denotes the set of in-neighbours of $v$, $\deg^+_{G}(v):=|N^+_G(v)|$ is the out-degree of $v$, and $\deg^-_{G}(v):=|N^-_G(v)|$ is the in-degree of $v$. We also define $N^+_{G}[v]:=\{v\}\cup N^+_{G}(v)$ and $N^-_{G}[v]:=\{v\}\cup N^-_{G}(v)$ to be the closed out- and in-neighbourhoods of $v$, respectively.
@@ -206,7 +214,37 @@ We repeatedly make use of the following foklore result:
   For any $S\subseteq V(G)$, the orientation shows that the induced subgraph $G[S]$ contains at most $d|S|$ edges and therefore the total degree of all vertices in $G[S]$ is at most $2d|S|$.  Therefore, for any $S\subseteq V(G)$, the induced graph $G[S]$ has a vertex of degree at most $2d$.
 \end{proof}
 
+\piotr{New text}
+
+Let $k$ be a nonnegative integer.
+A \emph{path} is a graph 
+with the vertex set $\set{v_0,\ldots,v_k}$ and the 
+edges $\set{v_{i-1}v_{i} : i \in [k]}$, where $v_0,\dots,v_k$ are pairwise distinct. 
+%The number of vertices of a path is its \emph{order}.
+We often refer to a path by a natural sequence of its vertices, 
+writing, say, $v_0\cdots v_k$ or equivalently $v_k \cdots v_0$.
+ %\michal{Is there an ambiguity with the edge notation \(uv\)?}
+ %\jedrzej{It's the same in Diestel, we think that we should just leave it as it is.}
+ % \michal{I am fine with that, although we may consider making a small remark. I leave it up to your taste}
+Writing a path as $v_0\cdots v_k$ fixes an underlying orientation of the path, where $v_0$ is the first vertex and $v_k$ is the last vertex.
+We say that $v_0$ and $v_k$ are the \emph{endpoints} of $v_0 \cdots v_k$.
+We also say that $v_0 \cdots v_k$ \emph{starts} in $v_0$ and \emph{ends} in $v_k$.
+%When $W=v_0\cdots v_k$ is a path and $i,j \in \{0,\dots,k\}$ we write $v_i[W]v_j$ for the \emph{subpath} $v_i\cdots v_j$.
+%A \emph{cycle} is a graph with at least three vertices such that removing each of its edges gives a path. 
+% \jedrzej{We changed the notation for paths. Now, we use "between" for paths and "from to" for witnessing path when we know the ordering. Keep this in mind and try to change succesively.}
+%A \emph{forest} is a graph with no cycles.
+%A \emph{tree} is a connected forest.
+%Let $T$ be a tree, and let $u,v$ be two vertices in $T$.
+%We write $u[T]v$ to denote the unique path in $T$ with endpoints $u$ and $v$ and with an orientation from $u$ to $v$. 
+%We consider $u[T]v$ to have a fixed underlying orientation from $u$ to $v$.
+
+
+\piotr{End of new text.}
+
 In most works, including the current paper, a \defin{path} in a graph $G$ is defined as a sequence of distinct vertices $v_0,\ldots,v_r$ such that $v_{i-1}v_i\in E(G)$ for each $i\in\{1,\ldots,r\}$. A path $v_0,\ldots,v_r$ is often treated as a subgraph $P$ of $G$ with vertex set $V(P):=\{v_0,\ldots,v_r\}$ and $E(P):=\{v_{i-1}v_i:i\in\{1,\ldots,r\}\}$.  In the following, we count subgraphs of $G$ (like $P$) that correspond to paths. To distinguish between these two types of objects (sequences of vertices versus subgraphs of $G$) we introduce the following definition.
+
+
+
 
 An \defin{undirected path} $\Pi$ in a graph $G$ is a tree with exactly two leaves whose edges are all edges of $G$. The leaves of $\Pi$ are called the \defin{endpoints} of $\Pi$. The \defin{length} of $\Pi$ is the number of edges in $\Pi$, which is exactly one less than the number of vertices.  With a slight abuse of notation, we write $x_0,\ldots,x_r$ to denote a length-$r$ undirected path $\Pi$ where $x_0$ and $x_r$ are the endpoints of $\Pi$ and $\Pi$ contains the edge $x_{i-1}x_i$ for each $i\in\{1,\ldots,r\}$.  Note that each undirected path $\Pi:=x_0,\ldots,x_r$ in $G$ corresponds to exactly two paths $x_0,x_1,\ldots,x_r$ and $x_r,x_{r-1},\ldots,x_0$ in $G$.
 
